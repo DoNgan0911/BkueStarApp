@@ -49,7 +49,7 @@ public class SignUpActivity extends AppCompatActivity {
         email_et = findViewById(R.id.email_signup);
         password_et = findViewById(R.id.pass_signup);
         btn_signup = findViewById(R.id.btn_signup);
-        login_tv = findViewById(R.id.click_login);
+        login_tv = findViewById(R.id.click_signin);
 
         login_tv.setOnClickListener(new View.OnClickListener() {
             @Override

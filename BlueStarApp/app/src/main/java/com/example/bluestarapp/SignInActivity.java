@@ -23,7 +23,7 @@ public class SignInActivity extends AppCompatActivity {
     EditText  email_et, password_et;
     Button btn_signin;
     FirebaseAuth mAuth;
-    TextView signup_tv;
+    TextView signup_tv, forgot_password;
     @Override
     public void onStart() {
         super.onStart();
@@ -47,6 +47,14 @@ public class SignInActivity extends AppCompatActivity {
         password_et = findViewById(R.id.pass_signin);
         btn_signin = findViewById(R.id.btn_signin);
         signup_tv = findViewById(R.id.click_signup);
+        forgot_password = findViewById(R.id.forgot_pass);
+        forgot_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignInActivity.this, ForgotPassActivity.class));
+                finish();
+            }
+        });
 
         signup_tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +83,8 @@ public class SignInActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(SignInActivity.this, "Authentication successed.",
                                             Toast.LENGTH_SHORT).show();
-                                    Intent intent  = new Intent(getApplicationContext(), MainActivity.class);
+//                                    Intent intent  = new Intent(getApplicationContext(), MainActivity.class);
+                                    Intent intent  = new Intent(getApplicationContext(), SearchFlightActivity.class);
                                     startActivity(intent);
                                     finish();
                                 }

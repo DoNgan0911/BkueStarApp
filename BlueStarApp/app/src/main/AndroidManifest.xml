@@ -15,6 +15,15 @@
         android:theme="@style/Theme.BlueStarApp"
         tools:targetApi="31">
         <activity
+            android:name=".ForgotPassActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Airport"
+            android:exported="false" />
+        <activity
+            android:name=".SearchFlightActivity"
+            android:exported="false" />
+        <activity
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity
