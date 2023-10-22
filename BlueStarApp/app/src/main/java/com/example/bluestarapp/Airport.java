@@ -1,6 +1,8 @@
 package com.example.bluestarapp;
 
-public class Airport {
+import java.io.Serializable;
+
+public class Airport implements Serializable {
     private String airportID;
     private String airportName;
     private String place;

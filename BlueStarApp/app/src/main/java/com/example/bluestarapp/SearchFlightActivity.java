@@ -1,16 +1,24 @@
 package com.example.bluestarapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.SearchView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,7 +33,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.auth.User;
 
 import org.checkerframework.checker.units.qual.A;
 
@@ -35,12 +45,15 @@ import java.util.List;
 
 public class SearchFlightActivity extends AppCompatActivity {
 
-    List<Airport> list_airport;
+    List<Airport> mListAirport;
     AirportAdapter airportAdapter;
-    AutoCompleteTextView searchViewFrom;
+    TextView searchViewFrom, searchViewTo;
+    Button btnSearch;
     RecyclerView recyclerView;
-    FirebaseFirestore db ;
 
+
+
+    int i = 0;
 
 
 
@@ -48,67 +61,66 @@ public class SearchFlightActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_flight);
-
-        // Khởi tạo list_airport và RecyclerView
-        list_airport = new ArrayList<>();
-        recyclerView = findViewById(R.id.recycler_airport);
-
-        // Khởi tạo và thiết lập AutoCompleteTextView
-        searchViewFrom = findViewById(R.id.from);
-        ArrayAdapter<Airport> autoCompleteAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list_airport);
-        searchViewFrom.setAdapter(autoCompleteAdapter);
-        db = FirebaseFirestore.getInstance(); // Khởi tạo FirebaseFirestore
-
-
-        searchViewFrom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        initUI();
+        searchViewFrom.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Xử lý khi người dùng chọn một mục từ danh sách gợi ý
-                Airport selectedAirport = (Airport) parent.getItemAtPosition(position);
-                processSearch(selectedAirport.getPlace());
+            public void onClick(View v) {
+                Intent myintent = new Intent(SearchFlightActivity.this, FromLocation.class);
+                startActivity(myintent);
+            }
+        });
+        searchViewFrom.setText(AppUtil.FromLocaiton);
+
+        searchViewTo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myintent = new Intent(SearchFlightActivity.this, ToLocation.class);
+                startActivity(myintent);
             }
         });
 
-        searchViewFrom.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Do nothing here
-            }
+        searchViewTo.setText(AppUtil.ToLocaiton);
 
+        btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Xử lý tìm kiếm mỗi khi người dùng thay đổi văn bản trong AutoCompleteTextView
-                String newText = s.toString();
-                processSearch(newText);
-            }
+            public void onClick(View v) {
+                String fromLocation = searchViewFrom.getText().toString();
+                String toLocation = searchViewTo.getText().toString();
 
-            @Override
-            public void afterTextChanged(Editable s) {
-                // Do nothing here
+                Intent intent = new Intent(SearchFlightActivity.this, ResultFlight.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("fromLocation", fromLocation);
+                bundle.putString("toLocation", toLocation);
+
+                // Tạo một Intent để chuyển từ SearchFlightActivity sang ResultFlightActivity
+
+
+                // Đính kèm Bundle vào Intent
+                intent.putExtra("mypackage", bundle);
+
+                // Khởi chạy ResultFlightActivity với Intent và Bundle
+                startActivity(intent);
+
             }
         });
+
     }
-    private void processSearch(String query){
-        db.collection("Airport").whereEqualTo("place", query.toLowerCase()).get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        list_airport.clear();
-                        for(DocumentSnapshot doc: task.getResult()){
-                            Airport airport = new Airport(doc.getId(),doc.getString("airportName"), doc.getString("place"));
-                            list_airport.add(airport);
-                        }
-                        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-                        recyclerView.setLayoutManager(layoutManager);
-                        airportAdapter = new AirportAdapter(list_airport);
-                        recyclerView.setAdapter(airportAdapter);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                    }
-                });
+
+
+
+
+    private void initUI() {
+        recyclerView = findViewById(R.id.recycler_airport);
+        searchViewFrom = findViewById(R.id.from);
+        searchViewTo = findViewById(R.id.To);
+        btnSearch = findViewById(R.id.button);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
     }
 
 
 }
+
+
