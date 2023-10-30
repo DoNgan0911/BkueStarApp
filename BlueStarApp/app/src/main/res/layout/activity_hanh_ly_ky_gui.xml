@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".HanhLyKyGui"
+    android:background="@color/grey">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/blue">
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="96dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="Hành lý ký gửi"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:background="@drawable/border_thongtinhanhkhach"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+
+            <TextView
+                android:id="@+id/fromLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="TextView"
+                android:textSize="17dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="-"
+                android:textSize="17dp"
+                android:textStyle="bold"
+
+                app:layout_constraintStart_toEndOf="@+id/fromLocation"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/toLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="TextView"
+                android:textSize="17dp"
+                android:textStyle="bold"
+
+                app:layout_constraintStart_toEndOf="@+id/textView15"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewChieuDi"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="44dp"
+                android:background="#8BC34A"
+                android:text="Chiều đi"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/viewBottomBorder1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#CCCCCC"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/hovaten"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:layout_margin="5dp"
+            android:textStyle="bold"
+            android:text="TextView"
+            />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+
+                <!-- Thêm nhiều item khác tương tự -->
+                <LinearLayout
+                    android:id="@+id/layout20kg"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/border_hanhlykygui"
+                    android:layout_margin="5dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/textView20kg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="20kg" />
+                    <TextView
+                        android:id="@+id/textView200"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="200.000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout30kg"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/border_hanhlykygui"
+                    android:layout_margin="5dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/textView30kg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="30kg" />
+                    <TextView
+                        android:id="@+id/textView300"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="300.000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout40kg"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/border_hanhlykygui"
+                    android:layout_margin="5dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/textView40kg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="40kg" />
+                    <TextView
+                        android:id="@+id/textView400"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="400.000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout50kg"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/border_hanhlykygui"
+                    android:layout_margin="5dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/textView50kg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="50kg" />
+                    <TextView
+                        android:id="@+id/textView500"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="500.000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout60kg"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/border_hanhlykygui"
+                    android:layout_margin="5dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/textView60kg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="60kg" />
+                    <TextView
+                        android:id="@+id/textView600"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="600.000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout70kg"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/border_hanhlykygui"
+                    android:layout_margin="5dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/textView70kg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="70kg" />
+                    <TextView
+                        android:id="@+id/textView700"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="700.000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"></LinearLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:background="@drawable/border_thongtinhanhkhach"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+
+            <TextView
+                android:id="@+id/fromLocationBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="TextView"
+                android:textSize="17dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="-"
+                android:textSize="17dp"
+                android:textStyle="bold"
+
+                app:layout_constraintStart_toEndOf="@+id/fromLocationBack"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/toLocationBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="TextView"
+                android:textSize="17dp"
+                android:textStyle="bold"
+
+                app:layout_constraintStart_toEndOf="@+id/textView25"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewChieuVe"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="44dp"
+                android:background="#FF1F1F"
+                android:text="Chiều về"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/viewBottomBorder2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#CCCCCC"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/hovatenBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:layout_margin="5dp"
+            android:textStyle="bold"
+            android:text="TextView"
+            />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+
+                <!-- Thêm nhiều item khác tương tự -->
+                <LinearLayout
+                    android:id="@+id/layout20kgBack"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/border_hanhlykygui"
+                    android:layout_margin="5dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/textView20kgBack"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="20kg" />
+                    <TextView
+                        android:id="@+id/textView200Back"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="200.000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout30kgBack"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/border_hanhlykygui"
+                    android:layout_margin="5dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/textView30kgBack"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="30kg" />
+                    <TextView
+                        android:id="@+id/textView300Back"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="300.000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout40kgBack"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/border_hanhlykygui"
+                    android:layout_margin="5dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/textView40kgBack"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="40kg" />
+                    <TextView
+                        android:id="@+id/textView400Back"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="400.000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout50kgBack"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/border_hanhlykygui"
+                    android:layout_margin="5dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/textView50kgBack"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="50kg" />
+                    <TextView
+                        android:id="@+id/textView500Back"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="500.000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout60kgBack"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/border_hanhlykygui"
+                    android:layout_margin="5dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/textView60kgBack"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="60kg" />
+                    <TextView
+                        android:id="@+id/textView600Back"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="600.000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout70kgBack"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/border_hanhlykygui"
+                    android:layout_margin="5dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/textView70kgBack"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="70kg" />
+                    <TextView
+                        android:id="@+id/textView700Back"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="700.000" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"></LinearLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#FFFFFF"
+        android:layout_marginTop="40dp"
+        android:paddingBottom="50dp">
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="16dp"
+            android:text="Tổng tiền"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewTongTien"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="40dp"
+            android:text="2.270.200đ"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:backgroundTint="@color/blue"
+            android:text="Xác nhận"
+            android:textColor="#000000"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>

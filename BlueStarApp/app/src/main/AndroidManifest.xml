@@ -15,6 +15,27 @@
         android:theme="@style/Theme.BlueStarApp"
         tools:targetApi="31">
         <activity
+            android:name=".ResultFlightBack"
+            android:exported="false" />
+        <activity
+            android:name=".BookingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SuatAn"
+            android:exported="false" />
+        <activity
+            android:name=".ChonGheNgoi"
+            android:exported="false" />
+        <activity
+            android:name=".HanhLyKyGui"
+            android:exported="false" />
+        <activity
+            android:name=".MuaThemDichVu"
+            android:exported="false" />
+        <activity
+            android:name=".ThongTinHanhKhach"
+            android:exported="false" />
+        <activity
             android:name=".ResultFlight"
             android:exported="false" />
         <activity

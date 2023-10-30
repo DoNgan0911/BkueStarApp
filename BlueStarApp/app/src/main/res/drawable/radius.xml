@@ -1,0 +1,9 @@
+<!-- res/drawable/rounded_bottom_edge.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FFFFFF" /> <!-- Đặt màu nền ở đây -->
+    <corners
+        android:topLeftRadius="30dp"
+        android:topRightRadius="30dp"
+        android:bottomLeftRadius="30dp"
+        android:bottomRightRadius="30dp" /> <!-- Đặt độ bo tròn ở cạnh dưới -->
+</shape>

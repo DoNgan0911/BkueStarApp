@@ -47,7 +47,7 @@ public class ToLocation extends AppCompatActivity {
             @Override
             public void onClickItemAirport(Airport airport) {
                 String ToLocation = airport.getPlace().toString();
-                AppUtil.ToLocaiton = ToLocation;
+                AppUtil.ToLocation = ToLocation;
                 onClickGoTo(airport);
             }
         }); // Khởi tạo AirportAdapter

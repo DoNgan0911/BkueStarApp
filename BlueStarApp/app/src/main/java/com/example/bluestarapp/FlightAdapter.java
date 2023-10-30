@@ -41,6 +41,7 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.MyViewHold
         holder.toLocation.setText(flight.getToLocation());
         holder.departureTime.setText(flight.getDepartureTime());
         holder.arrivalTime.setText(flight.getArrivalTime());
+        holder.originalPrice.setText(flight.getOriginalPrice());
 
         holder.layout_item.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +60,7 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.MyViewHold
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         LinearLayout layout_item;
-        TextView fromLocation,departureTime,toLocation,arrivalTime;
+        TextView fromLocation,departureTime,toLocation,arrivalTime, originalPrice;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             layout_item = itemView.findViewById(R.id.layout_item);
@@ -67,6 +68,7 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.MyViewHold
             departureTime = itemView.findViewById(R.id.departureTime);
             toLocation = itemView.findViewById(R.id.toLocation);
             arrivalTime = itemView.findViewById(R.id.arrivalTime);
+            originalPrice = itemView.findViewById(R.id.originalPrice);
             itemView.setOnClickListener(this);
         }
 

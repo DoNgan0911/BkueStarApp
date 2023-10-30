@@ -1,7 +1,7 @@
 package com.example.bluestarapp;
 
 public class Flight {
-    private int flyID;
+    private String flyID;
     private String plID;
     private String airportID;
     private String fromLocation;
@@ -9,13 +9,13 @@ public class Flight {
     private String departureTime;
     private String arrivalTime;
     private String departureDay;
-    private int originalPrice;
+    private String originalPrice;
 
     public Flight() {
 
     }
 
-    public Flight(int flyID, String plID, String airportID, String fromLocation, String toLocation, String departureTime, String arrivalTime, String departureDay, int originalPrice) {
+    public Flight(String flyID, String plID, String airportID, String fromLocation, String toLocation, String departureTime, String arrivalTime, String departureDay, String originalPrice) {
         this.flyID = flyID;
         this.plID = plID;
         this.airportID = airportID;
@@ -27,11 +27,11 @@ public class Flight {
         this.originalPrice = originalPrice;
     }
 
-    public int getFlyID() {
+    public String getFlyID() {
         return flyID;
     }
 
-    public void setFlyID(int flyID) {
+    public void setFlyID(String flyID) {
         this.flyID = flyID;
     }
 
@@ -91,11 +91,11 @@ public class Flight {
         this.departureDay = departureDay;
     }
 
-    public int getOriginalPrice() {
+    public String getOriginalPrice() {
         return originalPrice;
     }
 
-    public void setOriginalPrice(int originalPrice) {
+    public void setOriginalPrice(String originalPrice) {
         this.originalPrice = originalPrice;
     }
 }

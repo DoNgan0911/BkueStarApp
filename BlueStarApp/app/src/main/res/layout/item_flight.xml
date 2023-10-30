@@ -7,7 +7,7 @@
     android:layout_height="wrap_content" >
 
     <LinearLayout
-        android:layout_width="130dp"
+        android:layout_width="100dp"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
@@ -27,7 +27,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="130dp"
+        android:layout_width="80dp"
         android:layout_height="match_parent"
 
         android:orientation="vertical">
@@ -36,7 +36,7 @@
             android:id="@+id/textView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="left"
             android:textSize="20dp"
             android:text="Đến" />
     </LinearLayout>
@@ -60,5 +60,19 @@
             android:textSize="20dp"
             android:layout_height="wrap_content"
             android:text="Giờ đến" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/originalPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:text="0" />
     </LinearLayout>
 </LinearLayout>

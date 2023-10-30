@@ -17,7 +17,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -29,10 +28,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class SearchFlightActivity extends AppCompatActivity {
+public class BookingActivity extends AppCompatActivity {
     private TextView textViewCalendarDepart;
     private TextView textViewCalendarBack;
-    private ImageView imageViewSwap;
     private RecyclerView recyclerView;
     private AutoCompleteTextView textViewDepart, textViewArrive;
     private RadioGroup radioGroup;
@@ -56,7 +54,6 @@ public class SearchFlightActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycleView);
         radioButtonMotChieu = findViewById(R.id.radioButtonMotChieu);
         radioButtonKhuHoi = findViewById(R.id.radioButtonKhuHoi);
-        imageViewSwap = findViewById(R.id.imageViewSwap);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         if (recyclerView != null) {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -72,11 +69,9 @@ public class SearchFlightActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (checkedId == R.id.radioButtonKhuHoi) {
-                    AppUtil.KhuHoi = 1;
                     // Khi Radiobutton "Khứ hồi" được chọn
                     textViewCalendarBack.setVisibility(View.VISIBLE); // Hiển thị ngày về
                 } else {
-                    AppUtil.KhuHoi = 0;
                     // Khi Radiobutton "Một chiều" được chọn
                     textViewCalendarBack.setVisibility(View.GONE); // Ẩn ngày về
                 }
@@ -101,7 +96,7 @@ public class SearchFlightActivity extends AppCompatActivity {
         textViewDepart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myintent = new Intent(SearchFlightActivity.this, FromLocation.class);
+                Intent myintent = new Intent(BookingActivity.this, FromLocation.class);
                 startActivity(myintent);
             }
         });
@@ -110,23 +105,12 @@ public class SearchFlightActivity extends AppCompatActivity {
         textViewArrive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myintent = new Intent(SearchFlightActivity.this, ToLocation.class);
+                Intent myintent = new Intent(BookingActivity.this, ToLocation.class);
                 startActivity(myintent);
             }
         });
 
         textViewArrive.setText(AppUtil.ToLocation);
-
-        imageViewSwap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                textViewDepart.setText(AppUtil.ToLocation);
-                textViewArrive.setText(AppUtil.FromLocation);
-
-                AppUtil.FromLocation = textViewDepart.getText().toString();
-                AppUtil.ToLocation = textViewArrive.getText().toString();
-            }
-        });
 
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,7 +118,7 @@ public class SearchFlightActivity extends AppCompatActivity {
                 String fromLocation = textViewDepart.getText().toString();
                 String toLocation = textViewArrive.getText().toString();
 
-                Intent intent = new Intent(SearchFlightActivity.this, ResultFlight.class);
+                Intent intent = new Intent(BookingActivity.this, ResultFlight.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("fromLocation", fromLocation);
                 bundle.putString("toLocation", toLocation);
