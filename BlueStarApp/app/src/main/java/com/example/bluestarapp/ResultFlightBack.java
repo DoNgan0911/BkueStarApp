@@ -17,6 +17,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class ResultFlightBack extends AppCompatActivity {
     RecyclerView recyclerView;
     List<Flight> mListFlight;
     FlightAdapter flightAdapter;
-    String fromLocationBack, toLocationBack;
+    String fromLocationBack, toLocationBack, backDay;
     int price;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class ResultFlightBack extends AppCompatActivity {
         setContentView(R.layout.activity_result_flight_back);
         fromLocationBack = AppUtil.ToLocation;
         toLocationBack = AppUtil.FromLocation;
+        backDay = AppUtil.backDay;
         initUI();
         getListFlightFromFirestore();
     }
@@ -53,7 +56,7 @@ public class ResultFlightBack extends AppCompatActivity {
                 int Total = PriceBack + Integer.parseInt(String.valueOf(OriginalPrice));
 
                 AppUtil.OriginalPrice = String.valueOf(Total);
-                AppUtil.departureDayBack = textViewNgayDiBack;
+                AppUtil.backDay = textViewNgayDiBack;
                 AppUtil.departueTimeBack = departureTimeBack;
                 AppUtil.arrivalTimeBack = arrivalTimeBack;
                 onClickGoTo(flight);
@@ -69,7 +72,7 @@ public class ResultFlightBack extends AppCompatActivity {
     }
     private void getListFlightFromFirestore() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Flight").whereEqualTo("fromLocation", fromLocationBack).whereEqualTo("toLocation", toLocationBack).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Flight").whereEqualTo("fromLocation", fromLocationBack).whereEqualTo("toLocation", toLocationBack).whereEqualTo("departureDay", AppUtil.backDay).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {

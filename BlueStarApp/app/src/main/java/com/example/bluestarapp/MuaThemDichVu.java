@@ -50,7 +50,7 @@ public class MuaThemDichVu extends AppCompatActivity {
 
             fromLocationBack.setText(AppUtil.ToLocation);
             toLocationBack.setText(AppUtil.FromLocation);
-            textViewNgayDiBack.setText(AppUtil.departureDayBack);
+            textViewNgayDiBack.setText(AppUtil.backDay);
             textViewThoiGianDiBack.setText(AppUtil.departueTimeBack);
             textViewThoiGianDenBack.setText(AppUtil.arrivalTimeBack);
         }

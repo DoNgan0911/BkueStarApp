@@ -125,9 +125,9 @@
 
         <AutoCompleteTextView
             android:id="@+id/textViewKind"
-            android:layout_width="250dp"
+            android:layout_width="150dp"
             android:layout_height="50dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="136dp"
             android:layout_marginTop="12dp"
             android:completionThreshold="1"
             android:hint="Loại ghế"
@@ -136,12 +136,12 @@
 
         <AutoCompleteTextView
             android:id="@+id/textViewNum"
-            android:layout_width="250dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="168dp"
             android:layout_marginTop="12dp"
             android:completionThreshold="1"
-            android:hint="1 Người"
+            android:text="1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewKind" />
 
@@ -165,6 +165,48 @@
             app:layout_constraintStart_toEndOf="@+id/textViewDepart"
             app:layout_constraintTop_toBottomOf="@+id/radioGroup"
             app:srcCompat="@drawable/baseline_swap_horiz_24" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="Số lượng"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewKind" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="Loại ghế"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCalendarDepart" />
+
+        <ImageView
+            android:id="@+id/imageViewUpSLVe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="28dp"
+            app:layout_constraintStart_toEndOf="@+id/textViewNum"
+            app:layout_constraintTop_toBottomOf="@+id/textViewKind"
+            app:srcCompat="@drawable/baseline_arrow_circle_up_24" />
+
+        <ImageView
+            android:id="@+id/imageViewDownSLVe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="28dp"
+            app:layout_constraintStart_toEndOf="@+id/textView17"
+            app:layout_constraintTop_toBottomOf="@+id/textViewKind"
+            app:srcCompat="@drawable/baseline_arrow_circle_down_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

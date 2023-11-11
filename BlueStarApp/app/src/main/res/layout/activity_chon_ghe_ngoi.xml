@@ -17,7 +17,7 @@
             android:id="@+id/textView16"
             android:layout_width="250dp"
             android:layout_height="40dp"
-            android:layout_marginStart="96dp"
+            android:layout_marginStart="80dp"
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="Chọn ghế ngồi"
@@ -26,6 +26,16 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageViewBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="28dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/baseline_arrow_back_ios_new_24" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -201,7 +211,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="17dp"
-                android:text="Đã chọn" />
+                android:text="Ghế trống" />
 
             <ImageView
                 android:id="@+id/imageView7"
@@ -1261,7 +1271,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Xác nhận"
