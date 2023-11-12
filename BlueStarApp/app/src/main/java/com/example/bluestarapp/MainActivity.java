@@ -1,9 +1,6 @@
 package com.example.bluestarapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,20 +10,16 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
     FirebaseAuth auth;
     Button button;
-    TextView textView, tv1;
+    TextView textView;
     FirebaseUser user;
-
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         auth = FirebaseAuth.getInstance();
         button = findViewById(R.id.click_logout);
         textView = findViewById(R.id.textView);
@@ -49,5 +42,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 }

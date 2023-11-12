@@ -28,13 +28,15 @@ public class SignInActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent  = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-
-        }
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if(currentUser != null){
+//            Intent intent  = new Intent(getApplicationContext(), SearchFlightActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+//        else {
+//
+//        }
     }
 
     @SuppressLint("MissingInflatedId")
@@ -76,7 +78,7 @@ public class SignInActivity extends AppCompatActivity {
                 if(TextUtils.isEmpty(password)){
                     Toast.makeText(SignInActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
                 }
-                mAuth.signInWithEmailAndPassword(email, password)
+                    mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
