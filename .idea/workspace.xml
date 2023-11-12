@@ -5,38 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f07be4e7-9d7e-4edb-a0b2-03f2b730b3dc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/SearchFlightActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/layout/activity_search_flight.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/.idea/deploymentTargetDropDown.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlueStarApp/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/google-services.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/proguard-rules.pro" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/proguard-rules.pro" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/androidTest/java/com/example/bluestarapp/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/androidTest/java/com/example/bluestarapp/ExampleInstrumentedTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/SignInActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/SignInActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/SignUpActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/SignUpActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/drawable/ic_launcher_foreground.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/drawable/ic_launcher_foreground.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/layout/activity_sign_in.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/layout/activity_sign_in.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/layout/activity_sign_up.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/layout/activity_sign_up.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/values-night/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/values-night/themes.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/values/themes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/values/themes.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/xml/backup_rules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/xml/backup_rules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/xml/data_extraction_rules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/xml/data_extraction_rules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/test/java/com/example/bluestarapp/ExampleUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/test/java/com/example/bluestarapp/ExampleUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueStarApp/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/settings.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,15 +27,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cidr.known.project.marker": "true",
-    "last_opened_file_path": "D:/BlueStarApp/BlueStarApp"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/BlueStarApp/BlueStarApp&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
