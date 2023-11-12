@@ -3,8 +3,10 @@ package com.example.bluestarapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +26,8 @@ public class ChonGheNgoi extends AppCompatActivity {
     ImageView imageViewF11,imageViewF12,imageViewF13,imageViewF14,imageViewF15,imageViewF16,imageViewF17,imageViewF18,imageViewF19,imageViewF20;
 
     TextView fromLocation, toLocation, fromLocationBack, toLocationBack, hovaten;
+    ImageView imageViewBack;
+    Button button;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,8 @@ public class ChonGheNgoi extends AppCompatActivity {
         toLocationBack.setText(AppUtil.FromLocation);
         hovaten.setText(AppUtil.edtTTHKName);
 
+        button = findViewById(R.id.button);
+        imageViewBack = findViewById(R.id.imageViewBack);
         imageViewA1 = findViewById(R.id.imageViewA1);
         imageViewA2 = findViewById(R.id.imageViewA2);
         imageViewA3 = findViewById(R.id.imageViewA3);
@@ -168,66 +174,87 @@ public class ChonGheNgoi extends AppCompatActivity {
         imageViewF19 = findViewById(R.id.imageViewF19);
         imageViewF20 = findViewById(R.id.imageViewF20);
 
+
+        if (!AppUtil.GheDaChon.isEmpty()) {
+            String gheDaChonId = "imageView" + AppUtil.GheDaChon;
+
+            int resId = getResources().getIdentifier(gheDaChonId, "id", getPackageName());
+            ImageView imageView = findViewById(resId);
+
+            if (imageView != null) {
+                imageView.setImageResource(R.drawable.ghe_dang_chon);
+            }
+        }
+
+
+
+
         for (int i = 1; i <= 20; i++) {
             ImageView imageView = findViewById(getResources().getIdentifier("imageViewA" + i, "id", getPackageName()));
+            int finalI = i;
             imageView.setOnClickListener(new View.OnClickListener() {
                 @SuppressLint("ResourceAsColor")
                 @Override
                 public void onClick(View view) {
                     initChair();
                     imageView.setImageResource(R.drawable.ghe_dang_chon);
+                    AppUtil.GheDaChon = "A"+ finalI;
                 }
             });
         }
 
             for (int i = 1; i <= 20; i++) {
                 ImageView imageView = findViewById(getResources().getIdentifier("imageViewB" + i, "id", getPackageName()));
-
+                int finalI = i;
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @SuppressLint("ResourceAsColor")
                     @Override
                     public void onClick(View view) {
                         initChair();
                         imageView.setImageResource(R.drawable.ghe_dang_chon);
+                        AppUtil.GheDaChon = "B"+ finalI;
                     }
                 });
             }
 
                 for (int i = 1; i <= 20; i++) {
                     ImageView imageView = findViewById(getResources().getIdentifier("imageViewC" + i, "id", getPackageName()));
-
+                    int finalI = i;
                     imageView.setOnClickListener(new View.OnClickListener() {
                         @SuppressLint("ResourceAsColor")
                         @Override
                         public void onClick(View view) {
                             initChair();
                             imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon = "C"+ finalI;
                         }
                     });
                 }
 
                     for (int i = 1; i <= 20; i++) {
                         ImageView imageView = findViewById(getResources().getIdentifier("imageViewD" + i, "id", getPackageName()));
-
+                        int finalI = i;
                         imageView.setOnClickListener(new View.OnClickListener() {
                             @SuppressLint("ResourceAsColor")
                             @Override
                             public void onClick(View view) {
                                 initChair();
                                 imageView.setImageResource(R.drawable.ghe_dang_chon);
+                                AppUtil.GheDaChon = "D"+ finalI;
                             }
                         });
                     }
 
                         for (int i = 1; i <= 20; i++) {
                             ImageView imageView = findViewById(getResources().getIdentifier("imageViewE" + i, "id", getPackageName()));
-
+                            int finalI = i;
                             imageView.setOnClickListener(new View.OnClickListener() {
                                 @SuppressLint("ResourceAsColor")
                                 @Override
                                 public void onClick(View view) {
                                     initChair();
                                     imageView.setImageResource(R.drawable.ghe_dang_chon);
+                                    AppUtil.GheDaChon = "E"+ finalI;
                                 }
                             });
                         }
@@ -235,17 +262,34 @@ public class ChonGheNgoi extends AppCompatActivity {
 
         for (int i = 1; i <= 20; i++) {
             ImageView imageView = findViewById(getResources().getIdentifier("imageViewF" + i, "id", getPackageName()));
-
+            int finalI = i;
             imageView.setOnClickListener(new View.OnClickListener() {
                 @SuppressLint("ResourceAsColor")
                 @Override
                 public void onClick(View view) {
                     initChair();
                     imageView.setImageResource(R.drawable.ghe_dang_chon);
+                    AppUtil.GheDaChon = "F"+ finalI;
                 }
             });
         }
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DataLocalManager.setStringGheNgoi(AppUtil.GheDaChon);
+                Intent myintent = new Intent(ChonGheNgoi.this, MuaThemDichVu.class);
+                startActivity(myintent);
+            }
+        });
+        imageViewBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DataLocalManager.setStringGheNgoi(AppUtil.GheDaChon);
+                Intent myintent = new Intent(ChonGheNgoi.this, MuaThemDichVu.class);
+                startActivity(myintent);
+            }
+        });
     }
     public void initChair(){
         for (int i = 1; i <= 20; i++) {

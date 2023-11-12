@@ -26,7 +26,7 @@ public class ResultFlight extends AppCompatActivity {
     RecyclerView recyclerView;
     List<Flight> mListFlight;
     FlightAdapter flightAdapter;
-    String fromLocation, toLocation;
+    String fromLocation, toLocation, departureDay;
     int price;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,7 @@ public class ResultFlight extends AppCompatActivity {
         Bundle bundle = intent.getBundleExtra("mypackage");
             fromLocation = bundle.getString("fromLocation");
             toLocation = bundle.getString("toLocation");
+            departureDay = bundle.getString("departureDay");
         initUI();
         getListFlightFromFirestore();
     }
@@ -49,16 +50,16 @@ public class ResultFlight extends AppCompatActivity {
                 String Fromlocation = flight.getFromLocation().toString();
                 String Tolocation = flight.getToLocation().toString();
                 String OriginalPrice = flight.getOriginalPrice().toString();
-                String textViewNgayDi = flight.getDepartureDay().toString();
                 String departureTime = flight.getDepartureTime().toString();
                 String arrivalTime = flight.getArrivalTime().toString();
+                String departureDay = flight.getDepartureDay().toString();
 
                 AppUtil.FromLocation = Fromlocation;
                 AppUtil.ToLocation = Tolocation;
                 AppUtil.OriginalPrice = OriginalPrice;
-                AppUtil.departureDay = textViewNgayDi;
                 AppUtil.departueTime = departureTime;
                 AppUtil.arrivalTime = arrivalTime;
+                AppUtil.departureDay = departureDay;
                 onClickGoTo(flight);
             }
         }); // Khởi tạo AirportAdapter
@@ -72,7 +73,7 @@ public class ResultFlight extends AppCompatActivity {
     }
     private void getListFlightFromFirestore() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Flight").whereEqualTo("fromLocation", fromLocation).whereEqualTo("toLocation", toLocation).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Flight").whereEqualTo("fromLocation", fromLocation).whereEqualTo("toLocation", toLocation).whereEqualTo("departureDay", AppUtil.departureDay).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {

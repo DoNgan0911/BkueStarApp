@@ -1,12 +1,16 @@
 package com.example.bluestarapp;
 
+import static java.lang.Integer.parseInt;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -32,7 +36,8 @@ import java.util.Calendar;
 public class SearchFlightActivity extends AppCompatActivity {
     private TextView textViewCalendarDepart;
     private TextView textViewCalendarBack;
-    private ImageView imageViewSwap;
+    private TextView textViewKind, textViewNum;
+    private ImageView imageViewSwap, imageViewUpSLVe, imageViewDownSLVe;
     private RecyclerView recyclerView;
     private AutoCompleteTextView textViewDepart, textViewArrive;
     private RadioGroup radioGroup;
@@ -40,6 +45,7 @@ public class SearchFlightActivity extends AppCompatActivity {
     private Button buttonSearch;
 
     int index = 1;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +62,13 @@ public class SearchFlightActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycleView);
         radioButtonMotChieu = findViewById(R.id.radioButtonMotChieu);
         radioButtonKhuHoi = findViewById(R.id.radioButtonKhuHoi);
+        textViewKind = findViewById(R.id.textViewKind);
         imageViewSwap = findViewById(R.id.imageViewSwap);
+        imageViewDownSLVe = findViewById(R.id.imageViewDownSLVe);
+        imageViewUpSLVe = findViewById(R.id.imageViewUpSLVe);
+        textViewNum = findViewById(R.id.textViewNum);
+
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         if (recyclerView != null) {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -125,19 +137,94 @@ public class SearchFlightActivity extends AppCompatActivity {
 
                 AppUtil.FromLocation = textViewDepart.getText().toString();
                 AppUtil.ToLocation = textViewArrive.getText().toString();
+                AppUtil.departureDay = textViewCalendarDepart.getText().toString();
+                AppUtil.backDay = textViewCalendarBack.getText().toString();
+
             }
         });
+
+        textViewKind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(SearchFlightActivity.this);
+                builder.setTitle("Chọn loại vé");
+
+                // Danh sách các lựa chọn
+                String[] kinds = {"Thường", "Thương gia"};
+
+                builder.setItems(kinds, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Xử lý khi lựa chọn được chọn
+                        String selectedKind = kinds[which];
+
+                        // Ứng với mỗi lựa chọn, bạn có thể thực hiện các hành động cụ thể ở đây
+                        if (selectedKind.equals("Thường")) {
+                            textViewKind.setText("Thường");
+                        } else if (selectedKind.equals("Thương gia")) {
+                            textViewKind.setText("Thương gia");
+                        }
+                    }
+                });
+
+                // Tạo và hiển thị Dialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
+
+
+        imageViewUpSLVe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String slVe = textViewNum.getText().toString();
+                int SLVe = Integer.parseInt(slVe);
+                SLVe++;
+                textViewNum.setText(String.valueOf(SLVe));
+            }
+        });
+
+        imageViewDownSLVe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String slVe = textViewNum.getText().toString();
+                int SLVe = Integer.parseInt(slVe);
+                if (SLVe == 1) {
+                    SLVe = 1;
+                    textViewNum.setText(String.valueOf(SLVe));
+                }
+                else {
+                    SLVe--;
+                    textViewNum.setText(String.valueOf(SLVe));
+                }
+            }
+        });
+
+
 
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String fromLocation = textViewDepart.getText().toString();
                 String toLocation = textViewArrive.getText().toString();
+                String departureDay = textViewCalendarDepart.getText().toString();
+                String backDay = textViewCalendarBack.getText().toString();
+
+                String slVe = textViewNum.getText().toString();
+                int SLVe = Integer.parseInt(slVe);
+
+                AppUtil.departureDay = textViewCalendarDepart.getText().toString();
+                AppUtil.backDay = textViewCalendarBack.getText().toString();
+                AppUtil.ticketKind = textViewKind.getText().toString();
+                AppUtil.SLVe = SLVe;
 
                 Intent intent = new Intent(SearchFlightActivity.this, ResultFlight.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("fromLocation", fromLocation);
                 bundle.putString("toLocation", toLocation);
+                bundle.putString("departureDay", departureDay);
+                bundle.putString("backDay", backDay);
 
                 intent.putExtra("mypackage", bundle);
 
