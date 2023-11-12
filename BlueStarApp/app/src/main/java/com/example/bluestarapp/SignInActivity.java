@@ -27,16 +27,16 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if(currentUser != null){
-//            Intent intent  = new Intent(getApplicationContext(), SearchFlightActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
-//        else {
-//
-//        }
+//         Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            Intent intent  = new Intent(getApplicationContext(), SearchFlightActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+
+        }
     }
 
     @SuppressLint("MissingInflatedId")
@@ -75,30 +75,28 @@ public class SignInActivity extends AppCompatActivity {
                 if(TextUtils.isEmpty(email)){
                     Toast.makeText(SignInActivity.this, "Enter email", Toast.LENGTH_SHORT).show();
                 }
-                if(TextUtils.isEmpty(password)){
+                else if(TextUtils.isEmpty(password)){
                     Toast.makeText(SignInActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
                 }
+                else{
                     mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(SignInActivity.this, "Authentication successed.",
-                                            Toast.LENGTH_SHORT).show();
-//                                    Intent intent  = new Intent(getApplicationContext(), MainActivity.class);
-                                    Intent intent  = new Intent(getApplicationContext(), SearchFlightActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                            .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(SignInActivity.this, "Authentication successed.",
+                                                Toast.LENGTH_SHORT).show();
+                                        Intent intent  = new Intent(getApplicationContext(), SearchFlightActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                    else{
+                                        Toast.makeText(SignInActivity.this, "Authentication failed.",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                                else{
-                                    Toast.makeText(SignInActivity.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-
-
-
+                            });
+                }
             }
         });
     }
