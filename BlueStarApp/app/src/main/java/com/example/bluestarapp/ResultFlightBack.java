@@ -46,6 +46,7 @@ public class ResultFlightBack extends AppCompatActivity {
             @Override
             public void onClickItemFlight(Flight flight) {
                 int PriceBack = Integer.parseInt(String.valueOf(AppUtil.OriginalPrice));
+                int price = 0;
                 String FromlocationBack = flight.getFromLocation().toString();
                 String TolocationBack = flight.getToLocation().toString();
                 String OriginalPrice = flight.getOriginalPrice().toString();
@@ -53,7 +54,15 @@ public class ResultFlightBack extends AppCompatActivity {
                 String departureTimeBack = flight.getDepartureTime().toString();
                 String arrivalTimeBack = flight.getArrivalTime().toString();
 
-                int Total = PriceBack + Integer.parseInt(String.valueOf(OriginalPrice));
+                if ("Thương gia".equals(AppUtil.ticketKind)) { // Sử dụng phương thức equals để so sánh chuỗi
+                    if (!OriginalPrice.isEmpty()) {
+                         price = Integer.parseInt(OriginalPrice)*AppUtil.SLVe + 500000*AppUtil.SLVe;
+                    }
+                } else {
+                    price = Integer.parseInt(OriginalPrice)*AppUtil.SLVe;
+                }
+
+                int Total = PriceBack + price;
 
                 AppUtil.OriginalPrice = String.valueOf(Total);
                 AppUtil.backDay = textViewNgayDiBack;

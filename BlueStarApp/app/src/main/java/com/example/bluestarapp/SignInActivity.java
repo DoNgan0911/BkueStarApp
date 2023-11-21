@@ -29,14 +29,14 @@ public class SignInActivity extends AppCompatActivity {
         super.onStart();
 //         Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent  = new Intent(getApplicationContext(), SearchFlightActivity.class);
-            startActivity(intent);
-            finish();
-        }
-        else {
-
-        }
+//        if(currentUser != null){
+//            Intent intent  = new Intent(getApplicationContext(), SearchFlightActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+//        else {
+//
+//        }
     }
 
     @SuppressLint("MissingInflatedId")

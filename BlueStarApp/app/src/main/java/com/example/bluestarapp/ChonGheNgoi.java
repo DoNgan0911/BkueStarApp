@@ -1,6 +1,7 @@
 package com.example.bluestarapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -26,7 +27,9 @@ public class ChonGheNgoi extends AppCompatActivity {
     ImageView imageViewF11,imageViewF12,imageViewF13,imageViewF14,imageViewF15,imageViewF16,imageViewF17,imageViewF18,imageViewF19,imageViewF20;
 
     TextView fromLocation, toLocation, fromLocationBack, toLocationBack, hovaten;
+    ConstraintLayout layoutChieuVe;
     ImageView imageViewBack;
+    int SLDaChon = 0;
     Button button;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -39,6 +42,7 @@ public class ChonGheNgoi extends AppCompatActivity {
         fromLocationBack = findViewById(R.id.fromLocationBack);
         toLocationBack = findViewById(R.id.toLocationBack);
         hovaten = findViewById(R.id.hovaten);
+        layoutChieuVe = findViewById(R.id.layoutChieuVe);
 
         fromLocation.setText(AppUtil.FromLocation);
         toLocation.setText(AppUtil.ToLocation);
@@ -174,145 +178,404 @@ public class ChonGheNgoi extends AppCompatActivity {
         imageViewF19 = findViewById(R.id.imageViewF19);
         imageViewF20 = findViewById(R.id.imageViewF20);
 
+        if (AppUtil.KhuHoi == 0) layoutChieuVe.setVisibility(View.GONE);
 
-        if (!AppUtil.GheDaChon.isEmpty()) {
-            String gheDaChonId = "imageView" + AppUtil.GheDaChon;
+        if ("Thương gia".equals(AppUtil.ticketKind)) {
+            initChairThuongGia();
+        }
+        else {
+            initChairThuong();
+        }
 
-            int resId = getResources().getIdentifier(gheDaChonId, "id", getPackageName());
-            ImageView imageView = findViewById(resId);
-
-            if (imageView != null) {
-                imageView.setImageResource(R.drawable.ghe_dang_chon);
+        if (!AppUtil.GheDaChon[0].isEmpty()) {
+            for (int i=0;i < AppUtil.SLVe;i++) {
+                String gheDaChonId = "imageView" + AppUtil.GheDaChon[i];
+                int resId = getResources().getIdentifier(gheDaChonId, "id", getPackageName());
+                ImageView imageView = findViewById(resId);
+                if (imageView != null) {
+                    imageView.setImageResource(R.drawable.ghe_dang_chon);
+                }
             }
         }
 
+        if ("Thương gia".equals(AppUtil.ticketKind)) {
+            for (int i = 1; i <= 3; i++) {
+                ImageView imageView = findViewById(getResources().getIdentifier("imageViewA" + i, "id", getPackageName()));
+                int finalI = i;
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("ResourceAsColor")
+                    @Override
+                    public void onClick(View view) {
+                        if (SLDaChon < AppUtil.SLVe) {
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[SLDaChon] = "A" + finalI;
+                            SLDaChon++;
+                        }
+                        else {
+                            initChairThuongGia();
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[0] = "A" + finalI;
+                            SLDaChon = 1;
+                        }
+                    }
+                });
+            }
 
-
-
-        for (int i = 1; i <= 20; i++) {
-            ImageView imageView = findViewById(getResources().getIdentifier("imageViewA" + i, "id", getPackageName()));
-            int finalI = i;
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @SuppressLint("ResourceAsColor")
-                @Override
-                public void onClick(View view) {
-                    initChair();
-                    imageView.setImageResource(R.drawable.ghe_dang_chon);
-                    AppUtil.GheDaChon = "A"+ finalI;
-                }
-            });
-        }
-
-            for (int i = 1; i <= 20; i++) {
+            for (int i = 1; i <= 3; i++) {
                 ImageView imageView = findViewById(getResources().getIdentifier("imageViewB" + i, "id", getPackageName()));
                 int finalI = i;
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @SuppressLint("ResourceAsColor")
                     @Override
                     public void onClick(View view) {
-                        initChair();
-                        imageView.setImageResource(R.drawable.ghe_dang_chon);
-                        AppUtil.GheDaChon = "B"+ finalI;
+                        if (SLDaChon < AppUtil.SLVe) {
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[SLDaChon] = "B" + finalI;
+                            SLDaChon++;
+                        }
+                        else {
+                            initChairThuongGia();
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[0] = "B" + finalI;
+                            SLDaChon = 1;
+                        }
                     }
                 });
             }
 
-                for (int i = 1; i <= 20; i++) {
-                    ImageView imageView = findViewById(getResources().getIdentifier("imageViewC" + i, "id", getPackageName()));
-                    int finalI = i;
-                    imageView.setOnClickListener(new View.OnClickListener() {
-                        @SuppressLint("ResourceAsColor")
-                        @Override
-                        public void onClick(View view) {
-                            initChair();
+            for (int i = 1; i <= 3; i++) {
+                ImageView imageView = findViewById(getResources().getIdentifier("imageViewC" + i, "id", getPackageName()));
+                int finalI = i;
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("ResourceAsColor")
+                    @Override
+                    public void onClick(View view) {
+                        if (SLDaChon < AppUtil.SLVe) {
                             imageView.setImageResource(R.drawable.ghe_dang_chon);
-                            AppUtil.GheDaChon = "C"+ finalI;
+                            AppUtil.GheDaChon[SLDaChon] = "C" + finalI;
+                            SLDaChon++;
                         }
-                    });
-                }
-
-                    for (int i = 1; i <= 20; i++) {
-                        ImageView imageView = findViewById(getResources().getIdentifier("imageViewD" + i, "id", getPackageName()));
-                        int finalI = i;
-                        imageView.setOnClickListener(new View.OnClickListener() {
-                            @SuppressLint("ResourceAsColor")
-                            @Override
-                            public void onClick(View view) {
-                                initChair();
-                                imageView.setImageResource(R.drawable.ghe_dang_chon);
-                                AppUtil.GheDaChon = "D"+ finalI;
-                            }
-                        });
+                        else {
+                            initChairThuongGia();
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[0] = "C" + finalI;
+                            SLDaChon = 1;
+                        }
                     }
+                });
+            }
 
-                        for (int i = 1; i <= 20; i++) {
-                            ImageView imageView = findViewById(getResources().getIdentifier("imageViewE" + i, "id", getPackageName()));
-                            int finalI = i;
-                            imageView.setOnClickListener(new View.OnClickListener() {
-                                @SuppressLint("ResourceAsColor")
-                                @Override
-                                public void onClick(View view) {
-                                    initChair();
-                                    imageView.setImageResource(R.drawable.ghe_dang_chon);
-                                    AppUtil.GheDaChon = "E"+ finalI;
-                                }
-                            });
+            for (int i = 1; i <= 3; i++) {
+                ImageView imageView = findViewById(getResources().getIdentifier("imageViewD" + i, "id", getPackageName()));
+                int finalI = i;
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("ResourceAsColor")
+                    @Override
+                    public void onClick(View view) {
+                        if (SLDaChon < AppUtil.SLVe) {
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[SLDaChon] = "D" + finalI;
+                            SLDaChon++;
                         }
+                        else {
+                            initChairThuongGia();
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[0] = "D" + finalI;
+                            SLDaChon = 1;
+                        }
+                    }
+                });
+            }
+
+            for (int i = 1; i <= 3; i++) {
+                ImageView imageView = findViewById(getResources().getIdentifier("imageViewE" + i, "id", getPackageName()));
+                int finalI = i;
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("ResourceAsColor")
+                    @Override
+                    public void onClick(View view) {
+                        if (SLDaChon < AppUtil.SLVe) {
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[SLDaChon] = "E" + finalI;
+                            SLDaChon++;
+                        }
+                        else {
+                            initChairThuongGia();
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[0] = "E" + finalI;
+                            SLDaChon = 1;
+                        }
+                    }
+                });
+            }
 
 
-        for (int i = 1; i <= 20; i++) {
-            ImageView imageView = findViewById(getResources().getIdentifier("imageViewF" + i, "id", getPackageName()));
-            int finalI = i;
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @SuppressLint("ResourceAsColor")
+            for (int i = 1; i <= 3; i++) {
+                ImageView imageView = findViewById(getResources().getIdentifier("imageViewF" + i, "id", getPackageName()));
+                int finalI = i;
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("ResourceAsColor")
+                    @Override
+                    public void onClick(View view) {
+                        if (SLDaChon < AppUtil.SLVe) {
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[SLDaChon] = "F" + finalI;
+                            SLDaChon++;
+                        }
+                        else {
+                            initChairThuongGia();
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[0] = "F" + finalI;
+                            SLDaChon = 1;
+                        }
+                    }
+                });
+            }
+        } else {
+
+            for (int i = 4; i <= 20; i++) {
+                ImageView imageView = findViewById(getResources().getIdentifier("imageViewA" + i, "id", getPackageName()));
+                int finalI = i;
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("ResourceAsColor")
+                    @Override
+                    public void onClick(View view) {
+                        if (SLDaChon < AppUtil.SLVe) {
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[SLDaChon] = "A" + finalI;
+                            SLDaChon++;
+                        }
+                        else {
+                            initChairThuong();
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[0] = "A" + finalI;
+                            SLDaChon = 1;
+                        }
+                    }
+                });
+            }
+
+            for (int i = 4; i <= 20; i++) {
+                ImageView imageView = findViewById(getResources().getIdentifier("imageViewB" + i, "id", getPackageName()));
+                int finalI = i;
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("ResourceAsColor")
+                    @Override
+                    public void onClick(View view) {
+                        if (SLDaChon < AppUtil.SLVe) {
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[SLDaChon] = "B" + finalI;
+                            SLDaChon++;
+                        }
+                        else {
+                            initChairThuong();
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[0] = "B" + finalI;
+                            SLDaChon = 1;
+                        }
+                    }
+                });
+            }
+
+            for (int i = 4; i <= 20; i++) {
+                ImageView imageView = findViewById(getResources().getIdentifier("imageViewC" + i, "id", getPackageName()));
+                int finalI = i;
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("ResourceAsColor")
+                    @Override
+                    public void onClick(View view) {
+                        if (SLDaChon < AppUtil.SLVe) {
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[SLDaChon] = "C" + finalI;
+                            SLDaChon++;
+                        }
+                        else {
+                            initChairThuong();
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[0] = "C" + finalI;
+                            SLDaChon = 1;
+                        }
+                    }
+                });
+            }
+
+            for (int i = 4; i <= 20; i++) {
+                ImageView imageView = findViewById(getResources().getIdentifier("imageViewD" + i, "id", getPackageName()));
+                int finalI = i;
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("ResourceAsColor")
+                    @Override
+                    public void onClick(View view) {
+                        if (SLDaChon < AppUtil.SLVe) {
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[SLDaChon] = "D" + finalI;
+                            SLDaChon++;
+                        }
+                        else {
+                            initChairThuong();
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[0] = "D" + finalI;
+                            SLDaChon = 1;
+                        }
+                    }
+                });
+            }
+
+            for (int i = 4; i <= 20; i++) {
+                ImageView imageView = findViewById(getResources().getIdentifier("imageViewE" + i, "id", getPackageName()));
+                int finalI = i;
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("ResourceAsColor")
+                    @Override
+                    public void onClick(View view) {
+                        if (SLDaChon < AppUtil.SLVe) {
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[SLDaChon] = "E" + finalI;
+                            SLDaChon++;
+                        }
+                        else {
+                            initChairThuong();
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[0] = "E" + finalI;
+                            SLDaChon = 1;
+                        }
+                    }
+                });
+            }
+            for (int i = 4; i <= 20; i++) {
+                ImageView imageView = findViewById(getResources().getIdentifier("imageViewF" + i, "id", getPackageName()));
+                int finalI = i;
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("ResourceAsColor")
+                    @Override
+                    public void onClick(View view) {
+                        if (SLDaChon < AppUtil.SLVe) {
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[SLDaChon] = "F" + finalI;
+                            SLDaChon++;
+                        }
+                        else {
+                            initChairThuong();
+                            imageView.setImageResource(R.drawable.ghe_dang_chon);
+                            AppUtil.GheDaChon[0] = "F" + finalI;
+                            SLDaChon = 1;
+                        }
+                    }
+                });
+            }
+            button.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
-                    initChair();
-                    imageView.setImageResource(R.drawable.ghe_dang_chon);
-                    AppUtil.GheDaChon = "F"+ finalI;
+                public void onClick(View v) {
+                    Intent myintent = new Intent(ChonGheNgoi.this, MuaThemDichVu.class);
+                    startActivity(myintent);
+                }
+            });
+            imageViewBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent myintent = new Intent(ChonGheNgoi.this, MuaThemDichVu.class);
+                    startActivity(myintent);
                 }
             });
         }
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DataLocalManager.setStringGheNgoi(AppUtil.GheDaChon);
-                Intent myintent = new Intent(ChonGheNgoi.this, MuaThemDichVu.class);
-                startActivity(myintent);
-            }
-        });
-        imageViewBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DataLocalManager.setStringGheNgoi(AppUtil.GheDaChon);
-                Intent myintent = new Intent(ChonGheNgoi.this, MuaThemDichVu.class);
-                startActivity(myintent);
-            }
-        });
     }
-    public void initChair(){
-        for (int i = 1; i <= 20; i++) {
+    public void initChairThuong(){
+        for (int i = 4; i <= 20; i++) {
             ImageView imageView = findViewById(getResources().getIdentifier("imageViewA" + i, "id", getPackageName()));
             imageView.setImageResource(R.drawable.baseline_chair_24_da_chon);
         }
-        for (int i = 1; i <= 20; i++) {
+        for (int i = 4; i <= 20; i++) {
             ImageView imageView = findViewById(getResources().getIdentifier("imageViewB" + i, "id", getPackageName()));
             imageView.setImageResource(R.drawable.baseline_chair_24_da_chon);
         }
-        for (int i = 1; i <= 20; i++) {
+        for (int i = 4; i <= 20; i++) {
             ImageView imageView = findViewById(getResources().getIdentifier("imageViewC" + i, "id", getPackageName()));
             imageView.setImageResource(R.drawable.baseline_chair_24_da_chon);
         }
-        for (int i = 1; i <= 20; i++) {
+        for (int i = 4; i <= 20; i++) {
             ImageView imageView = findViewById(getResources().getIdentifier("imageViewD" + i, "id", getPackageName()));
             imageView.setImageResource(R.drawable.baseline_chair_24_da_chon);
         }
-        for (int i = 1; i <= 20; i++) {
+        for (int i = 4; i <= 20; i++) {
             ImageView imageView = findViewById(getResources().getIdentifier("imageViewE" + i, "id", getPackageName()));
             imageView.setImageResource(R.drawable.baseline_chair_24_da_chon);
         }
-        for (int i = 1; i <= 20; i++) {
+        for (int i = 4; i <= 20; i++) {
+            ImageView imageView = findViewById(getResources().getIdentifier("imageViewF" + i, "id", getPackageName()));
+            imageView.setImageResource(R.drawable.baseline_chair_24_da_chon);
+        }
+        for (int i = 1; i <= 3; i++) {
+            ImageView imageView = findViewById(getResources().getIdentifier("imageViewA" + i, "id", getPackageName()));
+            imageView.setImageResource(R.drawable.baseline_chair_24_khong_chon);
+        }
+        for (int i = 1; i <= 3; i++) {
+            ImageView imageView = findViewById(getResources().getIdentifier("imageViewB" + i, "id", getPackageName()));
+            imageView.setImageResource(R.drawable.baseline_chair_24_khong_chon);
+        }
+        for (int i = 1; i <= 3; i++) {
+            ImageView imageView = findViewById(getResources().getIdentifier("imageViewC" + i, "id", getPackageName()));
+            imageView.setImageResource(R.drawable.baseline_chair_24_khong_chon);
+        }
+        for (int i = 1; i <= 3; i++) {
+            ImageView imageView = findViewById(getResources().getIdentifier("imageViewD" + i, "id", getPackageName()));
+            imageView.setImageResource(R.drawable.baseline_chair_24_khong_chon);
+        }
+        for (int i = 1; i <= 3; i++) {
+            ImageView imageView = findViewById(getResources().getIdentifier("imageViewE" + i, "id", getPackageName()));
+            imageView.setImageResource(R.drawable.baseline_chair_24_khong_chon);
+        }
+        for (int i = 1; i <= 3; i++) {
+            ImageView imageView = findViewById(getResources().getIdentifier("imageViewF" + i, "id", getPackageName()));
+            imageView.setImageResource(R.drawable.baseline_chair_24_khong_chon);
+        }
+    }
+
+    public void initChairThuongGia(){
+        for (int i = 4; i <= 20; i++) {
+            ImageView imageView = findViewById(getResources().getIdentifier("imageViewA" + i, "id", getPackageName()));
+            imageView.setImageResource(R.drawable.baseline_chair_24_khong_chon);
+        }
+        for (int i = 4; i <= 20; i++) {
+            ImageView imageView = findViewById(getResources().getIdentifier("imageViewB" + i, "id", getPackageName()));
+            imageView.setImageResource(R.drawable.baseline_chair_24_khong_chon);
+        }
+        for (int i = 4; i <= 20; i++) {
+            ImageView imageView = findViewById(getResources().getIdentifier("imageViewC" + i, "id", getPackageName()));
+            imageView.setImageResource(R.drawable.baseline_chair_24_khong_chon);
+        }
+        for (int i = 4; i <= 20; i++) {
+            ImageView imageView = findViewById(getResources().getIdentifier("imageViewD" + i, "id", getPackageName()));
+            imageView.setImageResource(R.drawable.baseline_chair_24_khong_chon);
+        }
+        for (int i = 4; i <= 20; i++) {
+            ImageView imageView = findViewById(getResources().getIdentifier("imageViewE" + i, "id", getPackageName()));
+            imageView.setImageResource(R.drawable.baseline_chair_24_khong_chon);
+        }
+        for (int i = 4; i <= 20; i++) {
+            ImageView imageView = findViewById(getResources().getIdentifier("imageViewF" + i, "id", getPackageName()));
+            imageView.setImageResource(R.drawable.baseline_chair_24_khong_chon);
+        }
+        for (int i = 1; i <= 3; i++) {
+            ImageView imageView = findViewById(getResources().getIdentifier("imageViewA" + i, "id", getPackageName()));
+            imageView.setImageResource(R.drawable.baseline_chair_24_da_chon);
+        }
+        for (int i = 1; i <= 3; i++) {
+            ImageView imageView = findViewById(getResources().getIdentifier("imageViewB" + i, "id", getPackageName()));
+            imageView.setImageResource(R.drawable.baseline_chair_24_da_chon);
+        }
+        for (int i = 1; i <= 3; i++) {
+            ImageView imageView = findViewById(getResources().getIdentifier("imageViewC" + i, "id", getPackageName()));
+            imageView.setImageResource(R.drawable.baseline_chair_24_da_chon);
+        }
+        for (int i = 1; i <= 3; i++) {
+            ImageView imageView = findViewById(getResources().getIdentifier("imageViewD" + i, "id", getPackageName()));
+            imageView.setImageResource(R.drawable.baseline_chair_24_da_chon);
+        }
+        for (int i = 1; i <= 3; i++) {
+            ImageView imageView = findViewById(getResources().getIdentifier("imageViewE" + i, "id", getPackageName()));
+            imageView.setImageResource(R.drawable.baseline_chair_24_da_chon);
+        }
+        for (int i = 1; i <= 3; i++) {
             ImageView imageView = findViewById(getResources().getIdentifier("imageViewF" + i, "id", getPackageName()));
             imageView.setImageResource(R.drawable.baseline_chair_24_da_chon);
         }

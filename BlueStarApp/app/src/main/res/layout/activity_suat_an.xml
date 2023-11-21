@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".HanhLyKyGui"
-    android:background="@color/grey">
+    android:background="@color/grey"
+    tools:context=".HanhLyKyGui">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:id="@+id/constraintLayout2"
+        android:layout_width="0dp"
         android:layout_height="80dp"
-        android:background="@color/blue">
+        android:layout_marginBottom="20dp"
+        android:background="@color/blue"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView16"
-            android:layout_width="250dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="96dp"
-            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="124dp"
+            android:layout_marginTop="24dp"
             android:gravity="center"
-            android:text="Suất ăn"
+            android:text="Suất Ăn"
             android:textColor="@color/white"
             android:textSize="25dp"
             android:textStyle="bold"
@@ -31,8 +38,8 @@
             android:id="@+id/imageViewBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="32dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_arrow_back_ios_new_24" />
@@ -41,13 +48,20 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="210dp"
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="220dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginRight="9dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/border_thongtinhanhkhach"
         android:orientation="vertical"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -369,25 +383,24 @@
 
                 </LinearLayout>
 
-
-
-
-
-
-
             </LinearLayout>
         </HorizontalScrollView>
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="210dp"
+        android:id="@+id/layoutChieuVe"
+        android:layout_width="0dp"
+        android:layout_height="220dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginEnd="9dp"
         android:background="@drawable/border_thongtinhanhkhach"
         android:orientation="vertical"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -721,12 +734,19 @@
 
     </LinearLayout>
 
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:id="@+id/constraintLayout3"
+        android:layout_width="0dp"
         android:layout_height="150dp"
         android:background="#FFFFFF"
-        android:layout_marginTop="40dp"
-        android:paddingBottom="50dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+        app:layout_constraintVertical_bias="1.0">
 
         <TextView
             android:id="@+id/textView7"
@@ -736,6 +756,7 @@
             android:layout_marginTop="16dp"
             android:text="Tổng tiền"
             android:textSize="20dp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -755,14 +776,14 @@
             android:id="@+id/btnNext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="84dp"
             android:backgroundTint="@color/blue"
             android:text="Xác nhận"
             android:textColor="#000000"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="0dp" />
+            tools:layout_editor_absoluteX="151dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

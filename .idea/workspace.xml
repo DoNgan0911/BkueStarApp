@@ -5,11 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f07be4e7-9d7e-4edb-a0b2-03f2b730b3dc" name="Changes" comment="">
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlueStarApp/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/SignInActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/SignInActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/SignUpActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/SignUpActivity.java" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/ThongTinHanhKhach.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/drawable/border_thongtinhanhkhach.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/layout/activity_thong_tin_hanh_khach.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/AppUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/AppUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/FromLocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/FromLocation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/ResultFlight.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/ResultFlight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/SearchFlightActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/SearchFlightActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/ToLocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/java/com/example/bluestarapp/ToLocation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueStarApp/app/src/main/res/values/colors.xml" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +47,11 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+<<<<<<< Updated upstream
     &quot;last_opened_file_path&quot;: &quot;D:/BlueStarApp/BlueStarApp&quot;
+=======
+    &quot;last_opened_file_path&quot;: &quot;D:/BlueStarApp/BlueStarApp/BlueStarApp&quot;
+>>>>>>> Stashed changes
   }
 }</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

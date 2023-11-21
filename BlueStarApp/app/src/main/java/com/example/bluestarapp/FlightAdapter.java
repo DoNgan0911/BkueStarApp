@@ -20,8 +20,6 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.MyViewHold
     private IClickItemFlightListener iClickItemFlightListener;
 
 
-
-
     public FlightAdapter(List<Flight> mListFlights, IClickItemFlightListener listener) {
         this.mListFlights = mListFlights;
         this.iClickItemFlightListener = listener;
@@ -41,7 +39,13 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.MyViewHold
         holder.toLocation.setText(flight.getToLocation());
         holder.departureTime.setText(flight.getDepartureTime());
         holder.arrivalTime.setText(flight.getArrivalTime());
-        holder.originalPrice.setText(flight.getOriginalPrice());
+        if (AppUtil.ticketKind.equals("Thương gia")) { // Sử dụng phương thức equals để so sánh chuỗi
+            int originalPrice = Integer.parseInt(flight.getOriginalPrice()) + 500000;
+            holder.originalPrice.setText(String.valueOf(originalPrice)); // Chuyển về chuỗi trước khi hiển thị
+        } else {
+            holder.originalPrice.setText(flight.getOriginalPrice());
+        }
+
         holder.departureDay.setText(flight.getDepartureDay());
 
         holder.layout_item.setOnClickListener(new View.OnClickListener() {

@@ -17,7 +17,7 @@
             android:id="@+id/textView16"
             android:layout_width="250dp"
             android:layout_height="40dp"
-            android:layout_marginStart="96dp"
+            android:layout_marginStart="92dp"
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="Mua thêm dịch vụ"

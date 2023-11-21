@@ -46,6 +46,7 @@ public class SearchFlightActivity extends AppCompatActivity {
 
     int index = 1;
 
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +143,6 @@ public class SearchFlightActivity extends AppCompatActivity {
 
             }
         });
-
         textViewKind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -172,9 +172,6 @@ public class SearchFlightActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
-
-
-
         imageViewUpSLVe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -201,8 +198,6 @@ public class SearchFlightActivity extends AppCompatActivity {
             }
         });
 
-
-
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -213,11 +208,14 @@ public class SearchFlightActivity extends AppCompatActivity {
 
                 String slVe = textViewNum.getText().toString();
                 int SLVe = Integer.parseInt(slVe);
+                AppUtil.capNhatKichThuocDanhSach(SLVe);
 
                 AppUtil.departureDay = textViewCalendarDepart.getText().toString();
                 AppUtil.backDay = textViewCalendarBack.getText().toString();
                 AppUtil.ticketKind = textViewKind.getText().toString();
                 AppUtil.SLVe = SLVe;
+
+
 
                 Intent intent = new Intent(SearchFlightActivity.this, ResultFlight.class);
                 Bundle bundle = new Bundle();
@@ -233,9 +231,6 @@ public class SearchFlightActivity extends AppCompatActivity {
 
             }
         });
-
-
-
     }
     public void ChonNgay(){
         Calendar calendar = Calendar.getInstance();
@@ -257,7 +252,5 @@ public class SearchFlightActivity extends AppCompatActivity {
         }, nam,thang,ngay);
         datePickerDialog.show();
     }
-
-
 
 }

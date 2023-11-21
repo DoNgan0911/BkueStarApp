@@ -2,6 +2,7 @@ package com.example.bluestarapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ public class SuatAn extends AppCompatActivity {
     TextView textViewSLComChienChay, textViewSLComTam,textViewSLMiY,textViewSLBanhMi;
     TextView textViewSLComChienChayBack, textViewSLComTamBack,textViewSLMiYBack,textViewSLBanhMiBack, textViewTongTien, fromLocation, toLocation, fromLocationBack, toLocationBack, hovaten, hovatenBack;
 
+    TextView textViewTienChieuDi, textViewTienChieuVe;
     Button btnNext;
     int SLComChienChay = 0;
     int SLComTam = 0;
@@ -29,7 +31,12 @@ public class SuatAn extends AppCompatActivity {
     int SLBanhMiBack = 0;
 
     int TongTien = Integer.parseInt(String.valueOf(AppUtil.OriginalPrice));
+    LinearLayout layoutChieuVe;
     int TienSuatAn = 0;
+
+    int TienChieuDi  = 0;
+    int TienChieuVe = 0;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +48,9 @@ public class SuatAn extends AppCompatActivity {
         toLocationBack = findViewById(R.id.toLocationBack);
         hovaten = findViewById(R.id.hovaten);
         hovatenBack = findViewById(R.id.hovatenBack);
+        layoutChieuVe = findViewById(R.id.layoutChieuVe);
+        textViewTienChieuDi = findViewById(R.id.textViewTienChieuDi);
+        textViewTienChieuVe = findViewById(R.id.textViewTienChieuVe);
 
         imageViewUpComChienChay = findViewById(R.id.imageViewUpComChienChay);
         imageViewDownComChienChay = findViewById(R.id.imageViewDownComChienChay);
@@ -71,6 +81,9 @@ public class SuatAn extends AppCompatActivity {
         imageViewBack = findViewById(R.id.imageViewBack);
         btnNext = findViewById(R.id.btnNext);
 
+
+        if(AppUtil.KhuHoi==0) layoutChieuVe.setVisibility(View.GONE);
+
         textViewTongTien.setText(String.valueOf(TongTien));
 
         fromLocation.setText(AppUtil.FromLocation);
@@ -98,6 +111,8 @@ public class SuatAn extends AppCompatActivity {
         SLBanhMiBack = AppUtil.SLBanhMiBack;
 
 
+
+
         imageViewUpComChienChay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,6 +121,8 @@ public class SuatAn extends AppCompatActivity {
                 AppUtil.SLComChienChay +=1;
                 TongTien += 236000;
                 textViewTongTien.setText(String.valueOf(TongTien));
+                TienChieuDi += 236000;
+                textViewTienChieuDi.setText(String.valueOf(TienChieuDi));
             }
         });
 
@@ -119,9 +136,12 @@ public class SuatAn extends AppCompatActivity {
                     SLComChienChay -= 1;
                     AppUtil.SLComChienChay -=1;
                     TongTien -= 236000;
+                    TienChieuDi -= 236000;
+
                 }
                 textViewSLComChienChay.setText(String.valueOf(SLComChienChay));
                 textViewTongTien.setText(String.valueOf(TongTien));
+                textViewTienChieuDi.setText(String.valueOf(TienChieuDi));
             }
         });
 
@@ -133,6 +153,8 @@ public class SuatAn extends AppCompatActivity {
                 AppUtil.SLComTam +=1;
                 TongTien += 186000;
                 textViewTongTien.setText(String.valueOf(TongTien));
+                TienChieuDi += 186000;
+                textViewTienChieuDi.setText(String.valueOf(TienChieuDi));
             }
         });
 
@@ -146,9 +168,11 @@ public class SuatAn extends AppCompatActivity {
                     SLComTam -= 1;
                     AppUtil.SLComTam -=1;
                     TongTien -= 186000;
+                    TienChieuDi -= 186000;
                 }
                 textViewSLComTam.setText(String.valueOf(SLComTam));
                 textViewTongTien.setText(String.valueOf(TongTien));
+                textViewTienChieuDi.setText(String.valueOf(TienChieuDi));
             }
         });
 
@@ -159,7 +183,9 @@ public class SuatAn extends AppCompatActivity {
                 textViewSLMiY.setText(String.valueOf(SLMiY));
                 AppUtil.SLMiY +=1;
                 TongTien += 136000;
+                TienChieuDi += 136000;
                 textViewTongTien.setText(String.valueOf(TongTien));
+                textViewTienChieuDi.setText(String.valueOf(TienChieuDi));
             }
         });
 
@@ -173,9 +199,11 @@ public class SuatAn extends AppCompatActivity {
                     SLMiY -= 1;
                     AppUtil.SLMiY -=1;
                     TongTien -= 136000;
+                    TienChieuDi -= 136000;
                 }
                 textViewSLMiY.setText(String.valueOf(SLMiY));
                 textViewTongTien.setText(String.valueOf(TongTien));
+                textViewTienChieuDi.setText(String.valueOf(TienChieuDi));
             }
         });
 
@@ -186,7 +214,9 @@ public class SuatAn extends AppCompatActivity {
                 textViewSLBanhMi.setText(String.valueOf(SLBanhMi));
                 AppUtil.SLBanhMi +=1;
                 TongTien += 86000;
+                TienChieuDi += 86000;
                 textViewTongTien.setText(String.valueOf(TongTien));
+                textViewTienChieuDi.setText(String.valueOf(TienChieuDi));
             }
         });
 
@@ -200,9 +230,11 @@ public class SuatAn extends AppCompatActivity {
                     SLBanhMi -= 1;
                     AppUtil.SLBanhMi -=1;
                     TongTien -= 86000;
+                    TienChieuDi -= 86000;
                 }
                 textViewSLBanhMi.setText(String.valueOf(SLBanhMi));
                 textViewTongTien.setText(String.valueOf(TongTien));
+                textViewTienChieuDi.setText(String.valueOf(TienChieuDi));
             }
         });
 
@@ -213,7 +245,9 @@ public class SuatAn extends AppCompatActivity {
                 textViewSLComChienChayBack.setText(String.valueOf(SLComChienChayBack));
                 AppUtil.SLComChienChayBack +=1;
                 TongTien += 236000;
+                TienChieuVe += 236000;
                 textViewTongTien.setText(String.valueOf(TongTien));
+                textViewTienChieuVe.setText(String.valueOf(TienChieuVe));
             }
         });
 
@@ -227,9 +261,11 @@ public class SuatAn extends AppCompatActivity {
                     SLComChienChayBack -= 1;
                     AppUtil.SLComChienChayBack -=1;
                     TongTien -= 236000;
+                    TienChieuVe -= 236000;
                 }
                 textViewSLComChienChayBack.setText(String.valueOf(SLComChienChayBack));
                 textViewTongTien.setText(String.valueOf(TongTien));
+                textViewTienChieuVe.setText(String.valueOf(TienChieuVe));
             }
         });
 
@@ -240,7 +276,9 @@ public class SuatAn extends AppCompatActivity {
                 textViewSLComTamBack.setText(String.valueOf(SLComTamBack));
                 AppUtil.SLComTamBack +=1;
                 TongTien += 186000;
+                TienChieuVe += 186000;
                 textViewTongTien.setText(String.valueOf(TongTien));
+                textViewTienChieuVe.setText(String.valueOf(TienChieuVe));
             }
         });
 
@@ -254,9 +292,11 @@ public class SuatAn extends AppCompatActivity {
                     SLComTamBack -= 1;
                     AppUtil.SLComTamBack -=1;
                     TongTien -= 186000;
+                    TienChieuVe -= 186000;
                 }
                 textViewSLComTamBack.setText(String.valueOf(SLComTamBack));
                 textViewTongTien.setText(String.valueOf(TongTien));
+                textViewTienChieuVe.setText(String.valueOf(TienChieuVe));
             }
         });
 
@@ -267,6 +307,8 @@ public class SuatAn extends AppCompatActivity {
                 textViewSLMiYBack.setText(String.valueOf(SLMiYBack));
                 AppUtil.SLMiYBack +=1;
                 TongTien += 136000;
+                TienChieuVe += 136000;
+                textViewTienChieuVe.setText(String.valueOf(TienChieuVe));
                 textViewTongTien.setText(String.valueOf(TongTien));
             }
         });
@@ -281,9 +323,11 @@ public class SuatAn extends AppCompatActivity {
                     SLMiYBack -= 1;
                     AppUtil.SLMiYBack -=1;
                     TongTien -= 136000;
+                    TienChieuVe -= 136000;
                 }
                 textViewSLMiYBack.setText(String.valueOf(SLMiYBack));
                 textViewTongTien.setText(String.valueOf(TongTien));
+                textViewTienChieuVe.setText(String.valueOf(TienChieuVe));
             }
         });
 
@@ -294,7 +338,9 @@ public class SuatAn extends AppCompatActivity {
                 textViewSLBanhMiBack.setText(String.valueOf(SLBanhMiBack));
                 AppUtil.SLBanhMiBack +=1;
                 TongTien += 86000;
+                TienChieuVe += 86000;
                 textViewTongTien.setText(String.valueOf(TongTien));
+                textViewTienChieuVe.setText(String.valueOf(TienChieuVe));
             }
         });
 
@@ -308,9 +354,11 @@ public class SuatAn extends AppCompatActivity {
                     SLBanhMiBack -= 1;
                     AppUtil.SLBanhMiBack -=1;
                     TongTien -= 86000;
+                    TienChieuVe -= 86000;
                 }
                 textViewSLBanhMiBack.setText(String.valueOf(SLBanhMiBack));
                 textViewTongTien.setText(String.valueOf(TongTien));
+                textViewTienChieuVe.setText(String.valueOf(TienChieuVe));
             }
         });
 

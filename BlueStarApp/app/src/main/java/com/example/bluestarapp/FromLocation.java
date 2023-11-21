@@ -34,10 +34,6 @@ public class FromLocation extends AppCompatActivity {
         setContentView(R.layout.activity_from_location);
         initUI();
         getListAirportFromFirestore();
-
-        // Xử lý sự kiện khi người dùng chọn một mục từ danh sách sân bay
-
-
     }
 
     private void initUI() {
@@ -88,6 +84,5 @@ public class FromLocation extends AppCompatActivity {
         Intent intent = new Intent(FromLocation.this, SearchFlightActivity.class);
         startActivity(intent);
         finish();
-
     }
 }
