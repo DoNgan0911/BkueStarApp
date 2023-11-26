@@ -89,6 +89,7 @@ public class ThongTinHanhKhach extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AppUtil.edtTTHKName = edtTTHKName.getText().toString();
+                AppUtil.edtTTLHEmail=edtTTLHEmail.getText().toString();
                 if (radioButton1.isSelected()) {
                     AppUtil.GioiTinh = "Ông";
                 }

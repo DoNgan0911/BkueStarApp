@@ -111,12 +111,11 @@ public class MuaThemDichVu extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myintent = new Intent(MuaThemDichVu.this, TicketReview.class);
+                //Intent myintent = new Intent(MuaThemDichVu.this, TicketReview.class);
+                Intent myintent = new Intent(MuaThemDichVu.this, ticket_information.class);
                 startActivity(myintent);
             }
         });
-
-
 
 
 

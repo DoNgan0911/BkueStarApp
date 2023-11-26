@@ -8,6 +8,7 @@ public class AppUtil {
     public static String FromLocation = "Hà Nội";
     public static String ToLocation = "TPHCM";
     public static String OriginalPrice = "";
+    public static String edtTTLHEmail="";
     public static String edtTTHKName = "";
     public static String departureDay = "";
     public static String departueTime = "";
