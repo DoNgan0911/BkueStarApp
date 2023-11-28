@@ -32,8 +32,9 @@
         android:layout_height="550dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="550dp"
+            android:orientation="vertical"
+            android:id="@+id/layout_Parent_TTHK">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -336,106 +337,15 @@
                     app:layout_constraintStart_toEndOf="@+id/textView12"
                     app:layout_constraintTop_toBottomOf="@+id/edtTTLHSdt" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/textView50"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginStart="20dp"
                 android:gravity="center_vertical"
                 android:text="Thông tin hành khách"
-                android:textSize="20dp" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="50dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/border_thongtinhanhkhach">
-
-                <RadioGroup
-                    android:id="@+id/radioGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:ignore="MissingConstraints">
-
-
-                    <RadioButton
-                        android:id="@+id/radioButton1"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="0dp"
-                        android:layout_marginTop="16dp"
-                        android:checked="true"
-                        android:text="Nam"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <RadioButton
-                        android:id="@+id/radioButton2"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="0dp"
-                        android:layout_marginTop="16dp"
-                        android:text="Nữ"
-                        app:layout_constraintStart_toEndOf="@+id/radioButton1"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </RadioGroup>
-
-                <TextView
-                    android:id="@+id/textViewHoTen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="36dp"
-                    android:layout_marginTop="80dp"
-                    android:gravity="center"
-                    android:text="Họ và tên"
-                    android:textSize="17dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <EditText
-                    android:id="@+id/edtTTHKName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="44dp"
-                    android:layout_marginTop="16dp"
-                    android:ems="10"
-                    android:hint="VD: NGO TAT TO"
-
-                    app:layout_constraintStart_toEndOf="@+id/textViewHoTen"
-                    app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
-                <TextView
-
-                    android:id="@+id/textViewNgaySinh"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="36dp"
-                    android:layout_marginTop="28dp"
-                    android:gravity="center"
-                    android:text="Ngày sinh"
-                    android:textSize="17dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewHoTen" />
-
-                <EditText
-                    android:id="@+id/edtTTHKNgaySinh"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginTop="28dp"
-                    android:ems="10"
-                    android:inputType="date"
-                    android:hint="VD: 01/01/2000"
-                    app:layout_constraintStart_toEndOf="@+id/textViewNgaySinh"
-                    app:layout_constraintTop_toBottomOf="@+id/edtTTHKName" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:textSize="20dp"
+                />
 
         </LinearLayout>
     </ScrollView>

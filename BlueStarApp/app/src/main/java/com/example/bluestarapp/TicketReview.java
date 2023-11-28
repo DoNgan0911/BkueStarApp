@@ -44,9 +44,7 @@ public class TicketReview extends AppCompatActivity {
 
         if (AppUtil.KhuHoi == 0) layoutChieuVe.setVisibility(View.GONE);
 
-        ongOrBa.setText(AppUtil.GioiTinh);
-        name.setText(AppUtil.edtTTHKName);
-        ngaySinh.setText(AppUtil.NgaySinhHK);
+
         toReview.setText(AppUtil.ToLocation);
         fromReview.setText(AppUtil.FromLocation);
         dayGo.setText(AppUtil.departureDay);
@@ -54,9 +52,7 @@ public class TicketReview extends AppCompatActivity {
         for (int i = 0; i < AppUtil.SLVe; i++) {
             gheNgoi.setText(gheNgoi.getText() + AppUtil.GheDaChon[i] + " ");
         }
-        ongOrBaBack.setText(AppUtil.GioiTinh);
-        nameBack.setText(AppUtil.edtTTHKName);
-        ngaySinhBack.setText(AppUtil.NgaySinhHK);
+
         toReviewBack.setText(AppUtil.FromLocation);
         fromReviewBack.setText(AppUtil.ToLocation);
         dayGoBack.setText(AppUtil.backDay);

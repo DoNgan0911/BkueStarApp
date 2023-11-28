@@ -1,28 +1,36 @@
 package com.example.bluestarapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class HanhLyKyGui extends AppCompatActivity {
 
-    LinearLayout layout20kg,layout30kg,layout40kg,layout50kg,layout60kg,layout70kg, layoutKhuHoi;
-    LinearLayout layout20kgBack,layout30kgBack,layout40kgBack,layout50kgBack,layout60kgBack,layout70kgBack;
-    TextView textViewTongTien, fromLocation, toLocation, fromLocationBack, toLocationBack, hovaten, hovatenBack;
+
+    TextView textViewTongTien, fromLocation, toLocation, fromLocationBack, toLocationBack, hovaten;
     ImageView imageViewBack;
     Button btnNext;
+    LinearLayout linearLayout_Parent;
 
-    int i =0 ,j = 0;
+    int[] l = new int[0];
+
     int Tong = Integer.parseInt(AppUtil.OriginalPrice);
     int TongTien = Tong;
+    int[] TienTungNguoi = new int[0];
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -30,19 +38,6 @@ public class HanhLyKyGui extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hanh_ly_ky_gui);
 
-        layoutKhuHoi = findViewById(R.id.layoutKhuHoi);
-        layout20kg = findViewById(R.id.layout20kg);
-        layout30kg = findViewById(R.id.layout30kg);
-        layout40kg = findViewById(R.id.layout40kg);
-        layout50kg = findViewById(R.id.layout50kg);
-        layout60kg = findViewById(R.id.layout60kg);
-        layout70kg = findViewById(R.id.layout70kg);
-        layout20kgBack = findViewById(R.id.layout20kgBack);
-        layout30kgBack = findViewById(R.id.layout30kgBack);
-        layout40kgBack = findViewById(R.id.layout40kgBack);
-        layout50kgBack = findViewById(R.id.layout50kgBack);
-        layout60kgBack = findViewById(R.id.layout60kgBack);
-        layout70kgBack = findViewById(R.id.layout70kgBack);
         textViewTongTien = findViewById(R.id.textViewTongTien);
         btnNext = findViewById(R.id.btnNext);
         fromLocation = findViewById(R.id.fromLocation);
@@ -50,324 +45,443 @@ public class HanhLyKyGui extends AppCompatActivity {
         fromLocationBack = findViewById(R.id.fromLocationBack);
         toLocationBack = findViewById(R.id.toLocationBack);
         hovaten = findViewById(R.id.hovaten);
-        hovatenBack = findViewById(R.id.hovatenBack);
         imageViewBack = findViewById(R.id.imageViewBack);
+        linearLayout_Parent = findViewById(R.id.linearLayout_Parent);
 
 
-        fromLocation.setText(AppUtil.FromLocation);
-        toLocation.setText(AppUtil.ToLocation);
-        fromLocationBack.setText(AppUtil.ToLocation);
-        toLocationBack.setText(AppUtil.FromLocation);
         textViewTongTien.setText(AppUtil.OriginalPrice);
-        hovaten.setText(AppUtil.edtTTHKName);
-        hovatenBack.setText(AppUtil.edtTTHKName);
-
-        if(AppUtil.KhuHoi==0) layoutKhuHoi.setVisibility(View.GONE);
-
-        if (DataLocalManager.getIntStatusI() == 2) {
-            layout20kg.setBackgroundResource(R.color.blue);
-            i = 2;
-        }
-        else if (DataLocalManager.getIntStatusI() == 3){
-            layout30kg.setBackgroundResource(R.color.blue);
-            i = 3;
-        }
-        else if (DataLocalManager.getIntStatusI() == 4){
-            layout40kg.setBackgroundResource(R.color.blue);
-            i = 4;
-        }
-        else if (DataLocalManager.getIntStatusI() == 5){
-            layout50kg.setBackgroundResource(R.color.blue);
-            i = 5;
-        }
-        else if (DataLocalManager.getIntStatusI() == 6){
-            layout60kg.setBackgroundResource(R.color.blue);
-            i = 6;
-        }
-        else if (DataLocalManager.getIntStatusI() == 7){
-            layout70kg.setBackgroundResource(R.color.blue);
-            i = 7;
-        }
-
-        if (DataLocalManager.getIntStatusJ() == 2) {
-            layout20kgBack.setBackgroundResource(R.color.blue);
-            j = 2;
-        }
-        else if (DataLocalManager.getIntStatusJ() == 3){
-            layout30kgBack.setBackgroundResource(R.color.blue);
-            j = 3;
-        }
-        else if (DataLocalManager.getIntStatusJ() == 4){
-            layout40kgBack.setBackgroundResource(R.color.blue);
-            j = 4;
-        }
-        else if (DataLocalManager.getIntStatusJ() == 5){
-            layout50kgBack.setBackgroundResource(R.color.blue);
-            j = 5;
-        }
-        else if (DataLocalManager.getIntStatusJ() == 6){
-            layout60kgBack.setBackgroundResource(R.color.blue);
-            j = 6;
-        }
-        else if (DataLocalManager.getIntStatusJ() == 7){
-            layout70kgBack.setBackgroundResource(R.color.blue);
-            j = 7;
-        }
 
 
 
-        layout20kg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (i == 2 ) {
-                    checkPriceGo();
-                    offBackgroundDepart();
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    i = 0;
-                }
-                else {
-                    checkPriceGo();
-                    offBackgroundDepart();
-                    layout20kg.setBackgroundResource(R.color.blue);
-                    TongTien += 200000;
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    i = 2;
-                }
-            }
-        });
+        int soLuongVe = AppUtil.SLVe;
+        if (AppUtil.KhuHoi == 1) {
+            TienTungNguoi = new int[soLuongVe * 2];
+            l = new int[soLuongVe * 2];
+        }
+        else {
+            TienTungNguoi = new int[soLuongVe];
+            l = new int[soLuongVe];
+        }
 
-        layout30kg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ( i == 3){
-                    checkPriceGo();
-                    offBackgroundDepart();
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    i = 0;
-                }
-                else {
-                    checkPriceGo();
-                    offBackgroundDepart();
-                    layout30kg.setBackgroundResource(R.color.blue);
-                    TongTien += 300000;
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    i = 3;
-                }
-            }
-        });
-        layout40kg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (i ==4 ){
-                    checkPriceGo();
-                    offBackgroundDepart();
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    i = 0;
-                }
-                else {
-                    checkPriceGo();
-                    offBackgroundDepart();
-                    layout40kg.setBackgroundResource(R.color.blue);
-                    TongTien += 400000;
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    i = 4;
-                }
-            }
-        });
-        layout50kg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (i == 5) {
-                    checkPriceGo();
-                    offBackgroundDepart();
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    i = 0;
-                }
-                else {
-                    checkPriceGo();
-                    offBackgroundDepart();
-                    layout50kg.setBackgroundResource(R.color.blue);
-                    TongTien += 500000;
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    i = 5;
-                }
-            }
-        });
-        layout60kg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (i == 6){
-                    checkPriceGo();
-                    offBackgroundDepart();
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    i = 0;
-                }
-                else {
-                    checkPriceGo();
-                    offBackgroundDepart();
-                    layout60kg.setBackgroundResource(R.color.blue);
-                    TongTien += 600000;
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    i = 6;
-                }
-            }
-        });
-        layout70kg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (i==7){
-                    checkPriceGo();
-                    offBackgroundDepart();
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    i = 0;
-                }
-                else {
-                    checkPriceGo();
-                    offBackgroundDepart();
-                    layout70kg.setBackgroundResource(R.color.blue);
-                    TongTien += 700000;
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    i = 7;
-                }
-            }
-        });
 
-        layout20kgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (j==2) {
-                    checkPriceBack();
-                    offBackgroundBack();
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    j = 0;
-                }
-                else {
-                    checkPriceBack();
-                    offBackgroundBack();
-                    layout20kgBack.setBackgroundResource(R.color.blue);
-                    TongTien += 200000;
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    j = 2;
-                }
-            }
-        });
+        for (int i =0; i < soLuongVe;i++) TienTungNguoi[i] = 0;
 
-        layout30kgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (j==3) {
-                    checkPriceBack();
-                    offBackgroundBack();
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    j = 0;
+
+
+
+
+
+
+        for (int i = 0; i < soLuongVe; i++) {
+            // Tạo mới layoutTTHK
+            LinearLayout childLayoutHLKGChieuDi = (LinearLayout) getLayoutInflater().inflate(R.layout.child_hanhlykygui_chieudi, null);
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            layoutParams.setMargins(0, 0, 0, 16);  // Đặt khoảng cách dưới là 16dp
+
+            childLayoutHLKGChieuDi.setLayoutParams(layoutParams);
+
+
+
+            childLayoutHLKGChieuDi.setId(View.generateViewId());
+            TextView fromLocation = childLayoutHLKGChieuDi.findViewById(R.id.fromLocation);
+            TextView toLocation = childLayoutHLKGChieuDi.findViewById(R.id.toLocation);
+            TextView hovaten = childLayoutHLKGChieuDi.findViewById(R.id.hovaten);
+
+            fromLocation.setText(AppUtil.FromLocation);
+            toLocation.setText(AppUtil.ToLocation);
+            hovaten.setText(AppUtil.edtTTHKName[i]);
+
+
+            linearLayout_Parent.addView(childLayoutHLKGChieuDi);
+
+        }
+
+        for (int i = 0; i<soLuongVe;i++) {
+
+            final int finalI = i;
+            LinearLayout childLayout = (LinearLayout) linearLayout_Parent.getChildAt(i);
+            LinearLayout layout20kg = childLayout.findViewById(R.id.layout20kg);
+            LinearLayout layout30kg = childLayout.findViewById(R.id.layout30kg);
+            LinearLayout layout40kg = childLayout.findViewById(R.id.layout40kg);
+            LinearLayout layout50kg = childLayout.findViewById(R.id.layout50kg);
+            LinearLayout layout60kg = childLayout.findViewById(R.id.layout60kg);
+            LinearLayout layout70kg = childLayout.findViewById(R.id.layout70kg);
+
+            setBeforeLayout(layout20kg,layout30kg,layout40kg,layout50kg,layout60kg,layout70kg, finalI);
+
+            Log.e("TongTien", "TongTien: " + TongTien);
+
+            layout20kg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (l[finalI] == 2 ) {
+                        TienTungNguoi[finalI] -= 200000;
+                        TongTien -= 200000;
+                        layout20kg.setBackgroundResource(R.color.white);
+                        textViewTongTien.setText(String.valueOf(TongTien));
+                        l[finalI] = 0;
+                        Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                    }
+                    else {
+                        checkPriceGo(finalI);
+                        checkPriceGoTongTien(finalI);
+                        resetBackground(layout20kg,layout30kg,layout40kg,layout50kg,layout60kg,layout70kg);
+                        layout20kg.setBackgroundResource(R.color.blue);
+                        TienTungNguoi[finalI] += 200000;
+                        TongTien += TienTungNguoi[finalI];
+                        textViewTongTien.setText(String.valueOf( TongTien));
+                        AppUtil.KG[finalI] = "20kg";
+                        l[finalI] = 2;
+                        Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                    }
+                    AppUtil.OriginalPrice = String.valueOf( TongTien);
                 }
-                else {
-                    checkPriceBack();
-                    offBackgroundBack();
-                    layout30kgBack.setBackgroundResource(R.color.blue);
-                    TongTien += 300000;
-                    textViewTongTien.setText(String.valueOf(TongTien));
+            });
+            layout30kg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if ( l[finalI] == 3){
+                        TienTungNguoi[finalI] -= 300000;
+                        TongTien -= 300000;
+                        layout30kg.setBackgroundResource(R.color.white);
+                        textViewTongTien.setText(String.valueOf( TongTien));
+                        l[finalI] = 0;
+                        Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+
+                    }
+                    else {
+                        checkPriceGo(finalI);
+                        checkPriceGoTongTien(finalI);
+                        resetBackground(layout20kg,layout30kg,layout40kg,layout50kg,layout60kg,layout70kg);
+                        layout30kg.setBackgroundResource(R.color.blue);
+                        TienTungNguoi[finalI] += 300000;
+                        TongTien += TienTungNguoi[finalI];
+                        textViewTongTien.setText(String.valueOf( TongTien));
+                        AppUtil.KG[finalI] = "30kg";
+                        l[finalI] = 3;
+                        Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                    }
                     AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    j = 3;
                 }
+            });
+            layout40kg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (l[finalI] ==4 ){
+                        TienTungNguoi[finalI] -= 400000;
+                        TongTien -= 400000;
+                        layout40kg.setBackgroundResource(R.color.white);
+                        textViewTongTien.setText(String.valueOf(TongTien));
+                        l[finalI] = 0;
+                        Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                    }
+                    else {
+                        checkPriceGo(finalI);
+                        checkPriceGoTongTien(finalI);
+                        resetBackground(layout20kg,layout30kg,layout40kg,layout50kg,layout60kg,layout70kg);
+                        layout40kg.setBackgroundResource(R.color.blue);
+                        TienTungNguoi[finalI] += 400000;
+                        TongTien += TienTungNguoi[finalI];
+                        textViewTongTien.setText(String.valueOf( TongTien));
+                        AppUtil.KG[finalI] = "40kg";
+                        l[finalI] = 4;
+                        Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                    }
+                    AppUtil.OriginalPrice = String.valueOf(TongTien);
+                }
+            });
+
+            layout50kg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (l[finalI] ==5 ){
+                        TienTungNguoi[finalI] -= 500000;
+                        TongTien -= 500000;
+                        layout50kg.setBackgroundResource(R.color.white);
+                        textViewTongTien.setText(String.valueOf(TongTien));
+                        l[finalI] = 0;
+                        Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                    }
+                    else {
+                        checkPriceGo(finalI);
+                        checkPriceGoTongTien(finalI);
+                        resetBackground(layout20kg,layout30kg,layout40kg,layout50kg,layout60kg,layout70kg);
+                        layout50kg.setBackgroundResource(R.color.blue);
+                        TienTungNguoi[finalI] += 500000;
+                        TongTien += TienTungNguoi[finalI];
+                        textViewTongTien.setText(String.valueOf( TongTien));
+                        AppUtil.KG[finalI] = "50kg";
+                        l[finalI] = 5;
+                        Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                    }
+                    AppUtil.OriginalPrice = String.valueOf(TongTien);
+                }
+            });
+            layout60kg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (l[finalI] ==6 ){
+                        TienTungNguoi[finalI] -= 600000;
+                        TongTien -= 600000;
+                        layout60kg.setBackgroundResource(R.color.white);
+                        textViewTongTien.setText(String.valueOf(TongTien));
+                        l[finalI] = 0;
+                        Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                    }
+                    else {
+                        checkPriceGo(finalI);
+                        checkPriceGoTongTien(finalI);
+                        resetBackground(layout20kg,layout30kg,layout40kg,layout50kg,layout60kg,layout70kg);
+                        layout60kg.setBackgroundResource(R.color.blue);
+                        TienTungNguoi[finalI] += 600000;
+                        TongTien += TienTungNguoi[finalI];
+                        textViewTongTien.setText(String.valueOf( TongTien));
+                        AppUtil.KG[finalI] = "60kg";
+                        l[finalI] = 6;
+                        Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                    }
+                    AppUtil.OriginalPrice = String.valueOf(TongTien);
+                }
+            });
+            layout70kg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (l[finalI] ==7 ){
+                        TienTungNguoi[finalI] -= 700000;
+                        TongTien -= 700000;
+                        layout70kg.setBackgroundResource(R.color.white);
+                        textViewTongTien.setText(String.valueOf(TongTien));
+                        l[finalI] = 0;
+                        Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                    }
+                    else {
+                        checkPriceGo(finalI);
+                        checkPriceGoTongTien(finalI);
+                        resetBackground(layout20kg,layout30kg,layout40kg,layout50kg,layout60kg,layout70kg);
+                        layout70kg.setBackgroundResource(R.color.blue);
+                        TienTungNguoi[finalI] += 700000;
+                        TongTien += TienTungNguoi[finalI];
+                        textViewTongTien.setText(String.valueOf( TongTien));
+                        AppUtil.KG[finalI] = "70kg";
+                        l[finalI] = 7;
+                        Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                    }
+                    AppUtil.OriginalPrice = String.valueOf(TongTien);
+                }
+            });
+        }
+
+
+        if (AppUtil.KhuHoi == 1) {
+            for (int i = 0; i < soLuongVe; i++) {
+
+                LinearLayout childLayoutHLKGChieuVe = (LinearLayout) getLayoutInflater().inflate(R.layout.child_hanhlykygui_chieuve, null);
+
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+                layoutParams.setMargins(0, 0, 0, 16);  // Đặt khoảng cách dưới là 16dp
+
+                childLayoutHLKGChieuVe.setLayoutParams(layoutParams);
+
+
+                childLayoutHLKGChieuVe.setId(View.generateViewId());
+                TextView fromLocation = childLayoutHLKGChieuVe.findViewById(R.id.fromLocationBack);
+                TextView toLocation = childLayoutHLKGChieuVe.findViewById(R.id.toLocationBack);
+                TextView hovaten = childLayoutHLKGChieuVe.findViewById(R.id.hovaten);
+
+                fromLocation.setText(AppUtil.ToLocation);
+                toLocation.setText(AppUtil.FromLocation);
+
+
+                linearLayout_Parent.addView(childLayoutHLKGChieuVe);
 
             }
-        });
-        layout40kgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (j==4) {
-                    checkPriceBack();
-                    offBackgroundBack();
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    j = 0;
-                }
-                else {
-                    checkPriceBack();
-                    offBackgroundBack();
-                    layout40kgBack.setBackgroundResource(R.color.blue);
-                    TongTien += 400000;
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    j = 4;
-                }
+
+            for (int i = soLuongVe; i<soLuongVe*2;i++) {
+
+                final int finalI = i;
+                LinearLayout childLayout = (LinearLayout) linearLayout_Parent.getChildAt(i);
+                LinearLayout layout20kgBack = childLayout.findViewById(R.id.layout20kgBack);
+                LinearLayout layout30kgBack = childLayout.findViewById(R.id.layout30kgBack);
+                LinearLayout layout40kgBack = childLayout.findViewById(R.id.layout40kgBack);
+                LinearLayout layout50kgBack = childLayout.findViewById(R.id.layout50kgBack);
+                LinearLayout layout60kgBack = childLayout.findViewById(R.id.layout60kgBack);
+                LinearLayout layout70kgBack = childLayout.findViewById(R.id.layout70kgBack);
+
+                setBeforeLayout(layout20kgBack,layout30kgBack,layout40kgBack,layout50kgBack,layout60kgBack,layout70kgBack, finalI);
+
+                layout20kgBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (l[finalI] == 2 ) {
+                            TienTungNguoi[finalI] -= 200000;
+                            TongTien -= 200000;
+                            layout20kgBack.setBackgroundResource(R.color.white);
+                            textViewTongTien.setText(String.valueOf(TongTien));
+                            l[finalI] = 0;
+                            Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        }
+                        else {
+                            checkPriceGo(finalI);
+                            checkPriceGoTongTien(finalI);
+                            resetBackground(layout20kgBack,layout30kgBack,layout40kgBack,layout50kgBack,layout60kgBack,layout70kgBack);
+                            layout20kgBack.setBackgroundResource(R.color.blue);
+                            TienTungNguoi[finalI] += 200000;
+                            TongTien += TienTungNguoi[finalI];
+                            textViewTongTien.setText(String.valueOf( TongTien));
+                            AppUtil.KG[finalI] = "20kg";
+                            l[finalI] = 2;
+                            Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        }
+                        AppUtil.OriginalPrice = String.valueOf( TongTien);
+                    }
+                });
+                layout30kgBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if ( l[finalI] == 3){
+                            TienTungNguoi[finalI] -= 300000;
+                            TongTien -= 300000;
+                            layout30kgBack.setBackgroundResource(R.color.white);
+                            textViewTongTien.setText(String.valueOf( TongTien));
+                            l[finalI] = 0;
+                            Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+
+                        }
+                        else {
+                            checkPriceGo(finalI);
+                            checkPriceGoTongTien(finalI);
+                            resetBackground(layout20kgBack,layout30kgBack,layout40kgBack,layout50kgBack,layout60kgBack,layout70kgBack);
+                            layout30kgBack.setBackgroundResource(R.color.blue);
+                            TienTungNguoi[finalI] += 300000;
+                            TongTien += TienTungNguoi[finalI];
+                            textViewTongTien.setText(String.valueOf( TongTien));
+                            AppUtil.KG[finalI] = "30kg";
+                            l[finalI] = 3;
+                            Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        }
+                        AppUtil.OriginalPrice = String.valueOf(TongTien);
+                    }
+                });
+                layout40kgBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (l[finalI] ==4 ){
+                            TienTungNguoi[finalI] -= 400000;
+                            TongTien -= 400000;
+                            layout40kgBack.setBackgroundResource(R.color.white);
+                            textViewTongTien.setText(String.valueOf(TongTien));
+                            l[finalI] = 0;
+                            Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        }
+                        else {
+                            checkPriceGo(finalI);
+                            checkPriceGoTongTien(finalI);
+                            resetBackground(layout20kgBack,layout30kgBack,layout40kgBack,layout50kgBack,layout60kgBack,layout70kgBack);
+                            layout40kgBack.setBackgroundResource(R.color.blue);
+                            TienTungNguoi[finalI] += 400000;
+                            TongTien += TienTungNguoi[finalI];
+                            textViewTongTien.setText(String.valueOf( TongTien));
+                            AppUtil.KG[finalI] = "40kg";
+                            l[finalI] = 4;
+                            Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        }
+                        AppUtil.OriginalPrice = String.valueOf(TongTien);
+                    }
+                });
+
+                layout50kgBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (l[finalI] ==5 ){
+                            TienTungNguoi[finalI] -= 500000;
+                            TongTien -= 500000;
+                            layout50kgBack.setBackgroundResource(R.color.white);
+                            textViewTongTien.setText(String.valueOf(TongTien));
+                            l[finalI] = 0;
+                            Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        }
+                        else {
+                            checkPriceGo(finalI);
+                            checkPriceGoTongTien(finalI);
+                            resetBackground(layout20kgBack,layout30kgBack,layout40kgBack,layout50kgBack,layout60kgBack,layout70kgBack);
+                            layout50kgBack.setBackgroundResource(R.color.blue);
+                            TienTungNguoi[finalI] += 500000;
+                            TongTien += TienTungNguoi[finalI];
+                            textViewTongTien.setText(String.valueOf( TongTien));
+                            AppUtil.KG[finalI] = "50kg";
+                            l[finalI] = 5;
+                            Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        }
+                        AppUtil.OriginalPrice = String.valueOf(TongTien);
+                    }
+                });
+                layout60kgBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (l[finalI] ==6 ){
+                            TienTungNguoi[finalI] -= 600000;
+                            TongTien -= 600000;
+                            layout60kgBack.setBackgroundResource(R.color.white);
+                            textViewTongTien.setText(String.valueOf(TongTien));
+                            l[finalI] = 0;
+                            Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        }
+                        else {
+                            checkPriceGo(finalI);
+                            checkPriceGoTongTien(finalI);
+                            resetBackground(layout20kgBack,layout30kgBack,layout40kgBack,layout50kgBack,layout60kgBack,layout70kgBack);
+                            layout60kgBack.setBackgroundResource(R.color.blue);
+                            TienTungNguoi[finalI] += 600000;
+                            TongTien += TienTungNguoi[finalI];
+                            textViewTongTien.setText(String.valueOf( TongTien));
+                            AppUtil.KG[finalI] = "60kg";
+                            l[finalI] = 6;
+                            Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        }
+                        AppUtil.OriginalPrice = String.valueOf(TongTien);
+                    }
+                });
+                layout70kgBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (l[finalI] ==7 ){
+                            TienTungNguoi[finalI] -= 700000;
+                            TongTien -= 700000;
+                            layout70kgBack.setBackgroundResource(R.color.white);
+                            textViewTongTien.setText(String.valueOf(TongTien));
+                            l[finalI] = 0;
+                            Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        }
+                        else {
+                            checkPriceGo(finalI);
+                            checkPriceGoTongTien(finalI);
+                            resetBackground(layout20kgBack,layout30kgBack,layout40kgBack,layout50kgBack,layout60kgBack,layout70kgBack);
+                            layout70kgBack.setBackgroundResource(R.color.blue);
+                            TienTungNguoi[finalI] += 700000;
+                            TongTien += TienTungNguoi[finalI];
+                            textViewTongTien.setText(String.valueOf( TongTien));
+                            AppUtil.KG[finalI] = "70kg";
+                            l[finalI] = 7;
+                            Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        }
+                        AppUtil.OriginalPrice = String.valueOf(TongTien);
+                    }
+                });
+
             }
-        });
-        layout50kgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (j==5){
-                    checkPriceBack();
-                    offBackgroundBack();
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    j = 0;
-                } else {
-                    checkPriceBack();
-                    offBackgroundBack();
-                    layout50kgBack.setBackgroundResource(R.color.blue);
-                    TongTien += 500000;
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    j = 5;
-                }
-            }
-        });
-        layout60kgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (j==6) {
-                    checkPriceBack();
-                    offBackgroundBack();
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    j = 0;
-                } else {
-                    checkPriceBack();
-                    offBackgroundBack();
-                    layout60kgBack.setBackgroundResource(R.color.blue);
-                    TongTien += 600000;
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    j = 6;
-                }
-            }
-        });
-        layout70kgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (j==7){
-                    checkPriceBack();
-                    offBackgroundBack();
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    j = 0;
-                } else {
-                    checkPriceBack();
-                    offBackgroundBack();
-                    layout70kgBack.setBackgroundResource(R.color.blue);
-                    TongTien += 700000;
-                    textViewTongTien.setText(String.valueOf(TongTien));
-                    AppUtil.OriginalPrice = String.valueOf(TongTien);
-                    j = 7;
-                }
-            }
-        });
+        }
+
+
+
+
+
 
 
 
@@ -375,8 +489,6 @@ public class HanhLyKyGui extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AppUtil.OriginalPrice = String.valueOf(TongTien);
-                DataLocalManager.setIntStatusI(i);
-                DataLocalManager.setIntStatusJ(j);
                 Intent myintent = new Intent(HanhLyKyGui.this, MuaThemDichVu.class);
                 startActivity(myintent);
             }
@@ -386,8 +498,6 @@ public class HanhLyKyGui extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AppUtil.OriginalPrice = String.valueOf(TongTien);
-                DataLocalManager.setIntStatusI(i);
-                DataLocalManager.setIntStatusJ(j);
                 Intent myintent = new Intent(HanhLyKyGui.this, MuaThemDichVu.class);
                 startActivity(myintent);
             }
@@ -397,78 +507,68 @@ public class HanhLyKyGui extends AppCompatActivity {
     }
 
 
-    private void applySelectedState(int selectedGo, int selectedBack) {
-
-
-        if (selectedGo == 2) {
-            layout20kg.setBackgroundResource(R.color.blue);
-        } else if (selectedGo == 3) {
-            layout30kg.setBackgroundResource(R.color.blue);
-        } else if (selectedGo == 4) {
-            layout40kg.setBackgroundResource(R.color.blue);
-        } else if (selectedGo == 5) {
-            layout50kg.setBackgroundResource(R.color.blue);
-        } else if (selectedGo == 6) {
-            layout60kg.setBackgroundResource(R.color.blue);
-        } else if (selectedGo == 7) {
-            layout70kg.setBackgroundResource(R.color.blue);
+    private void setBeforeLayout(LinearLayout a, LinearLayout b,LinearLayout c,LinearLayout x,LinearLayout y,LinearLayout z, int i){
+        if (AppUtil.KG[i].equals("20kg")) {
+            a.setBackgroundResource(R.color.blue);
+            l[i] = 2;
         }
-
-
-
-        if (selectedBack == 2) {
-            layout20kgBack.setBackgroundResource(R.color.blue);
-        } else if (selectedBack == 3) {
-            layout30kgBack.setBackgroundResource(R.color.blue);
-        } else if (selectedBack == 4) {
-            layout40kgBack.setBackgroundResource(R.color.blue);
-        } else if (selectedBack == 5) {
-            layout50kgBack.setBackgroundResource(R.color.blue);
-        } else if (selectedBack == 6) {
-            layout60kgBack.setBackgroundResource(R.color.blue);
-        } else if (selectedBack == 7) {
-            layout70kgBack.setBackgroundResource(R.color.blue);
+        else if (AppUtil.KG[i].equals("30kg")){
+            b.setBackgroundResource(R.color.blue);
+            l[i] = 3;
+        }
+        else if (AppUtil.KG[i].equals("40kg")){
+            c.setBackgroundResource(R.color.blue);
+            l[i] = 4;
+        }
+        else if (AppUtil.KG[i].equals("20kg")){
+            x.setBackgroundResource(R.color.blue);
+            l[i] = 5;
+        }
+        else if (AppUtil.KG[i].equals("20kg")){
+            y.setBackgroundResource(R.color.blue);
+            l[i] = 6;
+        }
+        else if (AppUtil.KG[i].equals("20kg")){
+            z.setBackgroundResource(R.color.blue);
+            l[i] = 7;
         }
     }
-    private void offBackgroundDepart(){
-        layout20kg.setBackgroundResource(R.color.white);
-        layout30kg.setBackgroundResource(R.color.white);
-        layout40kg.setBackgroundResource(R.color.white);
-        layout50kg.setBackgroundResource(R.color.white);
-        layout60kg.setBackgroundResource(R.color.white);
-        layout70kg.setBackgroundResource(R.color.white);
+    public void resetBackground (LinearLayout a,LinearLayout b, LinearLayout c,LinearLayout x,LinearLayout y,LinearLayout z) {
+        a.setBackgroundResource(R.color.white);
+        b.setBackgroundResource(R.color.white);
+        c.setBackgroundResource(R.color.white);
+        x.setBackgroundResource(R.color.white);
+        y.setBackgroundResource(R.color.white);
+        z.setBackgroundResource(R.color.white);
     }
 
-    private void offBackgroundBack(){
-        layout20kgBack.setBackgroundResource(R.color.white);
-        layout30kgBack.setBackgroundResource(R.color.white);
-        layout40kgBack.setBackgroundResource(R.color.white);
-        layout50kgBack.setBackgroundResource(R.color.white);
-        layout60kgBack.setBackgroundResource(R.color.white);
-        layout70kgBack.setBackgroundResource(R.color.white);
+    public void checkPriceGo(int a){
+        if ( l[a] == 2) TienTungNguoi[a] -= 200000;
+        else if ( l[a] == 3) TienTungNguoi[a] -= 300000;
+        else if ( l[a] == 4) TienTungNguoi[a] -= 400000;
+        else if ( l[a] == 5) TienTungNguoi[a] -= 500000;
+        else if ( l[a] == 6) TienTungNguoi[a] -= 600000;
+        else if ( l[a] == 7) TienTungNguoi[a] -= 700000;
     }
-
-    public void checkPriceGo(){
-        if ( i == 2) TongTien -= 200000;
-        else if ( i == 3) TongTien -= 300000;
-        else if ( i == 4) TongTien -= 400000;
-        else if ( i == 5) TongTien -= 500000;
-        else if ( i == 6) TongTien -= 600000;
-        else if ( i == 7) TongTien -= 700000;
-
-
+    public void checkPriceGoTongTien(int a){
+        if ( l[a] == 2) TongTien -= 200000;
+        else if ( l[a] == 3) TongTien -= 300000;
+        else if ( l[a] == 4) TongTien -= 400000;
+        else if ( l[a] == 5) TongTien -= 500000;
+        else if ( l[a] == 6) TongTien -= 600000;
+        else if ( l[a] == 7) TongTien -= 700000;
     }
-
-    public void checkPriceBack(){
-        if ( j == 2) TongTien -= 200000;
-        else if ( j == 3) TongTien -= 300000;
-        else if ( j == 4) TongTien -= 400000;
-        else if ( j == 5) TongTien -= 500000;
-        else if ( j == 6) TongTien -= 600000;
-        else if ( j == 7) TongTien -= 700000;
-
-
-    }
+//
+//    public void checkPriceBack(){
+//        if ( j == 2) TongTien -= 200000;
+//        else if ( j == 3) TongTien -= 300000;
+//        else if ( j == 4) TongTien -= 400000;
+//        else if ( j == 5) TongTien -= 500000;
+//        else if ( j == 6) TongTien -= 600000;
+//        else if ( j == 7) TongTien -= 700000;
+//
+//
+//    }
 
 
 

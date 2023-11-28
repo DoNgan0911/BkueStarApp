@@ -27,6 +27,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    packaging {
+        resources.excludes.add("META-INF/LICENSE.md")
+        resources.excludes.add("META-INF/NOTICE.md")
+    }
 }
 
 dependencies {
@@ -50,6 +54,8 @@ dependencies {
 //    Storage
     implementation("com.google.firebase:firebase-storage:20.3.0")
 
+    implementation ("com.sun.mail:android-mail:1.6.6")
+    implementation ("com.sun.mail:android-activation:1.6.7")
 
 
 }

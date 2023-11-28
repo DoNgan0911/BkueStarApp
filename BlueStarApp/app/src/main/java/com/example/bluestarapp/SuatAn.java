@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,17 +22,17 @@ public class SuatAn extends AppCompatActivity {
 
     TextView textViewTienChieuDi, textViewTienChieuVe;
     Button btnNext;
-    int SLComChienChay = 0;
-    int SLComTam = 0;
-    int SLMiY = 0;
-    int SLBanhMi = 0;
+    int[] SLComChienChay = new int[0];
+    int[] SLComTam = new int[0];
+    int[] SLBanhMi= new int[0];
+    int[] SLMiY = new int[0];
     int SLComChienChayBack = 0;
     int SLComTamBack = 0;
     int SLMiYBack = 0;
     int SLBanhMiBack = 0;
 
     int TongTien = Integer.parseInt(String.valueOf(AppUtil.OriginalPrice));
-    LinearLayout layoutChieuVe;
+    LinearLayout linearLayout_Parent_SuatAn;
     int TienSuatAn = 0;
 
     int TienChieuDi  = 0;
@@ -42,15 +43,14 @@ public class SuatAn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suat_an);
 
+        linearLayout_Parent_SuatAn = findViewById(R.id.linearLayout_Parent_SuatAn);
+
         fromLocation = findViewById(R.id.fromLocation);
         toLocation = findViewById(R.id.toLocation);
         fromLocationBack = findViewById(R.id.fromLocationBack);
         toLocationBack = findViewById(R.id.toLocationBack);
         hovaten = findViewById(R.id.hovaten);
-        hovatenBack = findViewById(R.id.hovatenBack);
-        layoutChieuVe = findViewById(R.id.layoutChieuVe);
-        textViewTienChieuDi = findViewById(R.id.textViewTienChieuDi);
-        textViewTienChieuVe = findViewById(R.id.textViewTienChieuVe);
+
 
         imageViewUpComChienChay = findViewById(R.id.imageViewUpComChienChay);
         imageViewDownComChienChay = findViewById(R.id.imageViewDownComChienChay);
@@ -60,307 +60,370 @@ public class SuatAn extends AppCompatActivity {
         imageViewDownMiY = findViewById(R.id.imageViewDownMiY);
         imageViewUpBanhMi = findViewById(R.id.imageViewUpBanhMi);
         imageViewDownBanhMi = findViewById(R.id.imageViewDownBanhMi);
-        imageViewUpComChienChayBack = findViewById(R.id.imageViewUpComChienChayBack);
-        imageViewDownComChienChayBack = findViewById(R.id.imageViewDownComChienChayBack);
-        imageViewUpComTamBack = findViewById(R.id.imageViewUpComTamBack);
-        imageViewDownComTamBack = findViewById(R.id.imageViewDownComTamBack);
-        imageViewUpMiYBack = findViewById(R.id.imageViewUpMiYBack);
-        imageViewDownMiYBack = findViewById(R.id.imageViewDownMiYBack);
-        imageViewUpBanhMiBack = findViewById(R.id.imageViewUpBanhMiBack);
-        imageViewDownBanhMiBack = findViewById(R.id.imageViewDownBanhMiBack);
+
 
         textViewTongTien = findViewById(R.id.textViewTongTien);
         textViewSLComChienChay = findViewById(R.id.textViewSLComChienChay);
         textViewSLComTam = findViewById(R.id.textViewSLComTam);
         textViewSLMiY = findViewById(R.id.textViewSLMiY);
         textViewSLBanhMi = findViewById(R.id.textViewSLBanhMi);
-        textViewSLComChienChayBack = findViewById(R.id.textViewSLComChienChayBack);
-        textViewSLComTamBack = findViewById(R.id.textViewSLComTamBack);
-        textViewSLMiYBack = findViewById(R.id.textViewSLMiYBack);
-        textViewSLBanhMiBack = findViewById(R.id.textViewSLBanhMiBack);
+
         imageViewBack = findViewById(R.id.imageViewBack);
         btnNext = findViewById(R.id.btnNext);
 
 
-        if(AppUtil.KhuHoi==0) layoutChieuVe.setVisibility(View.GONE);
+
 
         textViewTongTien.setText(String.valueOf(TongTien));
 
-        fromLocation.setText(AppUtil.FromLocation);
-        toLocation.setText(AppUtil.ToLocation);
-        fromLocationBack.setText(AppUtil.ToLocation);
-        toLocationBack.setText(AppUtil.FromLocation);
-        hovaten.setText(AppUtil.edtTTHKName);
-        hovatenBack.setText(AppUtil.edtTTHKName);
-        textViewSLComChienChay.setText(String.valueOf(AppUtil.SLComChienChay));
-        textViewSLComTam.setText(String.valueOf(AppUtil.SLComTam));
-        textViewSLMiY.setText(String.valueOf(AppUtil.SLMiY));
-        textViewSLBanhMi.setText(String.valueOf(AppUtil.SLBanhMi));
-        textViewSLComChienChayBack.setText(String.valueOf(AppUtil.SLComChienChayBack));
-        textViewSLComTamBack.setText(String.valueOf(AppUtil.SLComTamBack));
-        textViewSLMiYBack.setText(String.valueOf(AppUtil.SLMiYBack));
-        textViewSLBanhMiBack.setText(String.valueOf(AppUtil.SLBanhMiBack));
-
-        SLComChienChay = AppUtil.SLComChienChay;
-        SLComTam = AppUtil.SLComTam;
-        SLMiY = AppUtil.SLMiY;
-        SLBanhMi = AppUtil.SLBanhMi;
-        SLComChienChayBack = AppUtil.SLComChienChayBack;
-        SLComTamBack = AppUtil.SLComTamBack;
-        SLMiYBack = AppUtil.SLMiYBack;
-        SLBanhMiBack = AppUtil.SLBanhMiBack;
 
 
 
+        int soLuongVe = AppUtil.SLVe;
 
-        imageViewUpComChienChay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SLComChienChay += 1;
-                textViewSLComChienChay.setText(String.valueOf(SLComChienChay));
-                AppUtil.SLComChienChay +=1;
-                TongTien += 236000;
-                textViewTongTien.setText(String.valueOf(TongTien));
-                TienChieuDi += 236000;
-                textViewTienChieuDi.setText(String.valueOf(TienChieuDi));
-            }
-        });
+        if (AppUtil.KhuHoi == 1) {
+            SLBanhMi = new int[soLuongVe * 2];
+            SLComChienChay = new int[soLuongVe * 2];
+            SLComTam = new int[soLuongVe * 2];
+            SLMiY = new int[soLuongVe * 2];
+        }
+        else {
+            SLBanhMi = new int[soLuongVe];
+            SLComChienChay = new int[soLuongVe];
+            SLComTam = new int[soLuongVe];
+            SLMiY = new int[soLuongVe];
+        }
+        for (int i = 0; i < soLuongVe; i++) {
+            // Tạo mới layoutTTHK
+            LinearLayout childLayoutSuatAnChieuDi = (LinearLayout) getLayoutInflater().inflate(R.layout.child_suatan_chieudi, null);
 
-        imageViewDownComChienChay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (SLComChienChay == 0) {
-                    SLComChienChay = 0;
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            layoutParams.setMargins(0, 0, 0, 16);  // Đặt khoảng cách dưới là 16dp
+
+            childLayoutSuatAnChieuDi.setLayoutParams(layoutParams);
+
+
+
+            childLayoutSuatAnChieuDi.setId(View.generateViewId());
+            TextView fromLocation = childLayoutSuatAnChieuDi.findViewById(R.id.fromLocation);
+            TextView toLocation = childLayoutSuatAnChieuDi.findViewById(R.id.toLocation);
+            TextView hovaten = childLayoutSuatAnChieuDi.findViewById(R.id.hovaten);
+
+            fromLocation.setText(AppUtil.FromLocation);
+            toLocation.setText(AppUtil.ToLocation);
+
+
+            linearLayout_Parent_SuatAn.addView(childLayoutSuatAnChieuDi);
+
+        }
+
+        for (int i = 0; i < soLuongVe;i++) {
+
+            final int finalI = i;
+            LinearLayout childLayout = (LinearLayout) linearLayout_Parent_SuatAn.getChildAt(i);
+            TextView textViewSLBanhMi = childLayout.findViewById(R.id.textViewSLBanhMi);
+            TextView textViewSLMiY = childLayout.findViewById(R.id.textViewSLMiY);
+            TextView textViewSLComTam = childLayout.findViewById(R.id.textViewSLComTam);
+            TextView textViewSLComChienChay = childLayout.findViewById(R.id.textViewSLComChienChay);
+
+            ImageView imageViewDownBanhMi = childLayout.findViewById(R.id.imageViewDownBanhMi);
+            ImageView imageViewDownMiY = childLayout.findViewById(R.id.imageViewDownMiY);
+            ImageView imageViewDownComTam = childLayout.findViewById(R.id.imageViewDownComTam);
+            ImageView imageViewDownComChienChay = childLayout.findViewById(R.id.imageViewDownComChienChay);
+            ImageView imageViewUpBanhMi = childLayout.findViewById(R.id.imageViewUpBanhMi);
+            ImageView imageViewUpMiY = childLayout.findViewById(R.id.imageViewUpMiY);
+            ImageView imageViewUpComTam = childLayout.findViewById(R.id.imageViewUpComTam);
+            ImageView imageViewUpComChienChay = childLayout.findViewById(R.id.imageViewUpComChienChay);
+
+            SLMiY[finalI] = AppUtil.SLMiY[finalI];
+            SLComTam[finalI] = AppUtil.SLComTam[finalI];
+            SLBanhMi[finalI] = AppUtil.SLBanhMi[finalI];
+            SLComChienChay[finalI] = AppUtil.SLComChienChay[finalI];
+            textViewSLComChienChay.setText(String.valueOf(AppUtil.SLComChienChay[finalI]));
+            textViewSLComTam.setText(String.valueOf(AppUtil.SLComTam[finalI]));
+            textViewSLMiY.setText(String.valueOf(AppUtil.SLMiY[finalI]));
+            textViewSLBanhMi.setText(String.valueOf(AppUtil.SLBanhMi[finalI]));
+
+            imageViewUpComChienChay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SLComChienChay[finalI] += 1;
+                    textViewSLComChienChay.setText(String.valueOf(SLComChienChay[finalI]));
+                    AppUtil.SLComChienChay[finalI] +=1;
+                    TongTien += 236000;
+                    textViewTongTien.setText(String.valueOf(TongTien));
                 }
-                else {
-                    SLComChienChay -= 1;
-                    AppUtil.SLComChienChay -=1;
-                    TongTien -= 236000;
-                    TienChieuDi -= 236000;
+            });
 
+            imageViewDownComChienChay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (SLComChienChay[finalI] == 0) {
+                        SLComChienChay[finalI] = 0;
+                    }
+                    else {
+                        SLComChienChay[finalI] -= 1;
+                        AppUtil.SLComChienChay[finalI] -=1;
+                        TongTien -= 236000;
+                    }
+                    textViewSLComChienChay.setText(String.valueOf(SLComChienChay[finalI]));
+                    textViewTongTien.setText(String.valueOf(TongTien));
                 }
-                textViewSLComChienChay.setText(String.valueOf(SLComChienChay));
-                textViewTongTien.setText(String.valueOf(TongTien));
-                textViewTienChieuDi.setText(String.valueOf(TienChieuDi));
-            }
-        });
+            });
 
-        imageViewUpComTam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SLComTam += 1;
-                textViewSLComTam.setText(String.valueOf(SLComTam));
-                AppUtil.SLComTam +=1;
-                TongTien += 186000;
-                textViewTongTien.setText(String.valueOf(TongTien));
-                TienChieuDi += 186000;
-                textViewTienChieuDi.setText(String.valueOf(TienChieuDi));
-            }
-        });
+            imageViewUpComTam.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SLComTam[finalI] += 1;
+                    textViewSLComTam.setText(String.valueOf(SLComTam[finalI]));
+                    AppUtil.SLComTam[finalI] +=1;
+                    TongTien += 186000;
+                    textViewTongTien.setText(String.valueOf(TongTien));
+                }
+            });
 
-        imageViewDownComTam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (SLComTam == 0) {
-                    SLComTam = 0;
+            imageViewDownComTam.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (SLComTam[finalI] == 0) {
+                        SLComTam[finalI] = 0;
+                    }
+                    else {
+                        SLComTam[finalI] -= 1;
+                        AppUtil.SLComTam[finalI] -=1;
+                        TongTien -= 186000;
+                    }
+                    textViewSLComTam.setText(String.valueOf(SLComTam[finalI]));
+                    textViewTongTien.setText(String.valueOf(TongTien));
                 }
-                else {
-                    SLComTam -= 1;
-                    AppUtil.SLComTam -=1;
-                    TongTien -= 186000;
-                    TienChieuDi -= 186000;
-                }
-                textViewSLComTam.setText(String.valueOf(SLComTam));
-                textViewTongTien.setText(String.valueOf(TongTien));
-                textViewTienChieuDi.setText(String.valueOf(TienChieuDi));
-            }
-        });
+            });
 
-        imageViewUpMiY.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SLMiY += 1;
-                textViewSLMiY.setText(String.valueOf(SLMiY));
-                AppUtil.SLMiY +=1;
-                TongTien += 136000;
-                TienChieuDi += 136000;
-                textViewTongTien.setText(String.valueOf(TongTien));
-                textViewTienChieuDi.setText(String.valueOf(TienChieuDi));
-            }
-        });
+            imageViewUpMiY.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SLMiY[finalI] += 1;
+                    textViewSLMiY.setText(String.valueOf(SLMiY[finalI]));
+                    AppUtil.SLMiY[finalI] +=1;
+                    TongTien += 136000;
+                    textViewTongTien.setText(String.valueOf(TongTien));
+                }
+            });
 
-        imageViewDownMiY.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (SLMiY == 0) {
-                    SLMiY = 0;
+            imageViewDownMiY.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (SLMiY[finalI] == 0) {
+                        SLMiY[finalI] = 0;
+                    }
+                    else {
+                        SLMiY[finalI] -= 1;
+                        AppUtil.SLMiY[finalI] -=1;
+                        TongTien -= 136000;
+                    }
+                    textViewSLMiY.setText(String.valueOf(SLMiY[finalI]));
+                    textViewTongTien.setText(String.valueOf(TongTien));
                 }
-                else {
-                    SLMiY -= 1;
-                    AppUtil.SLMiY -=1;
-                    TongTien -= 136000;
-                    TienChieuDi -= 136000;
-                }
-                textViewSLMiY.setText(String.valueOf(SLMiY));
-                textViewTongTien.setText(String.valueOf(TongTien));
-                textViewTienChieuDi.setText(String.valueOf(TienChieuDi));
-            }
-        });
+            });
 
-        imageViewUpBanhMi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SLBanhMi += 1;
-                textViewSLBanhMi.setText(String.valueOf(SLBanhMi));
-                AppUtil.SLBanhMi +=1;
-                TongTien += 86000;
-                TienChieuDi += 86000;
-                textViewTongTien.setText(String.valueOf(TongTien));
-                textViewTienChieuDi.setText(String.valueOf(TienChieuDi));
-            }
-        });
+            imageViewUpBanhMi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SLBanhMi[finalI] += 1;
+                    textViewSLBanhMi.setText(String.valueOf(SLBanhMi[finalI]));
+                    AppUtil.SLBanhMi[finalI] +=1;
+                    TongTien += 86000;
+                    textViewTongTien.setText(String.valueOf(TongTien));
+                }
+            });
 
-        imageViewDownBanhMi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (SLBanhMi == 0) {
-                    SLBanhMi = 0;
+            imageViewDownBanhMi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (SLBanhMi[finalI] == 0) {
+                        SLBanhMi[finalI] = 0;
+                    }
+                    else {
+                        SLBanhMi[finalI] -= 1;
+                        AppUtil.SLBanhMi[finalI] -=1;
+                        TongTien -= 86000;
+                    }
+                    textViewSLBanhMi.setText(String.valueOf(SLBanhMi[finalI]));
+                    textViewTongTien.setText(String.valueOf(TongTien));
                 }
-                else {
-                    SLBanhMi -= 1;
-                    AppUtil.SLBanhMi -=1;
-                    TongTien -= 86000;
-                    TienChieuDi -= 86000;
-                }
-                textViewSLBanhMi.setText(String.valueOf(SLBanhMi));
-                textViewTongTien.setText(String.valueOf(TongTien));
-                textViewTienChieuDi.setText(String.valueOf(TienChieuDi));
-            }
-        });
+            });
 
-        imageViewUpComChienChayBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SLComChienChayBack += 1;
-                textViewSLComChienChayBack.setText(String.valueOf(SLComChienChayBack));
-                AppUtil.SLComChienChayBack +=1;
-                TongTien += 236000;
-                TienChieuVe += 236000;
-                textViewTongTien.setText(String.valueOf(TongTien));
-                textViewTienChieuVe.setText(String.valueOf(TienChieuVe));
-            }
-        });
 
-        imageViewDownComChienChayBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (SLComChienChayBack == 0) {
-                    SLComChienChayBack = 0;
-                }
-                else {
-                    SLComChienChayBack -= 1;
-                    AppUtil.SLComChienChayBack -=1;
-                    TongTien -= 236000;
-                    TienChieuVe -= 236000;
-                }
-                textViewSLComChienChayBack.setText(String.valueOf(SLComChienChayBack));
-                textViewTongTien.setText(String.valueOf(TongTien));
-                textViewTienChieuVe.setText(String.valueOf(TienChieuVe));
-            }
-        });
+        }
 
-        imageViewUpComTamBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SLComTamBack += 1;
-                textViewSLComTamBack.setText(String.valueOf(SLComTamBack));
-                AppUtil.SLComTamBack +=1;
-                TongTien += 186000;
-                TienChieuVe += 186000;
-                textViewTongTien.setText(String.valueOf(TongTien));
-                textViewTienChieuVe.setText(String.valueOf(TienChieuVe));
-            }
-        });
+        if (AppUtil.KhuHoi == 1) {
+            for (int i = 0; i < soLuongVe; i++) {
+                LinearLayout childLayoutSuatAnChieuVe = (LinearLayout) getLayoutInflater().inflate(R.layout.child_suatan_chieuve, null);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+                layoutParams.setMargins(0, 0, 0, 16);  // Đặt khoảng cách dưới là 16dp
 
-        imageViewDownComTamBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (SLComTamBack == 0) {
-                    SLComTamBack = 0;
-                }
-                else {
-                    SLComTamBack -= 1;
-                    AppUtil.SLComTamBack -=1;
-                    TongTien -= 186000;
-                    TienChieuVe -= 186000;
-                }
-                textViewSLComTamBack.setText(String.valueOf(SLComTamBack));
-                textViewTongTien.setText(String.valueOf(TongTien));
-                textViewTienChieuVe.setText(String.valueOf(TienChieuVe));
-            }
-        });
+                childLayoutSuatAnChieuVe.setLayoutParams(layoutParams);
 
-        imageViewUpMiYBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SLMiYBack += 1;
-                textViewSLMiYBack.setText(String.valueOf(SLMiYBack));
-                AppUtil.SLMiYBack +=1;
-                TongTien += 136000;
-                TienChieuVe += 136000;
-                textViewTienChieuVe.setText(String.valueOf(TienChieuVe));
-                textViewTongTien.setText(String.valueOf(TongTien));
-            }
-        });
 
-        imageViewDownMiYBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (SLMiYBack == 0) {
-                    SLMiYBack = 0;
-                }
-                else {
-                    SLMiYBack -= 1;
-                    AppUtil.SLMiYBack -=1;
-                    TongTien -= 136000;
-                    TienChieuVe -= 136000;
-                }
-                textViewSLMiYBack.setText(String.valueOf(SLMiYBack));
-                textViewTongTien.setText(String.valueOf(TongTien));
-                textViewTienChieuVe.setText(String.valueOf(TienChieuVe));
-            }
-        });
 
-        imageViewUpBanhMiBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SLBanhMiBack += 1;
-                textViewSLBanhMiBack.setText(String.valueOf(SLBanhMiBack));
-                AppUtil.SLBanhMiBack +=1;
-                TongTien += 86000;
-                TienChieuVe += 86000;
-                textViewTongTien.setText(String.valueOf(TongTien));
-                textViewTienChieuVe.setText(String.valueOf(TienChieuVe));
-            }
-        });
+                childLayoutSuatAnChieuVe.setId(View.generateViewId());
+                TextView fromLocation = childLayoutSuatAnChieuVe.findViewById(R.id.fromLocation);
+                TextView toLocation = childLayoutSuatAnChieuVe.findViewById(R.id.toLocation);
+                TextView hovaten = childLayoutSuatAnChieuVe.findViewById(R.id.hovaten);
 
-        imageViewDownBanhMiBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (SLBanhMiBack == 0) {
-                    SLBanhMiBack = 0;
-                }
-                else {
-                    SLBanhMiBack -= 1;
-                    AppUtil.SLBanhMiBack -=1;
-                    TongTien -= 86000;
-                    TienChieuVe -= 86000;
-                }
-                textViewSLBanhMiBack.setText(String.valueOf(SLBanhMiBack));
-                textViewTongTien.setText(String.valueOf(TongTien));
-                textViewTienChieuVe.setText(String.valueOf(TienChieuVe));
+                fromLocation.setText(AppUtil.FromLocation);
+                toLocation.setText(AppUtil.ToLocation);
+
+
+                linearLayout_Parent_SuatAn.addView(childLayoutSuatAnChieuVe);
+
+
             }
-        });
+
+            for (int i = soLuongVe; i<soLuongVe*2;i++) {
+
+                final int finalI = i;
+                LinearLayout childLayout = (LinearLayout) linearLayout_Parent_SuatAn.getChildAt(i);
+
+                TextView textViewSLBanhMiBack = childLayout.findViewById(R.id.textViewSLBanhMiBack);
+                TextView textViewSLMiYBack = childLayout.findViewById(R.id.textViewSLMiYBack);
+                TextView textViewSLComTamBack = childLayout.findViewById(R.id.textViewSLComTamBack);
+                TextView textViewSLComChienChayBack = childLayout.findViewById(R.id.textViewSLComChienChayBack);
+
+                ImageView imageViewDownBanhMiBack = childLayout.findViewById(R.id.imageViewDownBanhMiBack);
+                ImageView imageViewDownMiYBack = childLayout.findViewById(R.id.imageViewDownMiYBack);
+                ImageView imageViewDownComTamBack = childLayout.findViewById(R.id.imageViewDownComTamBack);
+                ImageView imageViewDownComChienChayBack = childLayout.findViewById(R.id.imageViewDownComChienChayBack);
+                ImageView imageViewUpBanhMiBack = childLayout.findViewById(R.id.imageViewUpBanhMiBack);
+                ImageView imageViewUpMiYBack = childLayout.findViewById(R.id.imageViewUpMiYBack);
+                ImageView imageViewUpComTamBack = childLayout.findViewById(R.id.imageViewUpComTamBack);
+                ImageView imageViewUpComChienChayBack = childLayout.findViewById(R.id.imageViewUpComChienChayBack);
+
+                SLMiY[finalI] = AppUtil.SLMiY[finalI];
+                SLComTam[finalI] = AppUtil.SLComTam[finalI];
+                SLBanhMi[finalI] = AppUtil.SLBanhMi[finalI];
+                SLComChienChay[finalI] = AppUtil.SLComChienChay[finalI];
+
+                textViewSLComChienChayBack.setText(String.valueOf(AppUtil.SLComChienChay[finalI]));
+                textViewSLComTamBack.setText(String.valueOf(AppUtil.SLComTam[finalI]));
+                textViewSLMiYBack.setText(String.valueOf(AppUtil.SLMiY[finalI]));
+                textViewSLBanhMiBack.setText(String.valueOf(AppUtil.SLBanhMi[finalI]));
+
+                imageViewUpComChienChayBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        SLComChienChay[finalI] += 1;
+                        textViewSLComChienChayBack.setText(String.valueOf(SLComChienChay[finalI]));
+                        AppUtil.SLComChienChay[finalI] +=1;
+                        TongTien += 236000;
+                        textViewTongTien.setText(String.valueOf(TongTien));
+                    }
+                });
+
+                imageViewDownComChienChayBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (SLComChienChay[finalI] == 0) {
+                            SLComChienChay[finalI] = 0;
+                        }
+                        else {
+                            SLComChienChay[finalI] -= 1;
+                            AppUtil.SLComChienChay[finalI] -=1;
+                            TongTien -= 236000;
+                        }
+                        textViewSLComChienChayBack.setText(String.valueOf(SLComChienChay[finalI]));
+                        textViewTongTien.setText(String.valueOf(TongTien));
+                    }
+                });
+
+                imageViewUpComTamBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        SLComTam[finalI] += 1;
+                        textViewSLComTamBack.setText(String.valueOf(SLComTam[finalI]));
+                        AppUtil.SLComTam[finalI] +=1;
+                        TongTien += 186000;
+                        textViewTongTien.setText(String.valueOf(TongTien));
+                    }
+                });
+
+                imageViewDownComTamBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (SLComTam[finalI] == 0) {
+                            SLComTam[finalI] = 0;
+                        }
+                        else {
+                            SLComTam[finalI] -= 1;
+                            AppUtil.SLComTam[finalI] -=1;
+                            TongTien -= 186000;
+                        }
+                        textViewSLComTamBack.setText(String.valueOf(SLComTam[finalI]));
+                        textViewTongTien.setText(String.valueOf(TongTien));
+                    }
+                });
+
+                imageViewUpMiYBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        SLMiY[finalI] += 1;
+                        textViewSLMiYBack.setText(String.valueOf(SLMiY[finalI]));
+                        AppUtil.SLMiY[finalI] +=1;
+                        TongTien += 136000;
+                        textViewTongTien.setText(String.valueOf(TongTien));
+                    }
+                });
+
+                imageViewDownMiYBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (SLMiY[finalI] == 0) {
+                            SLMiY[finalI] = 0;
+                        }
+                        else {
+                            SLMiY[finalI] -= 1;
+                            AppUtil.SLMiY[finalI] -=1;
+                            TongTien -= 136000;
+                        }
+                        textViewSLMiYBack.setText(String.valueOf(SLMiY[finalI]));
+                        textViewTongTien.setText(String.valueOf(TongTien));
+                    }
+                });
+
+                imageViewUpBanhMiBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        SLBanhMi[finalI] += 1;
+                        textViewSLBanhMiBack.setText(String.valueOf(SLBanhMi[finalI]));
+                        AppUtil.SLBanhMi[finalI] +=1;
+                        TongTien += 86000;
+                        textViewTongTien.setText(String.valueOf(TongTien));
+                    }
+                });
+
+                imageViewDownBanhMiBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (SLBanhMi[finalI] == 0) {
+                            SLBanhMi[finalI] = 0;
+                        }
+                        else {
+                            SLBanhMi[finalI] -= 1;
+                            AppUtil.SLBanhMi[finalI] -=1;
+                            TongTien -= 86000;
+                        }
+                        textViewSLBanhMiBack.setText(String.valueOf(SLBanhMi[finalI]));
+                        textViewTongTien.setText(String.valueOf(TongTien));
+                    }
+                });
+
+            }
+        }
 
 
 

@@ -81,7 +81,7 @@ public class ResultFlightBack extends AppCompatActivity {
     }
     private void getListFlightFromFirestore() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Flight").whereEqualTo("fromLocation", fromLocationBack).whereEqualTo("toLocation", toLocationBack).whereEqualTo("departureDay", AppUtil.backDay).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("FLIGHT").whereEqualTo("fromLocation", fromLocationBack).whereEqualTo("toLocation", toLocationBack).whereEqualTo("departureDay", AppUtil.backDay).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {

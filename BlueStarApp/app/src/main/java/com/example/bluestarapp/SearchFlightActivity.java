@@ -208,13 +208,20 @@ public class SearchFlightActivity extends AppCompatActivity {
 
                 String slVe = textViewNum.getText().toString();
                 int SLVe = Integer.parseInt(slVe);
-                AppUtil.capNhatKichThuocDanhSach(SLVe);
+                AppUtil.capNhatKichThuocGheDaChon(SLVe);
+                AppUtil.capNhatKichThuocGioiTinh(SLVe);
+                AppUtil.capNhatKichThuocTTHKName(SLVe);
+                AppUtil.capNhatKichThuocNgaySinhHK(SLVe);
+                AppUtil.capNhatKichThuocKG(SLVe);
+                AppUtil.capNhatKichThuocSLMiY(SLVe);
+                AppUtil.capNhatKichThuocSLBanhMi(SLVe);
+                AppUtil.capNhatKichThuocSLComTam(SLVe);
+                AppUtil.capNhatKichThuocSLComChienChay(SLVe);
 
                 AppUtil.departureDay = textViewCalendarDepart.getText().toString();
                 AppUtil.backDay = textViewCalendarBack.getText().toString();
                 AppUtil.ticketKind = textViewKind.getText().toString();
                 AppUtil.SLVe = SLVe;
-
 
 
                 Intent intent = new Intent(SearchFlightActivity.this, ResultFlight.class);
