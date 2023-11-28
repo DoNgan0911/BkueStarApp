@@ -111,8 +111,10 @@ public class ThongTinHanhKhach extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 AppUtil.edtTTLHEmail=edtTTLHEmail.getText().toString();
                 capNhatAppUtil();
+
                 Intent myintent = new Intent(ThongTinHanhKhach.this, MuaThemDichVu.class);
                 startActivity(myintent);
             }

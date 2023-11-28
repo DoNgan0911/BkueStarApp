@@ -1,7 +1,10 @@
 package com.example.bluestarapp;
 
 //import android.content.Intent;
+<<<<<<< HEAD
 import android.annotation.SuppressLint;
+=======
+>>>>>>> 8c435ff490d2cc073e3b273639012c89fd02eb7b
 import android.os.Bundle;
 //import android.view.View;
 import android.widget.Button;
@@ -28,18 +31,28 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 
+<<<<<<< HEAD
 
 public class ticket_information extends AppCompatActivity {
     Button trangchu;
     @SuppressLint("MissingInflatedId")
+=======
+public class ticket_information extends AppCompatActivity {
+    Button trangchu;
+>>>>>>> 8c435ff490d2cc073e3b273639012c89fd02eb7b
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket_information);
         trangchu = findViewById(R.id.trangchu);
         // Get the Flight object from the intent
+<<<<<<< HEAD
 
 
+=======
+        Flight flight = (Flight) getIntent().getSerializableExtra("flight");
+        Ticket ticket = (Ticket) getIntent().getSerializableExtra("ticket");
+>>>>>>> 8c435ff490d2cc073e3b273639012c89fd02eb7b
         // Set values to TextViews
         TextView fromTextView = findViewById(R.id.from);
         fromTextView.setText(AppUtil.FromLocation);
@@ -48,7 +61,11 @@ public class ticket_information extends AppCompatActivity {
         timeGoTextView.setText(AppUtil.departueTime);
 
         TextView nameOfPassengerTextView = findViewById(R.id.nameofpassager);
+<<<<<<< HEAD
          // Set your passenger name here
+=======
+        nameOfPassengerTextView.setText(AppUtil.edtTTHKName); // Set your passenger name here
+>>>>>>> 8c435ff490d2cc073e3b273639012c89fd02eb7b
 
         //TextView foodTextView = findViewById(R.id.food);
         //foodTextView.setText("...");
@@ -70,12 +87,21 @@ public class ticket_information extends AppCompatActivity {
         typeOfTicketTextView.setText(AppUtil.ticketKind); // Set your ticket type here
 
         //test_sent_mail.setOnClickListener(new View.OnClickListener() {
+<<<<<<< HEAD
         //@Override
         //public void onClick(View v) {
         //Intent myintent = new Intent(MuaThemDichVu.this, TicketReview.class);
         //Intent myintent = new Intent(ticket_information.this, Send_mail.class);
         //startActivity(myintent);
         //}
+=======
+            //@Override
+            //public void onClick(View v) {
+                //Intent myintent = new Intent(MuaThemDichVu.this, TicketReview.class);
+                //Intent myintent = new Intent(ticket_information.this, Send_mail.class);
+                //startActivity(myintent);
+            //}
+>>>>>>> 8c435ff490d2cc073e3b273639012c89fd02eb7b
         //});
         try {
             String stringSenderEmail = "phucnguyen6009dh@gmail.com";
