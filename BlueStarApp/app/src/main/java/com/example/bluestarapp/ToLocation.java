@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -84,10 +85,11 @@ public class ToLocation extends AppCompatActivity {
         });
     }
 
-    private void  onClickGoTo(Airport item){
-        Intent intent = new Intent(ToLocation.this, SearchFlightActivity.class);
-        startActivity(intent);
+    private void onClickGoTo(Airport item) {
+        // Trả về dữ liệu (ví dụ: tên sân bay) qua Intent
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("selectedAirportt", AppUtil.ToLocation); // Ví dụ
+        setResult(Activity.RESULT_OK, returnIntent);
         finish();
-
     }
 }

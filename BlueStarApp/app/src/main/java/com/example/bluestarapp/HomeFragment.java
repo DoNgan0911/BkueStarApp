@@ -1,23 +1,22 @@
 package com.example.bluestarapp;
 
-import static java.lang.Integer.parseInt;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -25,15 +24,20 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
-
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
-public class SearchFlightActivity extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link HomeFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class HomeFragment extends Fragment {
+    private static final int FROM_LOCATION_REQUEST_CODE = 1;
+    private static final int TO_LOCATION_REQUEST_CODE = 2;
+
+
     private TextView textViewCalendarDepart;
     private TextView textViewCalendarBack;
     private TextView textViewKind, textViewNum;
@@ -44,42 +48,89 @@ public class SearchFlightActivity extends AppCompatActivity {
     private RadioButton radioButtonMotChieu, radioButtonKhuHoi;
     private Button buttonSearch;
 
-    int index = 1;
+    private TextView textView18;
 
+    private int index = 1;
+
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    public HomeFragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment HomeFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static HomeFragment newInstance(String param1, String param2) {
+        HomeFragment fragment = new HomeFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+
+
+
+    }
 
     @SuppressLint("MissingInflatedId")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_booking);
+            View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        textViewCalendarDepart = findViewById(R.id.textViewCalendarDepart);
-        textViewCalendarBack = findViewById(R.id.textViewCalendarBack);
-        textViewArrive = findViewById(R.id.textViewArrive);
-        textViewDepart = findViewById(R.id.textViewDepart);
-        buttonSearch = findViewById(R.id.buttonSearch);
-        radioGroup = findViewById(R.id.radioGroup);
-        recyclerView = findViewById(R.id.recycleView);
-        radioButtonMotChieu = findViewById(R.id.radioButtonMotChieu);
-        radioButtonKhuHoi = findViewById(R.id.radioButtonKhuHoi);
-        textViewKind = findViewById(R.id.textViewKind);
-        imageViewSwap = findViewById(R.id.imageViewSwap);
-        imageViewDownSLVe = findViewById(R.id.imageViewDownSLVe);
-        imageViewUpSLVe = findViewById(R.id.imageViewUpSLVe);
-        textViewNum = findViewById(R.id.textViewNum);
+            textViewCalendarDepart = view.findViewById(R.id.textViewCalendarDepart);
+            textViewCalendarBack = view.findViewById(R.id.textViewCalendarBack);
+            textViewArrive = view.findViewById(R.id.textViewArrive);
+            textViewDepart = view.findViewById(R.id.textViewDepart);
+            buttonSearch = view.findViewById(R.id.buttonSearch);
+            radioGroup = view.findViewById(R.id.radioGroup);
+            recyclerView = view.findViewById(R.id.recycleView);
+            radioButtonMotChieu = view.findViewById(R.id.radioButtonMotChieu);
+            radioButtonKhuHoi = view.findViewById(R.id.radioButtonKhuHoi);
+            textViewKind = view.findViewById(R.id.textViewKind);
+            imageViewSwap = view.findViewById(R.id.imageViewSwap);
+            imageViewDownSLVe = view.findViewById(R.id.imageViewDownSLVe);
+            imageViewUpSLVe = view.findViewById(R.id.imageViewUpSLVe);
+            textViewNum = view.findViewById(R.id.textViewNum);
+
+            textView18 = view.findViewById(R.id.textView18);
 
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         if (recyclerView != null) {
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         }
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
         if (recyclerView != null) {
             recyclerView.addItemDecoration(dividerItemDecoration);
         }
 
         textViewCalendarBack.setVisibility(View.GONE);
-
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -95,6 +146,14 @@ public class SearchFlightActivity extends AppCompatActivity {
             }
         });
 
+            // Thiết lập sự kiện cho các thành phần UI
+            setupListeners();
+
+            return view;
+        }
+
+    private void setupListeners() {
+        // Xử lý sự kiện khi chọn ngày đi
         textViewCalendarDepart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,6 +161,8 @@ public class SearchFlightActivity extends AppCompatActivity {
                 ChonNgay();
             }
         });
+
+        // Xử lý sự kiện khi chọn ngày về
         textViewCalendarBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,25 +171,30 @@ public class SearchFlightActivity extends AppCompatActivity {
             }
         });
 
+        // Xử lý sự kiện khi click chọn điểm đi
         textViewDepart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myintent = new Intent(SearchFlightActivity.this, FromLocation.class);
-                startActivity(myintent);
+                Intent intent = new Intent(getActivity(), FromLocation.class);
+//                startActivity(intent);
+                startActivityForResult(intent, FROM_LOCATION_REQUEST_CODE);
+
             }
         });
         textViewDepart.setText(AppUtil.FromLocation);
 
-
+        // Xử lý sự kiện khi click chọn điểm đến
         textViewArrive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myintent = new Intent(SearchFlightActivity.this, ToLocation.class);
-                startActivity(myintent);
+                Intent intent = new Intent(getActivity(), ToLocation.class);
+                startActivityForResult(intent, TO_LOCATION_REQUEST_CODE);
+
             }
         });
-
         textViewArrive.setText(AppUtil.ToLocation);
+
+
 
         imageViewSwap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,7 +212,7 @@ public class SearchFlightActivity extends AppCompatActivity {
         textViewKind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(SearchFlightActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("Chọn loại vé");
 
                 // Danh sách các lựa chọn
@@ -198,6 +264,8 @@ public class SearchFlightActivity extends AppCompatActivity {
             }
         });
 
+
+        // Xử lý sự kiện khi nhấn nút tìm kiếm
         buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -224,7 +292,7 @@ public class SearchFlightActivity extends AppCompatActivity {
                 AppUtil.SLVe = SLVe;
 
 
-                Intent intent = new Intent(SearchFlightActivity.this, ResultFlight.class);
+                Intent intent = new Intent(getActivity(), ResultFlight.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("fromLocation", fromLocation);
                 bundle.putString("toLocation", toLocation);
@@ -238,16 +306,21 @@ public class SearchFlightActivity extends AppCompatActivity {
 
             }
         });
+
+        // Các sự kiện khác cũng được xử lý tương tự
+        // ...
+
     }
-    public void ChonNgay(){
+    private void ChonNgay() {
         Calendar calendar = Calendar.getInstance();
-        int nam = calendar.get(Calendar.YEAR);
-        int thang = calendar.get(Calendar.MONTH);
-        int ngay = calendar.get(Calendar.DATE);
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet (DatePicker datePicker,int i, int i1, int i2){
-                calendar.set(i, i1, i2);
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(year, month, dayOfMonth);
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 if (index == 1) {
                     textViewCalendarDepart.setText(simpleDateFormat.format(calendar.getTime()));
@@ -255,9 +328,22 @@ public class SearchFlightActivity extends AppCompatActivity {
                     textViewCalendarBack.setText(simpleDateFormat.format(calendar.getTime()));
                 }
             }
-
-        }, nam,thang,ngay);
+        }, year, month, day);
         datePickerDialog.show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == FROM_LOCATION_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            String selectedAirport = data.getStringExtra("selectedAirport");
+            textViewDepart.setText(selectedAirport);
+
+        }
+        else if (requestCode == TO_LOCATION_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            String selectedAirport = data.getStringExtra("selectedAirportt");
+            textViewArrive.setText(selectedAirport);
+        }
     }
 
 }

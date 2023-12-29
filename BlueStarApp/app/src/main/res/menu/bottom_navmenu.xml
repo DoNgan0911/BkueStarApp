@@ -2,29 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:layout_width="102dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/home"
         android:title="Home"
         android:icon="@drawable/baseline_home_24"
-        android:id="@+id/home"/>
+        />
 
     <item
-        android:layout_width="102dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/ticket"
         android:title="Ticket"
         android:icon="@drawable/baseline_contact_page_24"
-        android:id="@+id/ticket"/>
+
+        />
+<!--    <item-->
+<!--        android:layout_width="102dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:title="Setting"-->
+<!--        android:icon="@drawable/baseline_settings_24"-->
+<!--        android:id="@+id/setting"/>-->
     <item
-        android:layout_width="102dp"
-        android:layout_height="wrap_content"
-        android:title="Setting"
-        android:icon="@drawable/baseline_settings_24"
-        android:id="@+id/setting"/>
-    <item
-        android:layout_width="102dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/profile"
         android:title="Profile"
         android:icon="@drawable/baseline_person_2_24"
-        android:id="@+id/profile"/>
+        />
 
 </menu>
