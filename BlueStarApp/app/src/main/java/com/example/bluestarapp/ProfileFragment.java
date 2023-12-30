@@ -40,7 +40,12 @@ public class ProfileFragment extends Fragment {
 
     TextView fullname, pointEditText;
     TextView cccdEditText, emailEditText;
-    Button button;
+    Button button_capnhat, button_logout;
+
+        FirebaseAuth auth;
+//    Button button;
+//    TextView textView;
+        FirebaseUser user;
     private boolean isLoggedIn = false;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -89,7 +94,7 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view;
 
-        // Kiểm tra trạng thái đăng nhập của người dùng
+        // Kiểm tra người dùng có đăng nhập chưa?????
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             view = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -101,14 +106,35 @@ public class ProfileFragment extends Fragment {
 //            emailEditText.setText(AppUtil.edtSignInEmail);
 
 //            XỬ LÍ FIREBASE lấy các thông tin tên, điểm, email, số cccd;
-            button = view.findViewById(R.id.button_capnhap);
+            button_capnhat = view.findViewById(R.id.button_capnhap);
+
+//            Xử lý đăng xuất
+            button_logout = view.findViewById(R.id.button_logout);
+            auth = FirebaseAuth.getInstance();
+            user = auth.getCurrentUser();
+
             retrieveCCCDFromFirestore(AppUtil.edtSignInEmail);
-            button.setOnClickListener(new View.OnClickListener() {
+            button_capnhat.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent myIntent = new Intent(getActivity(), EditProfile.class);
                     myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(myIntent);
+                }
+            });
+            button_logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {FirebaseAuth.getInstance().signOut();
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    // Đảm bảo rằng ProfileFragment đã được khởi tạo và thêm vào trước đó
+                    ProfileFragment profileFragment = new ProfileFragment();
+
+                    // Thay đổi Fragment hiện tại thành ProfileFragment
+                    fragmentTransaction.replace(R.id.framelayout, profileFragment);
+                    fragmentTransaction.addToBackStack(null);  // Nếu bạn muốn thêm vào Stack Back
+                    fragmentTransaction.commit();
                 }
             });
         } else {
