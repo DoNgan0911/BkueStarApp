@@ -9,7 +9,7 @@ public class AppUtil {
     public static String ToLocation = "Bình Định";
     public static String OriginalPrice = "";
     public static String edtTTLHEmail="";
-
+    public static String edtSignInEmail="";
     public static String[] edtTTHKName = new String[0];
     public static void capNhatKichThuocTTHKName(int soLuongVe) {
         edtTTHKName = new String[soLuongVe];

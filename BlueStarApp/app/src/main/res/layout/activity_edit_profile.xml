@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:gravity="center"
-    tools:context=".TrangCaNhan">
+    tools:context=".TrangCaNhan" >
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,57 +27,35 @@
         android:layout_marginBottom="16dp"
         android:contentDescription="Hình ảnh cá nhân" />
 
-    <TextView
-        android:id="@+id/fullname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
-        android:text="Ngô Tất Tố"
-        android:textColor="@color/black"
-        android:textSize="20dp" />
 
     <!-- Tên đăng nhập -->
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="horizontal"
         android:layout_marginBottom="32dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Điểm: "
-            android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/pointEditText"
-            android:gravity="center"
-            android:text="10"
-            android:inputType="text" />
     </LinearLayout>
 
     <!-- Gmail -->
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:layout_marginLeft="40dp"
         android:layout_marginBottom="4dp"
-        android:text="Email"
+        android:text="Họ và tên"
         android:textSize="16sp" />
 
-    <TextView
+    <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:id="@+id/emailEditText1"
-        android:text="ntto@gmail.com"
+        android:id="@+id/nameEditText"
         android:inputType="text"
         android:layout_marginBottom="16dp"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -87,43 +65,21 @@
         android:text="Số CCCD"
         android:textSize="16sp" />
 
-    <TextView
+    <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/cccdEditText"
-        android:text="060203002234"
         android:inputType="text"
         android:layout_marginBottom="16dp"/>
 
-    <!-- Hai nút cùng hàng ngang -->
-    <LinearLayout
-        android:layout_width="match_parent"
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="end">
-
-        <Button
-            android:id="@+id/buttonHistory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="95dp"
-            android:backgroundTint="@color/blue"
-            android:gravity="center"
-            android:text="Lịch sử mua vé" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/blue"
-            android:gravity="center"
-            android:text="Cập nhật"
-            android:layout_marginRight="15dp"/>
-
-
-
-    </LinearLayout>
+        android:layout_gravity="right"
+        android:backgroundTint="@color/blue"
+        android:gravity="center"
+        android:text="Lưu" />
 
 </LinearLayout>
