@@ -1,9 +1,7 @@
 package com.example.bluestarapp;
 
 //import android.content.Intent;
-
 import android.annotation.SuppressLint;
-
 import android.os.Bundle;
 //import android.view.View;
 import android.widget.Button;
@@ -33,124 +31,111 @@ import javax.mail.internet.MimeMessage;
 
 public class ticket_information extends AppCompatActivity {
     Button trangchu;
-    @SuppressLint("MissingInflatedId")
-public class Xticket_information extends AppCompatActivity {
-        Button trangchu;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_ticket_information);
+        // Get the Flight object from the intent
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_ticket_information);
-            trangchu = findViewById(R.id.trangchu);
-            // Get the Flight object from the intent
+        Flight flight = (Flight) getIntent().getSerializableExtra("flight");
+        Ticket ticket = (Ticket) getIntent().getSerializableExtra("ticket");
+        // Set values to TextViews
+        TextView fromTextView = findViewById(R.id.from);
+        fromTextView.setText(AppUtil.FromLocation);
 
-            Flight flight = (Flight) getIntent().getSerializableExtra("flight");
-            Ticket ticket = (Ticket) getIntent().getSerializableExtra("ticket");
+        TextView timeGoTextView = findViewById(R.id.timego);
+        timeGoTextView.setText(AppUtil.departueTime);
 
-            // Set values to TextViews
-            TextView fromTextView = findViewById(R.id.from);
-            fromTextView.setText(AppUtil.FromLocation);
+        TextView nameOfPassengerTextView = findViewById(R.id.nameofpassager);
 
-            TextView timeGoTextView = findViewById(R.id.timego);
-            timeGoTextView.setText(AppUtil.departueTime);
+        //nameOfPassengerTextView.setText(AppUtil.edtTTHKName); // Set your passenger name here
 
-            TextView nameOfPassengerTextView = findViewById(R.id.nameofpassager);
-
-            // Set your passenger name here
-// phải comment lại mới được
-//        nameOfPassengerTextView.setText(AppUtil.edtTTHKName); // Set your passenger name here
+        //TextView foodTextView = findViewById(R.id.food);
+        //foodTextView.setText("...");
 
 
-            //TextView foodTextView = findViewById(R.id.food);
-            //foodTextView.setText("...");
+        //TextView kgTextView = findViewById(R.id.kg);
+        //kgTextView.setText("..."); // Set your kg here
 
+        TextView toWhereTextView = findViewById(R.id.towhere);
+        toWhereTextView.setText(AppUtil.ToLocation);
 
-            //TextView kgTextView = findViewById(R.id.kg);
-            //kgTextView.setText("..."); // Set your kg here
+        TextView timeArriveTextView = findViewById(R.id.timearrive);
+        timeArriveTextView.setText(AppUtil.arrivalTime);
 
-            TextView toWhereTextView = findViewById(R.id.towhere);
-            toWhereTextView.setText(AppUtil.ToLocation);
+        TextView seatTextView = findViewById(R.id.seat);
+        seatTextView.setText(Arrays.toString(AppUtil.GheDaChon));
 
-            TextView timeArriveTextView = findViewById(R.id.timearrive);
-            timeArriveTextView.setText(AppUtil.arrivalTime);
+        TextView typeOfTicketTextView = findViewById(R.id.typeofticket);
+        typeOfTicketTextView.setText(AppUtil.ticketKind); // Set your ticket type here
 
-            TextView seatTextView = findViewById(R.id.seat);
-            seatTextView.setText(Arrays.toString(AppUtil.GheDaChon));
-
-            TextView typeOfTicketTextView = findViewById(R.id.typeofticket);
-            typeOfTicketTextView.setText(AppUtil.ticketKind); // Set your ticket type here
-
-            //test_sent_mail.setOnClickListener(new View.OnClickListener() {
-
+        //test_sent_mail.setOnClickListener(new View.OnClickListener() {
+        //@Override
+        //public void onClick(View v) {
+        //Intent myintent = new Intent(MuaThemDichVu.this, TicketReview.class);
+        //Intent myintent = new Intent(ticket_information.this, Send_mail.class);
+        //startActivity(myintent);
+        //}
             //@Override
             //public void onClick(View v) {
-            //Intent myintent = new Intent(MuaThemDichVu.this, TicketReview.class);
-            //Intent myintent = new Intent(ticket_information.this, Send_mail.class);
-            //startActivity(myintent);
+                //Intent myintent = new Intent(MuaThemDichVu.this, TicketReview.class);
+                //Intent myintent = new Intent(ticket_information.this, Send_mail.class);
+                //startActivity(myintent);
             //}
+        try {
+            String stringSenderEmail = "phucnguyen6009dh@gmail.com";
+            String stringReceiverEmail = AppUtil.edtTTLHEmail;
+            String stringPasswordSenderEmail = "ivwnpiguadnfktpa";
 
-            //@Override
-            //public void onClick(View v) {
-            //Intent myintent = new Intent(MuaThemDichVu.this, TicketReview.class);
-            //Intent myintent = new Intent(ticket_information.this, Send_mail.class);
-            //startActivity(myintent);
-            //}
+            String stringHost = "smtp.gmail.com";
 
-            //});
-            try {
-                String stringSenderEmail = "phucnguyen6009dh@gmail.com";
-                String stringReceiverEmail = AppUtil.edtTTLHEmail;
-                String stringPasswordSenderEmail = "ivwnpiguadnfktpa";
+            Properties properties = System.getProperties();
 
-                String stringHost = "smtp.gmail.com";
+            properties.put("mail.smtp.host", stringHost);
+            properties.put("mail.smtp.port", "465");
+            properties.put("mail.smtp.ssl.enable", "true");
+            properties.put("mail.smtp.auth", "true");
 
-                Properties properties = System.getProperties();
+            javax.mail.Session session = Session.getInstance(properties, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(stringSenderEmail, stringPasswordSenderEmail);
+                }
+            });
 
-                properties.put("mail.smtp.host", stringHost);
-                properties.put("mail.smtp.port", "465");
-                properties.put("mail.smtp.ssl.enable", "true");
-                properties.put("mail.smtp.auth", "true");
+            MimeMessage mimeMessage = new MimeMessage(session);
+            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(stringReceiverEmail));
 
-                javax.mail.Session session = Session.getInstance(properties, new Authenticator() {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(stringSenderEmail, stringPasswordSenderEmail);
+            mimeMessage.setSubject("Flight Ticket Information");
+            mimeMessage.setText("Hello " + AppUtil.edtTTHKName + ",\n\n" +
+                    "Thank you for booking your flight with BlueStar Airlines. Below are the details of your flight:\n\n" +
+                    "ID Ticket: " + "Tố sửa cái này thành cái id ticket á" + "\n" +
+                    "From: " + AppUtil.FromLocation + "\n" +
+                    "To: " + AppUtil.ToLocation + "\n" +
+                    "Departure Time: " + AppUtil.departueTime + "\n" +
+                    "Arrival Time: " + AppUtil.arrivalTime + "\n" +
+                    "Seat(s): " + Arrays.toString(AppUtil.GheDaChon) + "\n" +
+                    "Ticket Type: " + AppUtil.ticketKind + "\n" +
+                    "We look forward to serving you on board.\n\n" +
+                    "Safe travels!");
+
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Transport.send(mimeMessage);
+                    } catch (MessagingException e) {
+
+                        e.printStackTrace();
                     }
-                });
-
-                MimeMessage mimeMessage = new MimeMessage(session);
-                mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(stringReceiverEmail));
-
-                mimeMessage.setSubject("Flight Ticket Information");
-                mimeMessage.setText("Hello " + AppUtil.edtTTHKName + ",\n\n" +
-                        "Thank you for booking your flight with BlueStar Airlines. Below are the details of your flight:\n\n" +
-                        "ID Ticket: " + "Tố sửa cái này thành cái id ticket á" + "\n" +
-                        "From: " + AppUtil.FromLocation + "\n" +
-                        "To: " + AppUtil.ToLocation + "\n" +
-                        "Departure Time: " + AppUtil.departueTime + "\n" +
-                        "Arrival Time: " + AppUtil.arrivalTime + "\n" +
-                        "Seat(s): " + Arrays.toString(AppUtil.GheDaChon) + "\n" +
-                        "Ticket Type: " + AppUtil.ticketKind + "\n" +
-                        "We look forward to serving you on board.\n\n" +
-                        "Safe travels!");
-
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Transport.send(mimeMessage);
-                        } catch (MessagingException e) {
-
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                thread.start();
-            } catch (AddressException e) {
-                e.printStackTrace();
-            } catch (MessagingException e) {
-                e.printStackTrace();
-            }
+                }
+            });
+            thread.start();
+        } catch (AddressException e) {
+            e.printStackTrace();
+        } catch (MessagingException e) {
+            e.printStackTrace();
         }
+    }
 
-    }}
+}

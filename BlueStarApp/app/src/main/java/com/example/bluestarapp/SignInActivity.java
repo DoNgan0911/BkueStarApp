@@ -84,6 +84,8 @@ public class SignInActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
+                                        String userEmail = mAuth.getCurrentUser().getEmail();
+                                        AppUtil.edtSignInEmail = userEmail;
                                         Toast.makeText(SignInActivity.this, "Authentication successed.",
                                                 Toast.LENGTH_SHORT).show();
                                         Intent intent  = new Intent(getApplicationContext(), SearchFlightActivity.class);
