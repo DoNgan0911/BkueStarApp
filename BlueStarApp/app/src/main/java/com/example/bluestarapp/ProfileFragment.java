@@ -101,9 +101,9 @@ public class ProfileFragment extends Fragment {
             fullname = view.findViewById(R.id.fullname);
             pointEditText = view.findViewById(R.id.pointEditText);
             cccdEditText = view.findViewById(R.id.cccdEditText);
-            emailEditText = view.findViewById(R.id.emailEditText1);
 
-//            emailEditText.setText(AppUtil.edtSignInEmail);
+            emailEditText = view.findViewById(R.id.emailEditText);
+            emailEditText.setText(AppUtil.edtSignInEmail);
 
 //            XỬ LÍ FIREBASE lấy các thông tin tên, điểm, email, số cccd;
             button_capnhat = view.findViewById(R.id.button_capnhap);
