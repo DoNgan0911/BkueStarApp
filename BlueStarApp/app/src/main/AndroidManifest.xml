@@ -16,6 +16,9 @@
         android:theme="@style/Theme.BlueStarApp"
         tools:targetApi="31">
         <activity
+            android:name=".ChiTietVe"
+            android:exported="false" />
+        <activity
             android:name=".LichSuMuaVe"
             android:exported="false" />
         <activity
