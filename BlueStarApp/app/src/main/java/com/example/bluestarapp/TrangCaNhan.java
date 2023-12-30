@@ -33,6 +33,7 @@ public class TrangCaNhan extends AppCompatActivity {
         emailEditText = findViewById(R.id.emailEditText1);
 
         emailEditText.setText(AppUtil.edtSignInEmail);
+        button = findViewById(R.id.button_capnhap);
 
 
         retrieveCCCDFromFirestore(AppUtil.edtSignInEmail);

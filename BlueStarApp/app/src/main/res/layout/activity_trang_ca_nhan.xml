@@ -25,7 +25,7 @@
         android:src="@drawable/avt"
         android:layout_gravity="center"
         android:layout_marginBottom="16dp"
-        android:contentDescription="Hình ảnh cá nhân" />
+        android:contentDescription="Đăng xuất" />
 
     <TextView
         android:id="@+id/fullname"
@@ -111,10 +111,10 @@
             android:layout_marginRight="95dp"
             android:backgroundTint="@color/blue"
             android:gravity="center"
-            android:text="Lịch sử mua vé" />
+            android:text="Đăng xuất" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/button_capnhap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/blue"

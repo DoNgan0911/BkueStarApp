@@ -28,13 +28,16 @@
             android:name=".TrangCaNhan"
             android:exported="false" />
         <activity
+            android:name=".EditProfile"
+            android:exported="false" />
+        <activity
             android:name=".TicketReview"
             android:exported="false" />
         <activity
             android:name=".ResultFlightBack"
             android:exported="false" />
         <activity
-            android:name=".BookingActivity"
+            android:name=".Chat"
             android:exported="false" />
         <activity
             android:name=".SuatAn"

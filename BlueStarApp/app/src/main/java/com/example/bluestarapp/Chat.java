@@ -28,7 +28,7 @@ public class Chat extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_chat);
 
         questionListView = findViewById(R.id.questionListView);
         messageListView = findViewById(R.id.messageListView);
@@ -42,6 +42,8 @@ public class Chat extends AppCompatActivity {
 
         questionAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, questions);
         questionListView.setAdapter(questionAdapter);
+//        ListView listView = findViewById(R.id.yourListViewId);
+
 
         messages = new ArrayList<>();
         messageAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, messages);
@@ -87,11 +89,11 @@ public class Chat extends AppCompatActivity {
         // Xử lý câu hỏi và trả lời tương ứng
         switch (question) {
             case "Quyền lợi khi trở thành khách hàng của BlueStar":
-                return "Câu trả lời 1.";
+                return "Chuyến bay an toàn, được tích điểm.";
             case "Chính sách hoàn trả vé của BlueStar":
-                return "Câu trả lời 2.";
+                return "Ko hoàn trả";
             case "Chương trình khuyến mãi thường diễn ra vào thời gian nào?":
-                return "Câu trả lời 3.";
+                return "Không biết.";
             default:
                 return "Với câu hỏi này, vui lòng liên hệ hotline của BlueStar để được tư vấn cụ thể hơn. Xin cảm ơn quý khách!";
         }

@@ -9,6 +9,13 @@
     android:gravity="center"
     tools:context=".TrangCaNhan" >
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="212dp"
+        android:layout_height="86dp"
+        android:src="@drawable/plane"
+        />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -98,9 +105,8 @@
         android:layout_marginBottom="16dp"/>
 
 
-
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_capnhap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"

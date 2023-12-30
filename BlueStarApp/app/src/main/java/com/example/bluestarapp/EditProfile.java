@@ -53,7 +53,7 @@ public class EditProfile extends AppCompatActivity {
             String newCCCD = cccd.getText().toString();
 
             // Update the user's information in the Realtime Database (using "customer" node)
-            reference = database.getReference("customer").child(userId);
+            reference = database.getReference("Customer").child(userId);
 
             reference.child("full_name").setValue(newName)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {

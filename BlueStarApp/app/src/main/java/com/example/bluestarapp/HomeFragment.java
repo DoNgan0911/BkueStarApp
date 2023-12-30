@@ -50,6 +50,8 @@ public class HomeFragment extends Fragment {
 
     private TextView textView18;
 
+    private ImageView imageViewChatBox;
+
     private int index = 1;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -119,6 +121,8 @@ public class HomeFragment extends Fragment {
             textViewNum = view.findViewById(R.id.textViewNum);
 
             textView18 = view.findViewById(R.id.textView18);
+
+            imageViewChatBox = view.findViewById(R.id.chatbox);
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -309,6 +313,18 @@ public class HomeFragment extends Fragment {
 
         // Các sự kiện khác cũng được xử lý tương tự
         // ...
+        imageViewChatBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), TrangCaNhan.class);
+                Intent intent = new Intent(getActivity(), Chat.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
+
+            }
+        });
+
 
     }
     private void ChonNgay() {

@@ -13,16 +13,16 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="135dp"
-        android:layout_height="82dp"
+        android:layout_height="wrap_content"
         android:fontFamily="serif"
-        android:text="Sign In"
+        android:text="Đăng nhập"
         android:textColor="@color/white"
-        android:textSize="32sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.024"
+        app:layout_constraintVertical_bias="0.04"
         tools:ignore="MissingConstraints" />
 
     <ImageView
@@ -35,7 +35,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.023" />
 
     <EditText
         android:id="@+id/email_signin"
@@ -74,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="Forgot password ?"
+        android:text="Quên mật khẩu"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.183"
@@ -86,7 +86,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
-        android:text="Log In"
+        android:text="Đăng nhập"
         android:textSize="23sp"
         android:backgroundTint="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
@@ -100,7 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Create a new account"
+        android:text="Đăng ký thành viên, hưởng nhiều ưu đãi!"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
