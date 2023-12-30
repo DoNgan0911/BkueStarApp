@@ -31,10 +31,9 @@ import javax.mail.internet.MimeMessage;
 
 
 
-public class ticket_information extends AppCompatActivity {
-    Button trangchu;
+
     @SuppressLint("MissingInflatedId")
-public class Xticket_information extends AppCompatActivity {
+public class ticket_information extends AppCompatActivity {
         Button trangchu;
 
         @Override
@@ -153,4 +152,4 @@ public class Xticket_information extends AppCompatActivity {
             }
         }
 
-    }}
+    }

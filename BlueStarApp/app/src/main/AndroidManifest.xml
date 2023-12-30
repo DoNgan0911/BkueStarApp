@@ -75,9 +75,9 @@
         <activity
             android:name=".SignUpActivity"
             android:exported="false" />
-        <activity
-            android:name=".ticket_information"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".ticket_information"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".SignInActivity"
             android:exported="false" />

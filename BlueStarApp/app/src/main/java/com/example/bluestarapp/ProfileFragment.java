@@ -1,5 +1,6 @@
 package com.example.bluestarapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,12 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment {
+    private boolean isLoggedIn = false;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +64,25 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view;
+
+        // Kiểm tra trạng thái đăng nhập của người dùng
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            // Nếu đã đăng nhập, inflate layout cho khách hàng đã đăng nhập
+            view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+            // Tại đây, bạn có thể thực hiện các thao tác khác liên quan đến layout này nếu cần
+            // Ví dụ: view.findViewById(R.id.fullname) và cài đặt dữ liệu cho các thành phần trên layout
+        } else {
+            // Nếu chưa đăng nhập, mở activity SignIn
+            Intent intent = new Intent(getActivity(), SignInActivity.class);
+            startActivity(intent);
+            getActivity().finish(); // Đóng fragment hiện tại sau khi chuyển đến activity đăng nhập
+            view = null; // Không cần trả về view cho fragment này nữa vì đã chuyển sang activity đăng nhập
+        }
+
+        return view;
+
     }
 }
