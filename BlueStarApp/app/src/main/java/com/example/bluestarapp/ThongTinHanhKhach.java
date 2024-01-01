@@ -113,6 +113,10 @@ public class ThongTinHanhKhach extends AppCompatActivity {
             public void onClick(View v) {
 
                 AppUtil.edtTTLHEmail=edtTTLHEmail.getText().toString();
+                AppUtil.edtTTLHName=edtTTLHName.getText().toString();
+                AppUtil.edtTTLHSdt=edtTTLHSdt.getText().toString();
+
+
                 capNhatAppUtil();
 
                 Intent myintent = new Intent(ThongTinHanhKhach.this, MuaThemDichVu.class);

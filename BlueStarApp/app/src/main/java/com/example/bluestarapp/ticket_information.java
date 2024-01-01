@@ -4,18 +4,41 @@ package com.example.bluestarapp;
 
 import android.annotation.SuppressLint;
 
+import android.content.Intent;
 import android.os.Bundle;
 //import android.view.View;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -28,21 +51,106 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import vn.momo.momo_partner.AppMoMoLib;
+
 
 
 
 public class ticket_information extends AppCompatActivity {
-    Button trangchu;
-    @SuppressLint("MissingInflatedId")
-public class Xticket_information extends AppCompatActivity {
-        Button trangchu;
+        Button thanhtoan;
+    int iddonhang;
+    private String amount = "10000";
+    private String fee = "0";
+    int environment = 0;//developer default
+    private String merchantName = "ĐỖ THỊ BÍCH NGÂN";
+    private String merchantCode = "MOMOTI7220231126";
+    private String merchantNameLabel = "ĐỖ THỊ BÍCH NGÂN";
+    private String description = "Thanh toán đặt vé máy bay BlueStar";
 
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+        @SuppressLint("MissingInflatedId")
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_ticket_information);
-            trangchu = findViewById(R.id.trangchu);
+            thanhtoan = findViewById(R.id.thanhtoan);
             // Get the Flight object from the intent
+            thanhtoan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Map<String, Object>  bookerMap = new HashMap<>();
+                    bookerMap.put("mail", AppUtil.edtTTLHEmail);
+                    bookerMap.put("name", AppUtil.edtTTLHName);
+                    bookerMap.put("phone", AppUtil.edtTTLHSdt);
+                    bookerMap.put("total_price", AppUtil.OriginalPrice);
+                    bookerMap.put("momo", "");
+                    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                    FirebaseUser currentUser = mAuth.getCurrentUser();
+                    if (currentUser != null) {
+                        String userId = currentUser.getUid();
+                        db.collection("CUSTOMER")
+                                .whereEqualTo("account_id", userId)
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                // Lấy userId từ document của CUSTOMER
+                                                String customerId = document.getId();
+                                                bookerMap.put("c_id", customerId);
+
+                                            }
+                                        } else {
+//                                            Log.d(TAG, "Error getting documents: ", task.getException());
+                                        }
+                                    }
+                                });
+                    } else {
+                        // Người dùng chưa đăng nhập
+                        bookerMap.put("c_id", "");
+
+                    }
+
+                    CollectionReference ticketcollection = db.collection("BOOKER");
+                    ticketcollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                int documentCount = task.getResult().size();
+                                // Set the next available documentId
+                                String documentId = String.valueOf(documentCount + 1);
+                                // Rest of your code with the dynamically set documentId
+                                db.collection("BOOKER")
+                                        .document(documentId)
+                                        .set(bookerMap)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+//                                               DÙNG FOR APPUTIL THÊM CÁC TICKET
+
+                                                requestPayment(Integer.parseInt(documentId));
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.e("SignUpActivity", "Error adding user data to CUSTOMER collection: " + e.getMessage());
+                                            }
+                                        });
+                            } else {
+
+                            }
+                        }
+                    });
+
+
+//                    iddonhang = 1;
+//                    requestPayment(iddonhang);
+                }
+            });
 
             Flight flight = (Flight) getIntent().getSerializableExtra("flight");
             Ticket ticket = (Ticket) getIntent().getSerializableExtra("ticket");
@@ -153,4 +261,103 @@ public class Xticket_information extends AppCompatActivity {
             }
         }
 
-    }}
+    private void requestPayment(int iddonhang) {
+        AppMoMoLib.getInstance().setAction(AppMoMoLib.ACTION.PAYMENT);
+        AppMoMoLib.getInstance().setActionType(AppMoMoLib.ACTION_TYPE.GET_TOKEN);
+
+        Map<String, Object> eventValue = new HashMap<>();
+        //client Required
+        eventValue.put("merchantname", merchantName); //Tên đối tác. được đăng ký tại https://business.momo.vn. VD: Google, Apple, Tiki , CGV Cinemas
+        eventValue.put("merchantcode", merchantCode); //Mã đối tác, được cung cấp bởi MoMo tại https://business.momo.vn
+        eventValue.put("amount", AppUtil.OriginalPrice); //Kiểu integer
+        eventValue.put("orderId", iddonhang); // ID CỦA BẢNG BOOKER
+        eventValue.put("orderLabel", iddonhang); //gán nhãn
+
+        //client Optional - bill info
+        eventValue.put("merchantnamelabel", "Dịch vụ");//gán nhãn
+        eventValue.put("fee", "0"); //Kiểu integer
+        eventValue.put("description", description); //mô tả đơn hàng - short description
+
+        //client extra data
+        eventValue.put("requestId",  merchantCode+"merchant_billId_"+System.currentTimeMillis());
+        eventValue.put("partnerCode", merchantCode);
+        //Example extra data
+        JSONObject objExtraData = new JSONObject();
+        try {
+            objExtraData.put("site_code", "008");
+            objExtraData.put("site_name", "CGV Cresent Mall");
+            objExtraData.put("screen_code", 0);
+            objExtraData.put("screen_name", "Special");
+            objExtraData.put("movie_name", "Kẻ Trộm Mặt Trăng 3");
+            objExtraData.put("movie_format", "2D");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        eventValue.put("extraData", objExtraData.toString());
+
+        eventValue.put("extra", "");
+        AppMoMoLib.getInstance().requestMoMoCallBack(this, eventValue);
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == AppMoMoLib.getInstance().REQUEST_CODE_MOMO && resultCode == -1) {
+            if (data != null) {
+                if (data.getIntExtra("status", -1) == 0) {
+                    //TOKEN IS AVAILABLE
+                    Log.d("thành công", data.getStringExtra("message"));
+                    String token = data.getStringExtra("data"); //Token response
+//                    update MÃ MOMO LÀ TOKEN NÈ
+                    String bookerId = data.getStringExtra("orderId");
+                    if (bookerId != null && !bookerId.isEmpty()) {
+                        DocumentReference ticketRef = db.collection("BOOKER").document(bookerId);
+                        ticketRef.update("momo", token)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("UpdateToken", "Token updated successfully!");
+                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.e("UpdateToken", "Error updating token", e);
+                                    }
+                                });
+
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                        String phoneNumber = data.getStringExtra("phonenumber");
+                        String env = data.getStringExtra("env");
+                        if (env == null) {
+                            env = "app";
+                        }
+
+                        if (token != null && !token.equals("")) {
+                            // TODO: send phoneNumber & token to your server side to process payment with MoMo server
+                            // IF Momo topup success, continue to process your order
+                        } else {
+                            Log.d("thành công", "không thành công");
+                        }
+                    } else if (data.getIntExtra("status", -1) == 1) {
+                        //TOKEN FAIL
+                        String message = data.getStringExtra("message") != null ? data.getStringExtra("message") : "Thất bại";
+                        Log.d("thành công", "không thành công");
+                    } else if (data.getIntExtra("status", -1) == 2) {
+                        //TOKEN FAIL
+                        Log.d("thành công", "không thành công");
+                    } else {
+                        //TOKEN FAIL
+                        Log.d("thành công", "không thành công");
+                    }
+                } else {
+                    Log.d("thành công", "không thành công");
+                }
+            } else {
+                Log.d("thành công", "không thành công");
+            }
+        }}
+}

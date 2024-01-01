@@ -156,10 +156,9 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/trangchu"
-        android:layout_width="match_parent"
+        android:id="@+id/thanhtoan"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:text="Trang chủ" />
+        android:text="Thanh toán" />
 
 </LinearLayout>

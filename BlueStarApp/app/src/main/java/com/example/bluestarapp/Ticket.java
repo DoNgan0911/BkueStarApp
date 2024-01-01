@@ -7,25 +7,32 @@ public class Ticket {
     private String fly_id;
     private String kg_id;
     private String seat_id;
+
+
     private String food_id;
     private int ticket_price;
     private String mail;
     private String dis_id;
-    public Ticket(){
+    private String c_id;
+    private String token_momo;
+    public Ticket() {
     }
-    public Ticket(String t_id,String ccid, String name,String fly_id,String kg_id,String seat_id,String food_id, int ticket_price, String mail, String dis_id)
-    {
-        this.t_id=t_id;
-        this.ccid=ccid;
-        this.name=name;
-        this.fly_id=fly_id;
-        this.kg_id=kg_id;
-        this.seat_id=seat_id;
-        this.food_id=food_id;
-        this.ticket_price=ticket_price;
-        this.mail=mail;
-        this.dis_id=dis_id;
+
+    public Ticket(String t_id, String ccid, String name, String fly_id, String kg_id, String seat_id, String food_id, int ticket_price, String mail, String dis_id, String c_id, String token_momo) {
+        this.t_id = t_id;
+        this.ccid = ccid;
+        this.name = name;
+        this.fly_id = fly_id;
+        this.kg_id = kg_id;
+        this.seat_id = seat_id;
+        this.food_id = food_id;
+        this.ticket_price = ticket_price;
+        this.mail = mail;
+        this.dis_id = dis_id;
+        this.c_id = c_id;
+        this.token_momo = token_momo;
     }
+
     public String getT_id() {
         return t_id;
     }
@@ -104,5 +111,21 @@ public class Ticket {
 
     public void setDis_id(String dis_id) {
         this.dis_id = dis_id;
+    }
+
+    public String getC_id() {
+        return c_id;
+    }
+
+    public void setC_id(String c_id) {
+        this.c_id = c_id;
+    }
+
+    public String getToken_momo() {
+        return token_momo;
+    }
+
+    public void setToken_momo(String token_momo) {
+        this.token_momo = token_momo;
     }
 }
