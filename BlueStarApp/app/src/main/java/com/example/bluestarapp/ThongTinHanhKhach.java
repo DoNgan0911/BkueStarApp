@@ -116,11 +116,11 @@ public class ThongTinHanhKhach extends AppCompatActivity {
                 AppUtil.edtTTLHName=edtTTLHName.getText().toString();
                 AppUtil.edtTTLHSdt=edtTTLHSdt.getText().toString();
 
-
                 capNhatAppUtil();
 
                 Intent myintent = new Intent(ThongTinHanhKhach.this, MuaThemDichVu.class);
                 startActivity(myintent);
+                finish();
             }
         });
     }
@@ -140,10 +140,12 @@ public class ThongTinHanhKhach extends AppCompatActivity {
                 RadioButton radioButton1 = childView.findViewById(R.id.radioButtonNam);
                 RadioButton radioButton2 = childView.findViewById(R.id.radioButtonNu);
                 EditText edtTTHKNgaySinh = childView.findViewById(R.id.edtTTHKNgaySinh);
+                EditText edtTTHKCCCD= childView.findViewById(R.id.edtTTHKCCCD);
+
 
                 // Kiểm tra null trước khi sử dụng
                 // Trong capNhatAppUtil()
-                if (edtTTHKName != null  && edtTTHKNgaySinh != null) {
+                if (edtTTHKName != null  && edtTTHKNgaySinh != null && edtTTHKCCCD !=null) {
                     // Cập nhật thông tin vào AppUtil
                     String updatedName = edtTTHKName.getText().toString();
                     Log.e("Debug", "Updated Name: " + updatedName);
@@ -155,6 +157,9 @@ public class ThongTinHanhKhach extends AppCompatActivity {
                         AppUtil.GioiTinh[i - start] = "Bà";
                     }
                     AppUtil.NgaySinhHK[i - start] = edtTTHKNgaySinh.getText().toString();
+
+//                    AppUtil.CCCDHK[i - start] = edtTTHKCCCD.getText().toString();
+
                 } else {
                     Log.e("Debug", "Một hoặc nhiều view là null");
                 }

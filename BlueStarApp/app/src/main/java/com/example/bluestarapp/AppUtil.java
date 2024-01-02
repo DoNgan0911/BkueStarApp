@@ -76,6 +76,14 @@ public class AppUtil {
         }
     }
 
+    public static String[] CCCDHK = new String[0];
+    public static void capNhatKichThuocCCCDHK(int soLuongVe) {
+        CCCDHK = new String[soLuongVe];
+        for (int i = 0; i<soLuongVe; i++){
+            CCCDHK[i] = "";
+        }
+    }
+
     public static int[] SLComChienChay = new int[0];
     public static void capNhatKichThuocSLComChienChay(int soLuongVe) {
         if (KhuHoi == 1) {

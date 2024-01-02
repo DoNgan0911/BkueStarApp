@@ -88,7 +88,7 @@ public class SignInActivity extends AppCompatActivity {
                                         AppUtil.edtSignInEmail = userEmail;
                                         Toast.makeText(SignInActivity.this, "Authentication successed.",
                                                 Toast.LENGTH_SHORT).show();
-                                        Intent intent  = new Intent(getApplicationContext(), SearchFlightActivity.class);
+                                        Intent intent  = new Intent(getApplicationContext(), ProfileFragment.class);
                                         startActivity(intent);
                                         finish();
                                     }

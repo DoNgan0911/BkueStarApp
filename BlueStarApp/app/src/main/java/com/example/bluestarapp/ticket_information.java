@@ -75,6 +75,7 @@ public class ticket_information extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_ticket_information);
+            AppMoMoLib.getInstance().setEnvironment(AppMoMoLib.ENVIRONMENT.DEVELOPMENT);
             thanhtoan = findViewById(R.id.thanhtoan);
             // Get the Flight object from the intent
             thanhtoan.setOnClickListener(new View.OnClickListener() {
@@ -130,8 +131,10 @@ public class ticket_information extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(Void aVoid) {
 //                                               DÙNG FOR APPUTIL THÊM CÁC TICKET
+                                                Log.d("ổn hong", "đã vô");
 
                                                 requestPayment(Integer.parseInt(documentId));
+                    requestPayment(1);
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {
@@ -146,11 +149,9 @@ public class ticket_information extends AppCompatActivity {
                         }
                     });
 
-
-//                    iddonhang = 1;
-//                    requestPayment(iddonhang);
                 }
-            });
+            }
+            );
 
             Flight flight = (Flight) getIntent().getSerializableExtra("flight");
             Ticket ticket = (Ticket) getIntent().getSerializableExtra("ticket");
@@ -298,6 +299,7 @@ public class ticket_information extends AppCompatActivity {
         eventValue.put("extra", "");
         AppMoMoLib.getInstance().requestMoMoCallBack(this, eventValue);
     }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == AppMoMoLib.getInstance().REQUEST_CODE_MOMO && resultCode == -1) {
@@ -315,9 +317,9 @@ public class ticket_information extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Log.d("UpdateToken", "Token updated successfully!");
-                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                        startActivity(intent);
-                                        finish();
+//                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                                        startActivity(intent);
+//                                        finish();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
