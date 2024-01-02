@@ -39,13 +39,13 @@ public class ProfileFragment extends Fragment {
 
 
     TextView fullname, pointEditText;
-    TextView cccdEditText, emailEditText;
+    TextView telEditText, emailEditText;
     Button button_capnhat, button_logout;
 
-        FirebaseAuth auth;
-//    Button button;
+    FirebaseAuth auth;
+    //    Button button;
 //    TextView textView;
-        FirebaseUser user;
+    FirebaseUser user;
     private boolean isLoggedIn = false;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -100,7 +100,7 @@ public class ProfileFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_profile, container, false);
             fullname = view.findViewById(R.id.fullname);
             pointEditText = view.findViewById(R.id.pointEditText);
-            cccdEditText = view.findViewById(R.id.cccdEditText);
+            telEditText = view.findViewById(R.id.telEditText);
 
             emailEditText = view.findViewById(R.id.emailEditText);
             emailEditText.setText(AppUtil.edtSignInEmail);
@@ -225,7 +225,7 @@ public class ProfileFragment extends Fragment {
                                 String cccd = document.getString("num_id");
 
                                 // Display the CCCD in the EditText
-                                cccdEditText.setText(cccd);
+                                telEditText.setText(cccd);
 
                                 // You may also want to update other UI elements based on the retrieved data
                                 // For example, update the fullname and points if they are stored in the document

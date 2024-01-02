@@ -66,6 +66,7 @@ public class ticket_information extends AppCompatActivity {
     private String merchantCode = "MOMOTI7220231126";
     private String merchantNameLabel = "ĐỖ THỊ BÍCH NGÂN";
     private String description = "Thanh toán đặt vé máy bay BlueStar";
+    String ticketNumber = "";
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -123,6 +124,7 @@ public class ticket_information extends AppCompatActivity {
                                 int documentCount = task.getResult().size();
                                 // Set the next available documentId
                                 String documentId = String.valueOf(documentCount + 1);
+                                ticketNumber = documentId;
                                 // Rest of your code with the dynamically set documentId
                                 db.collection("BOOKER")
                                         .document(documentId)
@@ -130,11 +132,26 @@ public class ticket_information extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-//                                               DÙNG FOR APPUTIL THÊM CÁC TICKET
+                                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                                CollectionReference ticketCollection = db.collection("TICKET");
+
+                                                ticketCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            int documentCount = task.getResult().size();
+                                                            addTickets(documentCount, documentId);
+                                                            if (AppUtil.KhuHoi == 1) {
+                                                                documentCount += AppUtil.SLVe;
+                                                                addTicketsKH(documentCount, documentId);
+                                                            }
+                                                        }
+                                                    }
+                                                });
                                                 Log.d("ổn hong", "đã vô");
 
                                                 requestPayment(Integer.parseInt(documentId));
-                    requestPayment(1);
+
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {
@@ -230,18 +247,39 @@ public class ticket_information extends AppCompatActivity {
                 MimeMessage mimeMessage = new MimeMessage(session);
                 mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(stringReceiverEmail));
 
-                mimeMessage.setSubject("Flight Ticket Information");
-                mimeMessage.setText("Hello " + AppUtil.edtTTHKName + ",\n\n" +
-                        "Thank you for booking your flight with BlueStar Airlines. Below are the details of your flight:\n\n" +
-                        "ID Ticket: " + "Tố sửa cái này thành cái id ticket á" + "\n" +
-                        "From: " + AppUtil.FromLocation + "\n" +
-                        "To: " + AppUtil.ToLocation + "\n" +
-                        "Departure Time: " + AppUtil.departueTime + "\n" +
-                        "Arrival Time: " + AppUtil.arrivalTime + "\n" +
-                        "Seat(s): " + Arrays.toString(AppUtil.GheDaChon) + "\n" +
-                        "Ticket Type: " + AppUtil.ticketKind + "\n" +
-                        "We look forward to serving you on board.\n\n" +
-                        "Safe travels!");
+                if (AppUtil.KhuHoi == 0) {
+                    mimeMessage.setSubject("Flight Ticket Information");
+                    mimeMessage.setText("Hello " + AppUtil.edtTTHKName + ",\n\n" +
+                            "Thank you for booking your flight with BlueStar Airlines. Below are the details of your flight:\n\n" +
+                            "ID Ticket: " + ticketNumber.toString() + "\n" +
+                            "From: " + AppUtil.FromLocation + "\n" +
+                            "To: " + AppUtil.ToLocation + "\n" +
+                            "Departure Day: " + AppUtil.departureDay + "\n" +
+                            "Departure Time: " + AppUtil.departueTime + "\n" +
+                            "Arrival Time: " + AppUtil.arrivalTime + "\n" +
+                            "Seat(s): " + Arrays.toString(AppUtil.GheDaChon) + "\n" +
+                            "Ticket Type: " + AppUtil.ticketKind + "\n" +
+                            "We look forward to serving you on board.\n\n" +
+                            "Safe travels!");
+                }
+                else {
+                    mimeMessage.setSubject("Flight Ticket Information");
+                    mimeMessage.setText("Hello " + AppUtil.edtTTHKName + ",\n\n" +
+                            "Thank you for booking your flight with BlueStar Airlines. Below are the details of your flight:\n\n" +
+                            "ID Ticket: " + ticketNumber.toString() + "\n" +
+                            "From: " + AppUtil.FromLocation + "\n" +
+                            "To: " + AppUtil.ToLocation + "\n" +
+                            "Departure Day: " + AppUtil.departureDay + "\n" +
+                            "Departure Time: " + AppUtil.departueTime + "\n" +
+                            "Return Day: " + AppUtil.backDay + "\n" +
+                            "Departure Time: " + AppUtil.departueTimeBack + "\n" +
+                            "Seat(s): " + Arrays.toString(AppUtil.GheDaChon) + "\n" +
+                            "Ticket Type: " + AppUtil.ticketKind + "\n" +
+                            "We look forward to serving you on board.\n\n" +
+                            "Safe travels!");
+                }
+
+
 
                 Thread thread = new Thread(new Runnable() {
                     @Override
@@ -362,4 +400,143 @@ public class ticket_information extends AppCompatActivity {
                 Log.d("thành công", "không thành công");
             }
         }}
+
+
+
+
+    private void addTickets(int startingDocumentId, String bid) {
+
+
+        FirebaseFirestore dbflight = FirebaseFirestore.getInstance();
+        CollectionReference flightsCollection = dbflight.collection("FLIGHT");
+
+        flightsCollection
+                .whereEqualTo("fromLocation", AppUtil.FromLocation)
+                .whereEqualTo("toLocation", AppUtil.ToLocation)
+                .whereEqualTo("departureDay", AppUtil.departureDay)
+                .whereEqualTo("departureTime", AppUtil.departueTime)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            // Lấy Document ID
+                            String flId = document.getId();
+
+                            for (int i = 0; i < AppUtil.SLVe; i++) {
+                                int priceDetail = Integer.parseInt(String.valueOf(AppUtil.OriginalPriceDetailChieuDi)) + Integer.parseInt(String.valueOf(AppUtil.OriginalPriceDetailChieuDiTungNguoi[i]));
+                                Map<String, Object> userMap = new HashMap<>();
+                                userMap.put("b_id", bid);
+                                userMap.put("birthday", AppUtil.NgaySinhHK[i]);
+                                userMap.put("ccid", AppUtil.CCCDHK[i]);
+                                userMap.put("fly_id", flId);
+                                userMap.put("kg_id", AppUtil.HLKGTungNguoiChieuDi[i]);
+                                userMap.put("name", AppUtil.edtTTHKName[i]);
+                                userMap.put("seat_id", AppUtil.GheDaChon[i]);
+                                userMap.put("ticket_kind", AppUtil.ticketKind);
+                                userMap.put("ticket_price", priceDetail);
+
+
+                                // Increment the document ID for each new document
+                                int documentId = startingDocumentId + i + 1;
+
+                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                CollectionReference ticketCollection = db.collection("TICKET");
+                                // Use the incremented document ID for the document reference
+                                DocumentReference documentReference = ticketCollection.document(String.valueOf(documentId));
+
+                                // Set the data for the document
+                                documentReference.set(userMap)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(ticket_information.this, "User data added to TICKET collection.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.e("ticket_infomation", "Error adding user data to TICKET collection: " + e.getMessage());
+                                                Toast.makeText(ticket_information.this, "Error adding user data to TICKET collection.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            }
+
+                        }
+                    } else {
+                        // Xử lý khi truy vấn không thành công
+                        Exception exception = task.getException();
+                        if (exception != null) {
+                            exception.printStackTrace();
+                        }
+                    }
+                });
+
+
+    }
+
+    private void addTicketsKH(int startingDocumentId, String bid) {
+        FirebaseFirestore dbflight = FirebaseFirestore.getInstance();
+        CollectionReference flightsCollection = dbflight.collection("FLIGHT");
+
+        flightsCollection
+                .whereEqualTo("fromLocation", AppUtil.ToLocation)
+                .whereEqualTo("toLocation", AppUtil.FromLocation)
+                .whereEqualTo("departureDay", AppUtil.backDay)
+                .whereEqualTo("departureTime", AppUtil.departueTimeBack)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            // Lấy Document ID
+                            String flId = document.getId();
+
+                            for (int i = 0; i < AppUtil.SLVe; i++) {
+                                int priceDetail = Integer.parseInt(String.valueOf(AppUtil.OriginalPriceDetailChieuVe)) + Integer.parseInt(String.valueOf(AppUtil.OriginalPriceDetailChieuVeTungNguoi[i]));
+                                Map<String, Object> userMap = new HashMap<>();
+                                userMap.put("b_id", bid);
+                                userMap.put("birthday", AppUtil.NgaySinhHK[i]);
+                                userMap.put("ccid", AppUtil.CCCDHK[i]);
+                                userMap.put("fly_id", flId);
+                                userMap.put("kg_id", AppUtil.HLKGTungNguoiChieuVe[i]);
+                                userMap.put("name", AppUtil.edtTTHKName[i]);
+                                userMap.put("seat_id", AppUtil.GheDaChon[i]);
+                                userMap.put("ticket_kind", AppUtil.ticketKind);
+                                userMap.put("ticket_price", priceDetail);
+
+
+                                // Increment the document ID for each new document
+                                int documentId = startingDocumentId + i + 1;
+
+                                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                CollectionReference ticketCollection = db.collection("TICKET");
+                                // Use the incremented document ID for the document reference
+                                DocumentReference documentReference = ticketCollection.document(String.valueOf(documentId));
+
+                                // Set the data for the document
+                                documentReference.set(userMap)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(ticket_information.this, "User data added to TICKET collection.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.e("ticket_infomation", "Error adding user data to TICKET collection: " + e.getMessage());
+                                                Toast.makeText(ticket_information.this, "Error adding user data to TICKET collection.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                            }
+
+                        }
+                    } else {
+                        // Xử lý khi truy vấn không thành công
+                        Exception exception = task.getException();
+                        if (exception != null) {
+                            exception.printStackTrace();
+                        }
+                    }
+                });
+    }
 }

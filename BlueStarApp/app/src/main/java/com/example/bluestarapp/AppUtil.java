@@ -8,6 +8,10 @@ public class AppUtil {
     public static String FromLocation = "Lâm Đồng";
     public static String ToLocation = "Bình Định";
     public static String OriginalPrice = "";
+    public static String flyIDChieuDi = "";
+    public static String flyIDChieuVe = "";
+    public static String OriginalPriceDetailChieuDi = "";
+    public static String OriginalPriceDetailChieuVe = "";
     public static String edtTTLHEmail="";
     public static String edtTTLHName="";
     public static String edtTTLHSdt="";
@@ -19,6 +23,55 @@ public class AppUtil {
             edtTTHKName[i] = "";
         }
     }
+
+    public static int[] OriginalPriceDetailChieuDiTungNguoi = new int[0];
+    public static void capNhatKichThuocOriginalPriceDetailChieuDiTungNguoi(int soLuongVe) {
+        OriginalPriceDetailChieuDiTungNguoi = new int[soLuongVe];
+        for (int i = 0; i<soLuongVe; i++){
+            OriginalPriceDetailChieuDiTungNguoi[i] = 0;
+        }
+    }
+
+    public static int[] OriginalPriceDetailChieuVeTungNguoi = new int[0];
+    public static void capNhatKichThuocOriginalPriceDetailChieuVeTungNguoi(int soLuongVe) {
+        OriginalPriceDetailChieuVeTungNguoi = new int[soLuongVe];
+        for (int i = 0; i<soLuongVe; i++){
+            OriginalPriceDetailChieuVeTungNguoi[i] = 0;
+        }
+    }
+
+    public static String[] HLKGTungNguoiChieuDi = new String[0];
+    public static void capNhatKichThuocHLKGTungNguoiChieuDi(int soLuongVe) {
+        HLKGTungNguoiChieuDi = new String[soLuongVe];
+        for (int i = 0; i<soLuongVe; i++){
+            HLKGTungNguoiChieuDi[i] = "";
+        }
+    }
+
+    public static String[] HLKGTungNguoiChieuVe = new String[0];
+    public static void capNhatKichThuocHLKGTungNguoiChieuVe(int soLuongVe) {
+        HLKGTungNguoiChieuVe = new String[soLuongVe];
+        for (int i = 0; i<soLuongVe; i++){
+            HLKGTungNguoiChieuVe[i] = "";
+        }
+    }
+
+    public static String[] FoodTungNguoiChieuDi = new String[0];
+    public static void capNhatKichThuocFoodTungNguoiChieuDi(int soLuongVe) {
+        FoodTungNguoiChieuDi = new String[soLuongVe];
+        for (int i = 0; i<soLuongVe; i++){
+            FoodTungNguoiChieuDi[i] = "";
+        }
+    }
+
+    public static String[] FoodTungNguoiChieuVe = new String[0];
+    public static void capNhatKichThuocFoodTungNguoiChieuVe(int soLuongVe) {
+        FoodTungNguoiChieuVe = new String[soLuongVe];
+        for (int i = 0; i<soLuongVe; i++){
+            FoodTungNguoiChieuVe[i] = "";
+        }
+    }
+
 
     public static String departureDay = "";
     public static String departueTime = "";

@@ -289,7 +289,13 @@ public class HomeFragment extends Fragment {
                 AppUtil.capNhatKichThuocSLBanhMi(SLVe);
                 AppUtil.capNhatKichThuocSLComTam(SLVe);
                 AppUtil.capNhatKichThuocSLComChienChay(SLVe);
-
+                AppUtil.capNhatKichThuocCCCDHK(SLVe);
+                AppUtil.capNhatKichThuocOriginalPriceDetailChieuDiTungNguoi(SLVe);
+                AppUtil.capNhatKichThuocOriginalPriceDetailChieuVeTungNguoi(SLVe);
+                AppUtil.capNhatKichThuocFoodTungNguoiChieuDi(SLVe);
+                AppUtil.capNhatKichThuocHLKGTungNguoiChieuDi(SLVe);
+                AppUtil.capNhatKichThuocHLKGTungNguoiChieuVe(SLVe);
+                AppUtil.capNhatKichThuocFoodTungNguoiChieuVe(SLVe);
                 AppUtil.departureDay = textViewCalendarDepart.getText().toString();
                 AppUtil.backDay = textViewCalendarBack.getText().toString();
                 AppUtil.ticketKind = textViewKind.getText().toString();

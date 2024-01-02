@@ -135,62 +135,74 @@ public class TicketFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                CollectionReference ticketCollection = db.collection("TICKET");
 
-                // Get the ticket ID from the search_ticket EditText
                 String searchTicketId = search_ticket.getText().toString();
 
-                // Truy vấn document theo ticket ID
-                ticketCollection.document(searchTicketId)
-                        .get()
-                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                if (documentSnapshot.exists()) {
-                                    // Document tồn tại, đọc thông tin và hiển thị lên ListView
+                try {
+                    // Chuyển đổi searchTicketId sang số nguyên
+                    int ticketId = Integer.parseInt(searchTicketId);
 
-                                    String noiDi = documentSnapshot.getString("fromLocation");
-                                    String noiDen = documentSnapshot.getString("toLocation");
-                                    String thoiGian = documentSnapshot.getString("departureDay");
+                    db.collection("TICKET")
+                            .whereEqualTo("b_id", ticketId)
+                            .get()
+                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    ArrayList<String> danhSachVe = new ArrayList<>();
+                                    for (DocumentSnapshot ticketDocument : queryDocumentSnapshots.getDocuments()) {
+                                        long  flyId = ticketDocument.getLong("fly_id");
+                                        String flyIdString = String.valueOf(flyId);
+                                        if (flyIdString != null) {
+                                            db.collection("FLIGHT")
+                                                    .document(flyIdString)
+                                                    .get()
+                                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                        @Override
+                                                        public void onSuccess(DocumentSnapshot flightDocumentSnapshot) {
+                                                            String fromLocation = flightDocumentSnapshot.getString("fromLocation");
+                                                            String toLocation = flightDocumentSnapshot.getString("toLocation");
+                                                            String departureDay = flightDocumentSnapshot.getString("departureDay");
+                                                            if (fromLocation != null && toLocation != null && departureDay != null) {
+                                                                String documentId = ticketDocument.getId();
+                                                                danhSachVe.add(documentId + " | " + fromLocation + " - " + toLocation + " | " + departureDay);
+                                                                ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, danhSachVe);
+                                                                listViewLichSuVe.setAdapter(adapter);
+                                                                Log.d("TraCuuChuyenBay", "Danh sách vé: " + danhSachVe.toString());
+                                                            }
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
 
-                                    // Kiểm tra thông tin và hiển thị lên ListView
-                                    if (noiDi != null && noiDen != null && thoiGian != null) {
-                                        ArrayList<String> danhSachVe = new ArrayList<>();
-                                        danhSachVe.add(searchTicketId + " | " + noiDi + " - " + noiDen + " | " + thoiGian);
-
-                                        // Hiển thị danh sách vé trong ListView
-                                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, danhSachVe);
-                                        listViewLichSuVe.setAdapter(adapter);
+                                                        }
+                                                    });
+                                        }
                                     }
-                                } else {
-                                    // Document không tồn tại, xử lý tương ứng
-                                    Toast.makeText(getActivity(), "Không tìm thấy vé có ID: " + searchTicketId, Toast.LENGTH_SHORT).show();
                                 }
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                // Xử lý khi có lỗi xảy ra trong quá trình truy vấn dữ liệu từ Firestore
-                                Toast.makeText(getActivity(), "Lỗi khi truy vấn dữ liệu từ Firestore", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                }
+                            });
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
             }
+
+
         });
 
         listViewLichSuVe.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Lấy thông tin của item được chọn từ danh sách
                 String selectedItem = (String) parent.getItemAtPosition(position);
-                String maVe = selectedItem.substring(0, 4);
+                String[] parts = selectedItem.split("\\|");
+                String maVe = parts[0].trim();
 
-                // Tại đây, bạn có thể tách thông tin từ chuỗi selectedItem
-                // Ví dụ: Sử dụng StringTokenizer để tách thông tin
-
-                // Chuyển sang Activity mới và chuyển theo dữ liệu từ document
                 Intent intent = new Intent(getActivity(), ChiTietVe.class);
-                intent.putExtra("selectedItem", maVe); // Truyền dữ liệu từ item được chọn
+                intent.putExtra("selectedItem", maVe);
                 startActivity(intent);
             }
         });

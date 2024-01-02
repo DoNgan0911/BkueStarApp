@@ -217,6 +217,9 @@ public class SearchFlightActivity extends AppCompatActivity {
                 AppUtil.capNhatKichThuocSLBanhMi(SLVe);
                 AppUtil.capNhatKichThuocSLComTam(SLVe);
                 AppUtil.capNhatKichThuocSLComChienChay(SLVe);
+                AppUtil.capNhatKichThuocCCCDHK(SLVe);
+                AppUtil.capNhatKichThuocOriginalPriceDetailChieuDiTungNguoi(SLVe);
+                AppUtil.capNhatKichThuocOriginalPriceDetailChieuVeTungNguoi(SLVe);
 
                 AppUtil.departureDay = textViewCalendarDepart.getText().toString();
                 AppUtil.backDay = textViewCalendarBack.getText().toString();

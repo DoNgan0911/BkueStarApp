@@ -10,14 +10,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class EditProfile extends AppCompatActivity {
 
@@ -37,64 +41,104 @@ public class EditProfile extends AppCompatActivity {
         cccd = findViewById(R.id.cccdEditText);
         button = findViewById(R.id.button);
 
+        retrieveCCCDFromFirestore(AppUtil.edtSignInEmail);
+
+
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 updateProfile();
             }
         });
+
+
     }
 
     private void updateProfile() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String userId = user.getUid();
+            Log.d("EditProfile", "User ID: " + userId);  // Log the userId
             String newName = name.getText().toString();
             String newCCCD = cccd.getText().toString();
 
-            // Update the user's information in the Realtime Database (using "customer" node)
-            reference = database.getReference("Customer").child(userId);
-
-            reference.child("full_name").setValue(newName)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+            // Update the user's information in the Firestore "CUSTOMER" collection
+            db.collection("CUSTOMER")
+                    .whereEqualTo("account_id", userId)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d("EditProfile", "Full name updated successfully");
-                            // Show success notification
-                            Toast.makeText(EditProfile.this, "Full name updated successfully", Toast.LENGTH_SHORT).show();
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (DocumentSnapshot document : task.getResult().getDocuments()) {
+                                    // Retrieve the document ID
+                                    String documentId = document.getId();
+                                    Log.d("EditProfile", "Document ID: " + documentId);
 
-                            // Now, update the num_id
-                            updateCCCD(newCCCD);
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.e("EditProfile", "Error updating full name", e);
-                            Toast.makeText(EditProfile.this, "Failed to update full name", Toast.LENGTH_SHORT).show();
+                                    // Update the "fullname" field
+                                    db.collection("CUSTOMER").document(documentId)
+                                            .update("fullname", newName , "num_id", newCCCD)
+
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d("EditProfile", "Full name updated successfully in Firestore");
+                                                    // Show success notification
+                                                    Toast.makeText(EditProfile.this, "Full name updated successfully", Toast.LENGTH_SHORT).show();
+
+                                                    // Now, update the num_id in Realtime Database
+
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.e("EditProfile", "Error updating full name in Firestore", e);
+                                                    Toast.makeText(EditProfile.this, "Failed to update full name", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                }
+                            } else {
+                                Log.e("EditProfile", "Error getting documents: ", task.getException());
+                            }
                         }
                     });
         }
     }
 
-    private void updateCCCD(String newCCCD) {
-        reference.child("num_id").setValue(newCCCD)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+    private void retrieveCCCDFromFirestore(String email) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Get reference to the "customer" collection
+        db.collection("CUSTOMER")
+                .whereEqualTo("email", email)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("EditProfile", "Num ID updated successfully");
-                        // Show success notification
-                        Toast.makeText(EditProfile.this, "Num ID updated successfully", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e("EditProfile", "Error updating num ID", e);
-                        Toast.makeText(EditProfile.this, "Failed to update num ID", Toast.LENGTH_SHORT).show();
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot document : task.getResult().getDocuments()) {
+                                // Retrieve the CCCD from the document
+                                String num_id = document.getString("num_id");
+
+                                // Display the CCCD in the EditText
+                                cccd.setText(num_id);
+
+                                // You may also want to update other UI elements based on the retrieved data
+                                // For example, update the fullname and points if they are stored in the document
+                                String fullName = document.getString("fullname");
+                                Integer points = document.getLong("point").intValue();
+                                String pointsString = String.valueOf(points);
+
+
+                                name.setText(fullName);
+                            }
+                        } else {
+                            // Handle errors
+                        }
                     }
                 });
     }
-
 }
 

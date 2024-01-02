@@ -29,7 +29,7 @@
             android:name=".TrangCaNhan"
             android:exported="false" />
         <activity
-            android:name=".EditProfile"
+            android:name=".ChiTietVe"
             android:exported="false" />
         <activity
             android:name=".TicketReview"

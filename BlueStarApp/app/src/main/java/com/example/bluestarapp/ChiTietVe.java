@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +17,11 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import androidx.annotation.NonNull;
+
+import java.util.ArrayList;
 
 
 public class ChiTietVe extends AppCompatActivity {
@@ -51,53 +56,61 @@ public class ChiTietVe extends AppCompatActivity {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference ticketCollection = db.collection("TICKET");
-        // Get the ticket ID from the search_ticket EditText
-        // replace with the actual ticket ID you want to search for
-
         DocumentReference ticketDocument = ticketCollection.document(selectedItem);
 
-        // Query the ticket with the specified ticket ID
+
         ticketDocument.get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
+
                         if (documentSnapshot.exists()) {
+                                long  flyId = documentSnapshot.getLong("fly_id");
+                                String flyIdString = String.valueOf(flyId);
+                                String name = documentSnapshot.getString("name");
+                                String seatID = documentSnapshot.getString("seat_id");
+                                String ticket_kind = documentSnapshot.getString("ticket_kind");
 
-                            // Document exists, you can retrieve its data
-                            String fromLocationSearch = documentSnapshot.getString("fromLocation");
-                            String toLocationSearch = documentSnapshot.getString("toLocation");
-                            String arrivalTimeSearch = documentSnapshot.getString("arrivalTime");
-                            String ccidSearch = documentSnapshot.getString("ccid");
-                            String departureDaySearch = documentSnapshot.getString("departureDay");
-                            String departureTimeSearch = documentSnapshot.getString("departureTime");
-                            String mailSearch = documentSnapshot.getString("mail");
-                            String nameSearch = documentSnapshot.getString("name");
-                            String seat_idSearch = documentSnapshot.getString("seat_id");
-                            String ticket_kindSearch = documentSnapshot.getString("ticket_kind");
+                                nameofpassenger.setText(name);
+                                seat.setText(seatID);
+                                ticketKind.setText(ticket_kind);
+                                idticket.setText(selectedItem);
 
-                            fromLocation.setText(fromLocationSearch);
-                            toLocation.setText(toLocationSearch);
-                            nameofpassenger.setText(nameSearch);
-                            departureDay.setText(departureDaySearch);
-                            departureTime.setText(departureTimeSearch);
-                            seat.setText(seat_idSearch);
-                            idticket.setText(selectedItem);
-                            ticketKind.setText(ticket_kindSearch);
+                                if (flyIdString != null) {
+                                    db.collection("FLIGHT")
+                                            .document(flyIdString)
+                                            .get()
+                                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onSuccess(DocumentSnapshot flightDocumentSnapshot) {
+                                                    String fromLocation1 = flightDocumentSnapshot.getString("fromLocation");
+                                                    String toLocation1 = flightDocumentSnapshot.getString("toLocation");
+                                                    String departureDay1 = flightDocumentSnapshot.getString("departureDay");
+                                                    String departureTime1 = flightDocumentSnapshot.getString("departureTime");
 
+                                                    fromLocation.setText(fromLocation1);
+                                                    toLocation.setText(toLocation1);
+                                                    departureDay.setText(departureDay1);
+                                                    departureTime.setText(departureTime1);
 
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
 
-                        } else {
-                            // Document does not exist
-                            // Handle the case where the ticket with the given ID is not found
+                                                }
+                                            });
+                                }
+                            }
                         }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Handle errors
-                    }
-                });
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                        }
+                    });
+
 
         imageViewBack.setOnClickListener(new View.OnClickListener() {
             @Override

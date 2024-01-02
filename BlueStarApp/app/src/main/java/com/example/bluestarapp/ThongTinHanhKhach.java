@@ -158,7 +158,7 @@ public class ThongTinHanhKhach extends AppCompatActivity {
                     }
                     AppUtil.NgaySinhHK[i - start] = edtTTHKNgaySinh.getText().toString();
 
-//                    AppUtil.CCCDHK[i - start] = edtTTHKCCCD.getText().toString();
+                    AppUtil.CCCDHK[i - start] = edtTTHKCCCD.getText().toString();
 
                 } else {
                     Log.e("Debug", "Một hoặc nhiều view là null");

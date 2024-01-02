@@ -258,6 +258,9 @@ public class SuatAn extends AppCompatActivity {
 
         }
 
+
+
+
         if (AppUtil.KhuHoi == 1) {
             for (int i = 0; i < soLuongVe; i++) {
                 LinearLayout childLayoutSuatAnChieuVe = (LinearLayout) getLayoutInflater().inflate(R.layout.child_suatan_chieuve, null);
@@ -423,13 +426,26 @@ public class SuatAn extends AppCompatActivity {
                 });
 
             }
+
         }
-
-
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                int price = (TongTien - Integer.parseInt(String.valueOf(AppUtil.OriginalPrice)));
+                if (AppUtil.KhuHoi == 1 ) {
+                    price /= 2;
+                }
+                for (int i = 0; i< AppUtil.SLVe; i++) {
+                    int priceDetail = AppUtil.OriginalPriceDetailChieuDiTungNguoi[i] + price / AppUtil.SLVe;
+                    AppUtil.OriginalPriceDetailChieuDiTungNguoi[i] = priceDetail;
+                }
+                for (int i = 0; i< AppUtil.SLVe; i++) {
+                    int priceDetail = AppUtil.OriginalPriceDetailChieuVeTungNguoi[i] + price / AppUtil.SLVe;
+                    AppUtil.OriginalPriceDetailChieuVeTungNguoi[i] = priceDetail;
+                }
+
                 AppUtil.OriginalPrice = String.valueOf(TongTien);
                 Intent myintent = new Intent(SuatAn.this, MuaThemDichVu.class);
                 startActivity(myintent);

@@ -68,10 +68,6 @@ public class HanhLyKyGui extends AppCompatActivity {
 
 
 
-
-
-
-
         for (int i = 0; i < soLuongVe; i++) {
             // Tạo mới layoutTTHK
             LinearLayout childLayoutHLKGChieuDi = (LinearLayout) getLayoutInflater().inflate(R.layout.child_hanhlykygui_chieudi, null);
@@ -125,6 +121,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                         textViewTongTien.setText(String.valueOf(TongTien));
                         l[finalI] = 0;
                         Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        AppUtil.HLKGTungNguoiChieuDi[finalI] = "0";
                     }
                     else {
                         checkPriceGo(finalI);
@@ -137,6 +134,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                         AppUtil.KG[finalI] = "20kg";
                         l[finalI] = 2;
                         Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        AppUtil.HLKGTungNguoiChieuDi[finalI] = "2";
                     }
                     AppUtil.OriginalPrice = String.valueOf( TongTien);
                 }
@@ -151,6 +149,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                         textViewTongTien.setText(String.valueOf( TongTien));
                         l[finalI] = 0;
                         Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        AppUtil.HLKGTungNguoiChieuDi[finalI] = "0";
 
                     }
                     else {
@@ -164,6 +163,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                         AppUtil.KG[finalI] = "30kg";
                         l[finalI] = 3;
                         Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        AppUtil.HLKGTungNguoiChieuDi[finalI] = "3";
                     }
                     AppUtil.OriginalPrice = String.valueOf(TongTien);
                 }
@@ -178,6 +178,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                         textViewTongTien.setText(String.valueOf(TongTien));
                         l[finalI] = 0;
                         Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        AppUtil.HLKGTungNguoiChieuDi[finalI] = "0";
                     }
                     else {
                         checkPriceGo(finalI);
@@ -190,6 +191,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                         AppUtil.KG[finalI] = "40kg";
                         l[finalI] = 4;
                         Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        AppUtil.HLKGTungNguoiChieuDi[finalI] = "4";
                     }
                     AppUtil.OriginalPrice = String.valueOf(TongTien);
                 }
@@ -205,6 +207,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                         textViewTongTien.setText(String.valueOf(TongTien));
                         l[finalI] = 0;
                         Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        AppUtil.HLKGTungNguoiChieuDi[finalI] = "0";
                     }
                     else {
                         checkPriceGo(finalI);
@@ -217,6 +220,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                         AppUtil.KG[finalI] = "50kg";
                         l[finalI] = 5;
                         Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        AppUtil.HLKGTungNguoiChieuDi[finalI] = "5";
                     }
                     AppUtil.OriginalPrice = String.valueOf(TongTien);
                 }
@@ -231,6 +235,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                         textViewTongTien.setText(String.valueOf(TongTien));
                         l[finalI] = 0;
                         Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        AppUtil.HLKGTungNguoiChieuDi[finalI] = "0";
                     }
                     else {
                         checkPriceGo(finalI);
@@ -243,6 +248,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                         AppUtil.KG[finalI] = "60kg";
                         l[finalI] = 6;
                         Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        AppUtil.HLKGTungNguoiChieuDi[finalI] = "6";
                     }
                     AppUtil.OriginalPrice = String.valueOf(TongTien);
                 }
@@ -257,6 +263,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                         textViewTongTien.setText(String.valueOf(TongTien));
                         l[finalI] = 0;
                         Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        AppUtil.HLKGTungNguoiChieuDi[finalI] = "0";
                     }
                     else {
                         checkPriceGo(finalI);
@@ -269,11 +276,15 @@ public class HanhLyKyGui extends AppCompatActivity {
                         AppUtil.KG[finalI] = "70kg";
                         l[finalI] = 7;
                         Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                        AppUtil.HLKGTungNguoiChieuDi[finalI] = "7";
                     }
                     AppUtil.OriginalPrice = String.valueOf(TongTien);
                 }
             });
+
         }
+
+
 
 
         if (AppUtil.KhuHoi == 1) {
@@ -326,6 +337,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                             textViewTongTien.setText(String.valueOf(TongTien));
                             l[finalI] = 0;
                             Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                            AppUtil.HLKGTungNguoiChieuVe[finalI - AppUtil.SLVe] = "0";
                         }
                         else {
                             checkPriceGo(finalI);
@@ -338,6 +350,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                             AppUtil.KG[finalI] = "20kg";
                             l[finalI] = 2;
                             Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                            AppUtil.HLKGTungNguoiChieuVe[finalI - AppUtil.SLVe] = "2";
                         }
                         AppUtil.OriginalPrice = String.valueOf( TongTien);
                     }
@@ -352,6 +365,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                             textViewTongTien.setText(String.valueOf( TongTien));
                             l[finalI] = 0;
                             Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                            AppUtil.HLKGTungNguoiChieuVe[finalI - AppUtil.SLVe] = "0";
 
                         }
                         else {
@@ -365,6 +379,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                             AppUtil.KG[finalI] = "30kg";
                             l[finalI] = 3;
                             Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                            AppUtil.HLKGTungNguoiChieuVe[finalI - AppUtil.SLVe] = "3";
                         }
                         AppUtil.OriginalPrice = String.valueOf(TongTien);
                     }
@@ -379,6 +394,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                             textViewTongTien.setText(String.valueOf(TongTien));
                             l[finalI] = 0;
                             Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                            AppUtil.HLKGTungNguoiChieuVe[finalI - AppUtil.SLVe] = "0";
                         }
                         else {
                             checkPriceGo(finalI);
@@ -391,6 +407,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                             AppUtil.KG[finalI] = "40kg";
                             l[finalI] = 4;
                             Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                            AppUtil.HLKGTungNguoiChieuVe[finalI - AppUtil.SLVe] = "4";
                         }
                         AppUtil.OriginalPrice = String.valueOf(TongTien);
                     }
@@ -406,6 +423,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                             textViewTongTien.setText(String.valueOf(TongTien));
                             l[finalI] = 0;
                             Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                            AppUtil.HLKGTungNguoiChieuVe[finalI - AppUtil.SLVe] = "0";
                         }
                         else {
                             checkPriceGo(finalI);
@@ -418,6 +436,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                             AppUtil.KG[finalI] = "50kg";
                             l[finalI] = 5;
                             Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                            AppUtil.HLKGTungNguoiChieuVe[finalI - AppUtil.SLVe] = "5";
                         }
                         AppUtil.OriginalPrice = String.valueOf(TongTien);
                     }
@@ -432,6 +451,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                             textViewTongTien.setText(String.valueOf(TongTien));
                             l[finalI] = 0;
                             Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                            AppUtil.HLKGTungNguoiChieuVe[finalI - AppUtil.SLVe] = "0";
                         }
                         else {
                             checkPriceGo(finalI);
@@ -444,6 +464,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                             AppUtil.KG[finalI] = "60kg";
                             l[finalI] = 6;
                             Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                            AppUtil.HLKGTungNguoiChieuVe[finalI - AppUtil.SLVe] = "6";
                         }
                         AppUtil.OriginalPrice = String.valueOf(TongTien);
                     }
@@ -458,6 +479,7 @@ public class HanhLyKyGui extends AppCompatActivity {
                             textViewTongTien.setText(String.valueOf(TongTien));
                             l[finalI] = 0;
                             Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                            AppUtil.HLKGTungNguoiChieuVe[finalI - AppUtil.SLVe] = "0";
                         }
                         else {
                             checkPriceGo(finalI);
@@ -470,27 +492,36 @@ public class HanhLyKyGui extends AppCompatActivity {
                             AppUtil.KG[finalI] = "70kg";
                             l[finalI] = 7;
                             Log.e("TienTungNguoi[" + finalI + "]", "TienTungNguoi: " + TienTungNguoi[finalI]);
+                            AppUtil.HLKGTungNguoiChieuVe[finalI - AppUtil.SLVe] = "7";
                         }
                         AppUtil.OriginalPrice = String.valueOf(TongTien);
                     }
                 });
 
             }
+
+
         }
-
-
-
-
-
-
-
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                for (int il = 0; il < AppUtil.SLVe; il++) {
+                    int price = AppUtil.OriginalPriceDetailChieuDiTungNguoi[il] + TienTungNguoi[il];
+                    AppUtil.OriginalPriceDetailChieuDiTungNguoi[il] = price;
+                }
+
+                if (AppUtil.KhuHoi == 1 ) {
+                    for (int i = 0; i < AppUtil.SLVe; i++) {
+                        int price = TienTungNguoi[i + AppUtil.SLVe]  + AppUtil.OriginalPriceDetailChieuVeTungNguoi[i] ;
+                        AppUtil.OriginalPriceDetailChieuVeTungNguoi[i] = price;
+                    }
+                }
                 AppUtil.OriginalPrice = String.valueOf(TongTien);
                 Intent myintent = new Intent(HanhLyKyGui.this, MuaThemDichVu.class);
                 startActivity(myintent);
+                Log.d("adas", String.valueOf(AppUtil.OriginalPriceDetailChieuDiTungNguoi[0]));
+                Log.d("adas2", String.valueOf(TienTungNguoi[0]));
             }
         });
 

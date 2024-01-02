@@ -54,15 +54,20 @@ public class ResultFlight extends AppCompatActivity {
                 String arrivalTime = flight.getArrivalTime().toString();
                 String departureDay = flight.getDepartureDay().toString();
 
+
                 AppUtil.FromLocation = Fromlocation;
                 AppUtil.ToLocation = Tolocation;
                 if ("Thương gia".equals(AppUtil.ticketKind)) { // Sử dụng phương thức equals để so sánh chuỗi
                     if (!OriginalPrice.isEmpty()) {
                         int price = Integer.parseInt(OriginalPrice)*AppUtil.SLVe + 500000*AppUtil.SLVe;
+                        int priceDetail = Integer.parseInt(OriginalPrice) + 500000;
+                        AppUtil.OriginalPriceDetailChieuDi = String.valueOf(priceDetail);
                         AppUtil.OriginalPrice = String.valueOf(price);
                     }
                 } else {
                     int price = Integer.parseInt(OriginalPrice)*AppUtil.SLVe ;
+                    int priceDetail = Integer.parseInt(OriginalPrice);
+                    AppUtil.OriginalPriceDetailChieuDi = String.valueOf(priceDetail);
                     AppUtil.OriginalPrice = String.valueOf(price);
                 }
 

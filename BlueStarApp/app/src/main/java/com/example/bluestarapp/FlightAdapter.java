@@ -39,6 +39,7 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.MyViewHold
         holder.toLocation.setText(flight.getToLocation());
         holder.departureTime.setText(flight.getDepartureTime());
         holder.arrivalTime.setText(flight.getArrivalTime());
+
         if (AppUtil.ticketKind.equals("Thương gia")) { // Sử dụng phương thức equals để so sánh chuỗi
             int originalPrice = Integer.parseInt(flight.getOriginalPrice()) + 500000;
             holder.originalPrice.setText(String.valueOf(originalPrice)); // Chuyển về chuỗi trước khi hiển thị

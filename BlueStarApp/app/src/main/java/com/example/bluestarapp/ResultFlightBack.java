@@ -54,12 +54,17 @@ public class ResultFlightBack extends AppCompatActivity {
                 String departureTimeBack = flight.getDepartureTime().toString();
                 String arrivalTimeBack = flight.getArrivalTime().toString();
 
+
                 if ("Thương gia".equals(AppUtil.ticketKind)) { // Sử dụng phương thức equals để so sánh chuỗi
                     if (!OriginalPrice.isEmpty()) {
                          price = Integer.parseInt(OriginalPrice)*AppUtil.SLVe + 500000*AppUtil.SLVe;
+                        int priceDetail = Integer.parseInt(OriginalPrice) + 500000;
+                        AppUtil.OriginalPriceDetailChieuVe = String.valueOf(priceDetail);
                     }
                 } else {
                     price = Integer.parseInt(OriginalPrice)*AppUtil.SLVe;
+                    int priceDetail = Integer.parseInt(OriginalPrice);
+                    AppUtil.OriginalPriceDetailChieuVe = String.valueOf(priceDetail);
                 }
 
                 int Total = PriceBack + price;
