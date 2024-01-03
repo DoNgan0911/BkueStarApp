@@ -1,0 +1,5 @@
+<!-- rounded_corners.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="50dp" /> <!-- Điều chỉnh giá trị radius tùy theo mong muốn -->
+    <solid android:color="@color/white" /> <!-- Màu nền của LinearLayout -->
+</shape>

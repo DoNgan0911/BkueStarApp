@@ -100,6 +100,8 @@
             android:text="Xác nhận"
             android:textColor="#000000"
             app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             tools:layout_editor_absoluteX="151dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

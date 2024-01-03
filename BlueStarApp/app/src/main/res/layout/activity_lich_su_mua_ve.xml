@@ -6,14 +6,12 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
     android:orientation="vertical"
-    tools:context=".LichSuMuaVe" >
-
+    tools:context=".LichSuMuaVe">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="#2F88CF"
-        >
+        android:background="#2F88CF">
 
         <TextView
             android:id="@+id/textView16"
@@ -34,7 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/white">
 
         <EditText
             android:id="@+id/search_ticket"
@@ -56,6 +55,9 @@
         android:id="@+id/textView13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:padding="15dp"
+        android:gravity="center"
         android:text="Lịch sử mua vé" />
 
     <ListView
