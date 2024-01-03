@@ -5,19 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
     tools:context=".FromLocation">
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:textSize="20dp"
+        android:textSize="24sp"
         android:gravity="center"
         android:text="Chọn địa điểm"
-        android:background="@color/blue"/>
+        android:background="@color/blue"
+        android:textColor="@android:color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@android:color/white" />
 </LinearLayout>
