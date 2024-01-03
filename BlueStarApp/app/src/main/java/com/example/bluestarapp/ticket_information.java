@@ -72,6 +72,7 @@ public class ticket_information extends AppCompatActivity {
     private String merchantNameLabel = "ĐỖ THỊ BÍCH NGÂN";
     private String description = "Thanh toán đặt vé máy bay BlueStar";
     String ticketNumber = "";
+    int mabooker ;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -138,25 +139,9 @@ public class ticket_information extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                                                CollectionReference ticketCollection = db.collection("TICKET");
 
-                                                ticketCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                        if (task.isSuccessful()) {
-                                                            int documentCount = task.getResult().size();
-                                                            addTickets(documentCount, documentId);
-                                                            if (AppUtil.KhuHoi == 1) {
-                                                                documentCount += AppUtil.SLVe;
-                                                                addTicketsKH(documentCount, documentId);
-                                                            }
-                                                        }
-                                                    }
-                                                });
-                                                Log.d("ổn hong", "đã vô");
-
-                                                requestPayment(Integer.parseInt(documentId));
+                                                mabooker = Integer.parseInt(documentId);
+                                                requestPayment(mabooker);
 
                                             }
                                         })
@@ -369,20 +354,31 @@ public class ticket_information extends AppCompatActivity {
             if (data != null) {
                 if (data.getIntExtra("status", -1) == 0) {
                     //TOKEN IS AVAILABLE
-                    Log.d("thành công", data.getStringExtra("message"));
+                    Log.d("thanhcong", data.getStringExtra("message"));
                     String token = data.getStringExtra("data"); //Token response
 //                    update MÃ MOMO LÀ TOKEN NÈ
-                    String bookerId = data.getStringExtra("orderId");
-                    if (bookerId != null && !bookerId.isEmpty()) {
-                        DocumentReference ticketRef = db.collection("BOOKER").document(bookerId);
+                        DocumentReference ticketRef = db.collection("BOOKER").document(String.valueOf(mabooker));
                         ticketRef.update("momo", token)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
+                                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                        CollectionReference ticketCollection = db.collection("TICKET");
+                                        ticketCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    int documentCount = task.getResult().size();
+                                                    addTickets(documentCount, String.valueOf(mabooker));
+                                                    if (AppUtil.KhuHoi == 1) {
+                                                        documentCount += AppUtil.SLVe;
+                                                        addTicketsKH(documentCount, String.valueOf(mabooker));
+                                                    }
+                                                }
+                                            }
+                                        });
                                         Log.d("UpdateToken", "Token updated successfully!");
-//                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                                        startActivity(intent);
-//                                        finish();
+//
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -405,27 +401,66 @@ public class ticket_information extends AppCompatActivity {
                             // TODO: send phoneNumber & token to your server side to process payment with MoMo server
                             // IF Momo topup success, continue to process your order
                         } else {
-                            Log.d("thành công", "không thành công");
+                            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(i);
+                            finish();
+                            Log.d("thành công", "không thành cônggggggggggg1");
                         }
                     } else if (data.getIntExtra("status", -1) == 1) {
                         //TOKEN FAIL
                         String message = data.getStringExtra("message") != null ? data.getStringExtra("message") : "Thất bại";
-                        Log.d("thành công", "không thành công");
+                    Log.d("thành công", "không thành cônggggggggggg2");
+
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
                     } else if (data.getIntExtra("status", -1) == 2) {
                         //TOKEN FAIL
-                        Log.d("thành công", "không thành công");
+                    Log.d("thành công", "không thành cônggggggggggg3");
+
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
                     } else {
                         //TOKEN FAIL
-                        Log.d("thành công", "không thành công");
+//                    CHÈN MAIL THÔNG BÁO THẤT BẠI
+
+//                    XÓA BOOKER
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    DocumentReference documentReference = db.collection("BOOKER").document(String.valueOf(mabooker));
+                    documentReference.delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("DeleteDocument", "DocumentSnapshot successfully deleted!");
+                                    // Handle any other operations after successfully deleting the document
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("DeleteDocument", "Error deleting document", e);
+                                    // Handle any errors that occur while trying to delete the document
+                                }
+                            });
+                    Log.d("thành công", "không thành cônggggggggggg4");
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
                     }
                 } else {
-                    Log.d("thành công", "không thành công");
+                Log.d("thành công", "không thành cônggggggggggg5");
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
                 }
             } else {
-                Log.d("thành công", "không thành công");
+            Log.d("thành công", "không thành cônggggggggggg6");
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
             }
-        }}
-
+        }
 
 
 

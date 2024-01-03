@@ -115,7 +115,21 @@ public class ThongTinHanhKhach extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
                 if (kiemTraTrong()) {
+                    if(edtTTLHSdt.getText().toString().length() != 10){
+                        Toast.makeText(getApplicationContext(), "Số điện thoại phải có ít nhất 10 kí tự!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if(!edtTTLHEmail.getText().toString().endsWith("@gmail.com")){
+                        Toast.makeText(getApplicationContext(), "Mail không hợp lệ", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if(edtTTLHSdt.length() != 10 ){
+                        Toast.makeText(getApplicationContext(), "Số điện thoại phải có ít nhất 10 kí tự!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                     // Nếu không có trường nào trống, thì tiến hành chuyển màn hình
                     AppUtil.edtTTLHEmail = edtTTLHEmail.getText().toString();
                     AppUtil.edtTTLHName = edtTTLHName.getText().toString();
@@ -156,6 +170,7 @@ public class ThongTinHanhKhach extends AppCompatActivity {
                 // Kiểm tra null trước khi sử dụng
                 // Trong capNhatAppUtil()
                 if (edtTTHKName != null  && edtTTHKNgaySinh != null && edtTTHKCCCD !=null) {
+
                     // Cập nhật thông tin vào AppUtil
                     String updatedName = edtTTHKName.getText().toString();
                     Log.e("Debug", "Updated Name: " + updatedName);

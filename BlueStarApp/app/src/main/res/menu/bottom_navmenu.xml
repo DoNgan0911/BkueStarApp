@@ -21,7 +21,7 @@
 <!--        android:id="@+id/setting"/>-->
     <item
         android:id="@+id/profile"
-        android:title="Thông tin cá nhân"
+        android:title="Thông tin"
         android:icon="@drawable/baseline_person_2_24"
         />
     <item
