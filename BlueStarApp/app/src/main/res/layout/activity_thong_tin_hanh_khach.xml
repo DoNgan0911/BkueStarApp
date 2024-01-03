@@ -333,7 +333,7 @@
                     android:layout_marginTop="28dp"
                     android:ems="10"
                     android:hint="VD:ngotatto@gmail.com"
-                    android:inputType="text"
+                    android:inputType="textEmailAddress"
                     app:layout_constraintStart_toEndOf="@+id/textView12"
                     app:layout_constraintTop_toBottomOf="@+id/edtTTLHSdt" />
             </androidx.constraintlayout.widget.ConstraintLayout>

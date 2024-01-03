@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,12 +53,16 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import vn.momo.momo_partner.AppMoMoLib;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+
 
 
 
 
 public class ticket_information extends AppCompatActivity {
         Button thanhtoan;
+        LinearLayout layoutMain;
     int iddonhang;
     private String amount = "10000";
     private String fee = "0";
@@ -76,6 +81,7 @@ public class ticket_information extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_ticket_information);
+            layoutMain = findViewById(R.id.layoutMain);
             AppMoMoLib.getInstance().setEnvironment(AppMoMoLib.ENVIRONMENT.DEVELOPMENT);
             thanhtoan = findViewById(R.id.thanhtoan);
             // Get the Flight object from the intent
@@ -170,59 +176,78 @@ public class ticket_information extends AppCompatActivity {
             }
             );
 
-            Flight flight = (Flight) getIntent().getSerializableExtra("flight");
-            Ticket ticket = (Ticket) getIntent().getSerializableExtra("ticket");
+            for (int i = 0; i < AppUtil.SLVe; i++) {
+                // Tạo mới layoutTTHK
+                LinearLayout childLayoutTTHK = (LinearLayout) getLayoutInflater().inflate(R.layout.ticket_info_chieudi, null);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+                layoutParams.setMargins(0, 0, 0, 48);
 
-            // Set values to TextViews
-            TextView fromTextView = findViewById(R.id.from);
-            fromTextView.setText(AppUtil.FromLocation);
-
-            TextView timeGoTextView = findViewById(R.id.timego);
-            timeGoTextView.setText(AppUtil.departueTime);
-
-            TextView nameOfPassengerTextView = findViewById(R.id.nameofpassager);
-
-            // Set your passenger name here
-// phải comment lại mới được
-//        nameOfPassengerTextView.setText(AppUtil.edtTTHKName); // Set your passenger name here
+                childLayoutTTHK.setLayoutParams(layoutParams);
 
 
-            //TextView foodTextView = findViewById(R.id.food);
-            //foodTextView.setText("...");
+                childLayoutTTHK.setId(View.generateViewId());
+                TextView ticketKind = childLayoutTTHK.findViewById(R.id.ticketKind);
+                TextView seat = childLayoutTTHK.findViewById(R.id.seat);
+                TextView departureDay = childLayoutTTHK.findViewById(R.id.departureDay);
+                TextView toLocation = childLayoutTTHK.findViewById(R.id.toLocation);
+                TextView idticket = childLayoutTTHK.findViewById(R.id.idticket);
+                TextView nameofpassenger = childLayoutTTHK.findViewById(R.id.nameofpassenger);
+                TextView departureTime = childLayoutTTHK.findViewById(R.id.departureTime);
+                TextView fromLocation = childLayoutTTHK.findViewById(R.id.fromLocation);
+
+                ticketKind.setText(AppUtil.ticketKind);
+                seat.setText(AppUtil.GheDaChon[i]);
+                departureTime.setText(AppUtil.departueTime);
+                departureDay.setText(AppUtil.departureDay);
+                toLocation.setText(AppUtil.ToLocation);
+                fromLocation.setText(AppUtil.FromLocation);
+                nameofpassenger.setText(AppUtil.edtTTHKName[i]);
+                idticket.setText(ticketNumber);
+
+                layoutMain.addView(childLayoutTTHK);
+
+            }
 
 
-            //TextView kgTextView = findViewById(R.id.kg);
-            //kgTextView.setText("..."); // Set your kg here
+            if (AppUtil.KhuHoi == 1) {
 
-            TextView toWhereTextView = findViewById(R.id.towhere);
-            toWhereTextView.setText(AppUtil.ToLocation);
+                for (int i = AppUtil.SLVe; i < AppUtil.SLVe*2; i++) {
+                    // Tạo mới layoutTTHK
+                    LinearLayout childLayoutTTHK = (LinearLayout) getLayoutInflater().inflate(R.layout.ticket_info_chieuve, null);
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    layoutParams.setMargins(0, 0, 0, 48);
 
-            TextView timeArriveTextView = findViewById(R.id.timearrive);
-            timeArriveTextView.setText(AppUtil.arrivalTime);
+                    childLayoutTTHK.setLayoutParams(layoutParams);
 
-            TextView seatTextView = findViewById(R.id.seat);
-            seatTextView.setText(Arrays.toString(AppUtil.GheDaChon));
+                    childLayoutTTHK.setId(View.generateViewId());
+                    TextView ticketKind = childLayoutTTHK.findViewById(R.id.ticketKind);
+                    TextView seat = childLayoutTTHK.findViewById(R.id.seat);
+                    TextView departureDay = childLayoutTTHK.findViewById(R.id.departureDay);
+                    TextView toLocation = childLayoutTTHK.findViewById(R.id.toLocation);
+                    TextView idticket = childLayoutTTHK.findViewById(R.id.idticket);
+                    TextView nameofpassenger = childLayoutTTHK.findViewById(R.id.nameofpassenger);
+                    TextView departureTime = childLayoutTTHK.findViewById(R.id.departureTime);
+                    TextView fromLocation = childLayoutTTHK.findViewById(R.id.fromLocation);
 
-            TextView typeOfTicketTextView = findViewById(R.id.typeofticket);
-            typeOfTicketTextView.setText(AppUtil.ticketKind); // Set your ticket type here
+                    ticketKind.setText(AppUtil.ticketKind);
+                    seat.setText(AppUtil.GheDaChon[i - AppUtil.SLVe]);
+                    departureTime.setText(AppUtil.departueTimeBack);
+                    departureDay.setText(AppUtil.backDay);
+                    toLocation.setText(AppUtil.FromLocation);
+                    fromLocation.setText(AppUtil.ToLocation);
+                    nameofpassenger.setText(AppUtil.edtTTHKName[i - AppUtil.SLVe]);
+                    idticket.setText(ticketNumber);
 
-            //test_sent_mail.setOnClickListener(new View.OnClickListener() {
+                    layoutMain.addView(childLayoutTTHK);
+                }
+            }
 
-            //@Override
-            //public void onClick(View v) {
-            //Intent myintent = new Intent(MuaThemDichVu.this, TicketReview.class);
-            //Intent myintent = new Intent(ticket_information.this, Send_mail.class);
-            //startActivity(myintent);
-            //}
-
-            //@Override
-            //public void onClick(View v) {
-            //Intent myintent = new Intent(MuaThemDichVu.this, TicketReview.class);
-            //Intent myintent = new Intent(ticket_information.this, Send_mail.class);
-            //startActivity(myintent);
-            //}
-
-            //});
             try {
                 String stringSenderEmail = "phucnguyen6009dh@gmail.com";
                 String stringReceiverEmail = AppUtil.edtTTLHEmail;
@@ -409,6 +434,51 @@ public class ticket_information extends AppCompatActivity {
 
         FirebaseFirestore dbflight = FirebaseFirestore.getInstance();
         CollectionReference flightsCollection = dbflight.collection("FLIGHT");
+        CollectionReference customersCollection = dbflight.collection("CUSTOMER");
+
+        customersCollection
+                .whereEqualTo("email", AppUtil.edtTTLHEmail)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot documents) {
+                        // Kiểm tra xem có bản ghi nào trùng khớp không
+                        if (!documents.isEmpty()) {
+                            // Nếu có, tăng điểm lên 1
+                            Long currentPoints = (Long) documents.getDocuments().get(0).get("point");
+                            Long newPoints = currentPoints + 1;
+
+                            // Cập nhật giá trị điểm mới vào Firestore
+                            String documentId = documents.getDocuments().get(0).getId();
+                            customersCollection.document(documentId)
+                                    .update("point", newPoints)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            // Cập nhật thành công
+                                            System.out.println("Điểm đã được cập nhật thành công.");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Xử lý khi cập nhật thất bại
+                                            System.out.println("Lỗi khi cập nhật điểm: " + e.toString());
+                                        }
+                                    });
+                        } else {
+                            // Nếu không có bản ghi nào trùng khớp, bạn có thể xử lý theo ý của mình
+                            System.out.println("Không tìm thấy bản ghi có email tương ứng.");
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Xử lý khi truy vấn thất bại
+                        System.out.println("Lỗi khi truy vấn Firestore: " + e.toString());
+                    }
+                });
 
         flightsCollection
                 .whereEqualTo("fromLocation", AppUtil.FromLocation)
@@ -477,6 +547,52 @@ public class ticket_information extends AppCompatActivity {
     private void addTicketsKH(int startingDocumentId, String bid) {
         FirebaseFirestore dbflight = FirebaseFirestore.getInstance();
         CollectionReference flightsCollection = dbflight.collection("FLIGHT");
+        CollectionReference customersCollection = dbflight.collection("CUSTOMER");
+
+        customersCollection
+                .whereEqualTo("email", AppUtil.edtTTLHEmail)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot documents) {
+                        // Kiểm tra xem có bản ghi nào trùng khớp không
+                        if (!documents.isEmpty()) {
+                            // Nếu có, tăng điểm lên 1
+                            Long currentPoints = (Long) documents.getDocuments().get(0).get("point");
+                            Long newPoints = currentPoints + 1;
+
+                            // Cập nhật giá trị điểm mới vào Firestore
+                            String documentId = documents.getDocuments().get(0).getId();
+                            customersCollection.document(documentId)
+                                    .update("point", newPoints)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            // Cập nhật thành công
+                                            System.out.println("Điểm đã được cập nhật thành công.");
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Xử lý khi cập nhật thất bại
+                                            System.out.println("Lỗi khi cập nhật điểm: " + e.toString());
+                                        }
+                                    });
+                        } else {
+                            // Nếu không có bản ghi nào trùng khớp, bạn có thể xử lý theo ý của mình
+                            System.out.println("Không tìm thấy bản ghi có email tương ứng.");
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Xử lý khi truy vấn thất bại
+                        System.out.println("Lỗi khi truy vấn Firestore: " + e.toString());
+                    }
+                });
+
 
         flightsCollection
                 .whereEqualTo("fromLocation", AppUtil.ToLocation)

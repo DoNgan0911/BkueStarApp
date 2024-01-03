@@ -3,7 +3,9 @@ package com.example.bluestarapp;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -112,15 +115,22 @@ public class ThongTinHanhKhach extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                AppUtil.edtTTLHEmail=edtTTLHEmail.getText().toString();
-                AppUtil.edtTTLHName=edtTTLHName.getText().toString();
-                AppUtil.edtTTLHSdt=edtTTLHSdt.getText().toString();
+                if (kiemTraTrong()) {
+                    // Nếu không có trường nào trống, thì tiến hành chuyển màn hình
+                    AppUtil.edtTTLHEmail = edtTTLHEmail.getText().toString();
+                    AppUtil.edtTTLHName = edtTTLHName.getText().toString();
+                    AppUtil.edtTTLHSdt = edtTTLHSdt.getText().toString();
 
-                capNhatAppUtil();
+                    capNhatAppUtil();
 
-                Intent myintent = new Intent(ThongTinHanhKhach.this, MuaThemDichVu.class);
-                startActivity(myintent);
-                finish();
+                    Intent myintent = new Intent(ThongTinHanhKhach.this, MuaThemDichVu.class);
+                    startActivity(myintent);
+                    finish();
+                } else {
+                    // Nếu có trường nào đó trống, hiển thị thông báo hoặc thực hiện hành động phù hợp
+                    // Ví dụ: Toast.makeText(ThongTinHanhKhach.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                    Log.e("Debug", "Vui lòng nhập đầy đủ thông tin");
+                }
             }
         });
     }
@@ -166,6 +176,69 @@ public class ThongTinHanhKhach extends AppCompatActivity {
 
             }
         }
+    }
+
+    private boolean kiemTraTrong() {
+        if (edtTTLHEmail.getText().toString().isEmpty()) {
+            showToast("Vui lòng nhập email");
+            return false;
+        } else if (!isValidEmail(edtTTLHEmail.getText().toString())) {
+            showToast("Vui lòng nhập địa chỉ email hợp lệ");
+            return false;
+        } else if (edtTTLHName.getText().toString().isEmpty()) {
+            showToast("Vui lòng nhập tên");
+            return false;
+        } else if (edtTTLHSdt.getText().toString().isEmpty()) {
+            showToast("Vui lòng nhập số điện thoại");
+            return false;
+        } else if (!kiemTraTrongChildViews()) {
+            // Thêm kiểm tra cho các trường thông tin hành khách con nếu cần
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean isValidEmail(CharSequence target) {
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
+
+    // Phương thức hiển thị Toast
+    private void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+
+    // Phương thức kiểm tra các trường thông tin hành khách con (nếu có)
+    private boolean kiemTraTrongChildViews() {
+        int soLuongVe = AppUtil.SLVe;
+        int start = 5;
+
+        for (int i = start; i < soLuongVe + start; i++) {
+            LinearLayout childView = (LinearLayout) layout_Parent_TTHK.getChildAt(i);
+
+            if (childView != null) {
+                EditText edtTTHKName = childView.findViewById(R.id.edtTTHKName);
+                RadioGroup radioGroup = childView.findViewById(R.id.radioGroup);
+                RadioButton radioButton1 = childView.findViewById(R.id.radioButtonNam);
+                RadioButton radioButton2 = childView.findViewById(R.id.radioButtonNu);
+                EditText edtTTHKNgaySinh = childView.findViewById(R.id.edtTTHKNgaySinh);
+                EditText edtTTHKCCCD = childView.findViewById(R.id.edtTTHKCCCD);
+
+                // Kiểm tra null và trống trước khi sử dụng
+                if (edtTTHKName != null && radioGroup != null &&
+                        edtTTHKNgaySinh != null && edtTTHKCCCD != null &&
+                        !edtTTHKName.getText().toString().isEmpty() &&
+                        (radioButton1.isChecked() || radioButton2.isChecked()) &&
+                        !edtTTHKNgaySinh.getText().toString().isEmpty() &&
+                        !edtTTHKCCCD.getText().toString().isEmpty()) {
+                    continue;  // Nếu không có trường nào trống, tiếp tục vòng lặp
+                } else {
+                    return false;  // Nếu có trường nào đó trống, trả về false
+                }
+            }
+        }
+        return true;  // Nếu không có lỗi, trả về true
     }
 
 }

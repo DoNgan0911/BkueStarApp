@@ -143,15 +143,18 @@ public class TicketFragment extends Fragment {
                     int ticketId = Integer.parseInt(searchTicketId);
 
                     db.collection("TICKET")
-                            .whereEqualTo("b_id", ticketId)
+                            .whereEqualTo("b_id", String.valueOf(ticketId))
                             .get()
                             .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                 @Override
                                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                     ArrayList<String> danhSachVe = new ArrayList<>();
                                     for (DocumentSnapshot ticketDocument : queryDocumentSnapshots.getDocuments()) {
-                                        long  flyId = ticketDocument.getLong("fly_id");
-                                        String flyIdString = String.valueOf(flyId);
+                                        long flyId = 0; // Khởi tạo giá trị mặc định
+                                        String flyIdString = ticketDocument.getString("fly_id");
+                                        if (flyIdString != null) {
+                                            flyId = Long.parseLong(flyIdString);
+                                        }
                                         if (flyIdString != null) {
                                             db.collection("FLIGHT")
                                                     .document(flyIdString)

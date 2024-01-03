@@ -24,9 +24,13 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -311,8 +315,30 @@ public class HomeFragment extends Fragment {
 
                 intent.putExtra("mypackage", bundle);
 
-                // Khởi chạy ResultFlightActivity với Intent và Bundle
-                startActivity(intent);
+                if (AppUtil.KhuHoi == 1) {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+                    try {
+                        Date departureDate = dateFormat.parse(AppUtil.departureDay);
+                        Date returnDate = dateFormat.parse(AppUtil.backDay);
+
+                        if (departureDate != null && returnDate != null && departureDate.after(returnDate)) {
+                            // Departure date is after return date
+                            Toast.makeText(getActivity(), "Ngày đi không được lớn hơn ngày về", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            startActivity(intent);
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    // Khởi chạy ResultFlightActivity với Intent và Bundle
+                    startActivity(intent);
+                }
+
+
+
 
             }
         });
@@ -342,17 +368,30 @@ public class HomeFragment extends Fragment {
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                calendar.set(year, month, dayOfMonth);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                if (index == 1) {
-                    textViewCalendarDepart.setText(simpleDateFormat.format(calendar.getTime()));
+                Calendar selectedDate = Calendar.getInstance();
+                selectedDate.set(year, month, dayOfMonth);
+
+                if (selectedDate.after(Calendar.getInstance())) {
+                    // Ngày được chọn là ngày trong tương lai
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    if (index == 1) {
+                        textViewCalendarDepart.setText(simpleDateFormat.format(selectedDate.getTime()));
+                    } else {
+                        textViewCalendarBack.setText(simpleDateFormat.format(selectedDate.getTime()));
+                    }
                 } else {
-                    textViewCalendarBack.setText(simpleDateFormat.format(calendar.getTime()));
+                    // Ngày được chọn là ngày trong quá khứ
+                    Toast.makeText(getActivity(), "Vui lòng chọn ngày trong tương lai", Toast.LENGTH_SHORT).show();
                 }
             }
         }, year, month, day);
+
+        // Set giới hạn cho DatePickerDialog không cho chọn ngày trong quá khứ
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+
         datePickerDialog.show();
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

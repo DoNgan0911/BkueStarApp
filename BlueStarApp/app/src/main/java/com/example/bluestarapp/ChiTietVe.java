@@ -65,8 +65,8 @@ public class ChiTietVe extends AppCompatActivity {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
 
                         if (documentSnapshot.exists()) {
-                                long  flyId = documentSnapshot.getLong("fly_id");
-                                String flyIdString = String.valueOf(flyId);
+                            String flyIdString = documentSnapshot.getString("fly_id");
+                            long flyId = Long.parseLong(flyIdString);
                                 String name = documentSnapshot.getString("name");
                                 String seatID = documentSnapshot.getString("seat_id");
                                 String ticket_kind = documentSnapshot.getString("ticket_kind");
