@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,7 +104,7 @@ public class ProfileFragment extends Fragment {
             telEditText = view.findViewById(R.id.telEditText);
 
             emailEditText = view.findViewById(R.id.emailEditText);
-            emailEditText.setText(AppUtil.edtSignInEmail);
+            emailEditText.setText(currentUser.getEmail());
 
 //            XỬ LÍ FIREBASE lấy các thông tin tên, điểm, email, số cccd;
             button_capnhat = view.findViewById(R.id.button_capnhap);
@@ -113,7 +114,7 @@ public class ProfileFragment extends Fragment {
             auth = FirebaseAuth.getInstance();
             user = auth.getCurrentUser();
 
-            retrieveCCCDFromFirestore(AppUtil.edtSignInEmail);
+            retrieveCCCDFromFirestore(currentUser.getUid());
             button_capnhat.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -144,25 +145,30 @@ public class ProfileFragment extends Fragment {
             email_et = view.findViewById(R.id.email_signin);
             password_et = view.findViewById(R.id.pass_signin);
             btn_signin = view.findViewById(R.id.btn_signin);
-            signup_tv = view.findViewById(R.id.click_signup);
+//            signup_tv = view.findViewById(R.id.click_signup);
             forgot_password = view.findViewById(R.id.forgot_pass);
             forgot_password.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), ForgotPassActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+                    ForgotPasswordFragment forgotPassFragment = new ForgotPasswordFragment();
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+                    // Thay thế fragment hiện tại bằng ForgotPassFragment
+                    transaction.replace(R.id.framelayout, forgotPassFragment); // R.id.fragment_container là ID của layout chứa fragment trong activity của bạn
+                    transaction.addToBackStack(null); // Để có thể nhấn nút back để trở về
+                    transaction.commit();
                 }
             });
 
-            signup_tv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), SignUpActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                }
-            });
+//            signup_tv.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//
+//                    Intent intent = new Intent(getActivity(), SignUpActivity.class);
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    startActivity(intent);
+//                }
+//            });
             btn_signin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -209,12 +215,11 @@ public class ProfileFragment extends Fragment {
         return view;
 
     }
-    private void retrieveCCCDFromFirestore(String email) {
+    private void retrieveCCCDFromFirestore(String uid) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
         // Get reference to the "customer" collection
         db.collection("CUSTOMER")
-                .whereEqualTo("email", email)
+                .whereEqualTo("account_id", uid)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -223,17 +228,12 @@ public class ProfileFragment extends Fragment {
                             for (DocumentSnapshot document : task.getResult().getDocuments()) {
                                 // Retrieve the CCCD from the document
                                 String cccd = document.getString("num_id");
-
-                                // Display the CCCD in the EditText
-                                telEditText.setText(cccd);
-
-                                // You may also want to update other UI elements based on the retrieved data
-                                // For example, update the fullname and points if they are stored in the document
                                 String fullName = document.getString("fullname");
                                 Integer points = document.getLong("point").intValue();
                                 String pointsString = String.valueOf(points);
-
-
+                                Log.d("ten",fullName);
+                                Log.d("diem",pointsString);
+                                telEditText.setText(cccd);
                                 fullname.setText(fullName);
                                 pointEditText.setText(pointsString);
 

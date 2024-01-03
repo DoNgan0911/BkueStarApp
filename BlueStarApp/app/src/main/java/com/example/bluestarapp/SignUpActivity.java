@@ -120,10 +120,11 @@ public class SignUpActivity extends AppCompatActivity {
                                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                             @Override
                                                             public void onSuccess(Void aVoid) {
-                                                                Toast.makeText(SignUpActivity.this, "User data added to CUSTOMER collection.", Toast.LENGTH_SHORT).show();
-                                                                Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                                                                Toast.makeText(SignUpActivity.this, "Đăng ký tài khoản thành công", Toast.LENGTH_SHORT).show();
+                                                                Intent intent  = new Intent(getApplicationContext(), ProfileFragment.class);
                                                                 startActivity(intent);
                                                                 finish();
+
                                                             }
                                                         })
                                                         .addOnFailureListener(new OnFailureListener() {

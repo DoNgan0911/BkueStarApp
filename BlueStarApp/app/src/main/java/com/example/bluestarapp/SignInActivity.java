@@ -48,7 +48,7 @@ public class SignInActivity extends AppCompatActivity {
         email_et = findViewById(R.id.email_signin);
         password_et = findViewById(R.id.pass_signin);
         btn_signin = findViewById(R.id.btn_signin);
-        signup_tv = findViewById(R.id.click_signup);
+//        signup_tv = findViewById(R.id.click_signup);
         forgot_password = findViewById(R.id.forgot_pass);
         forgot_password.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,14 +58,14 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-        signup_tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+//        signup_tv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
         btn_signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

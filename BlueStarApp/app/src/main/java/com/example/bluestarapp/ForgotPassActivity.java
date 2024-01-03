@@ -2,6 +2,8 @@ package com.example.bluestarapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -45,8 +47,13 @@ public class ForgotPassActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(ForgotPassActivity.this, "Check your email", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(ForgotPassActivity.this, SignInActivity.class));
-                    finish();
+                    Fragment profileFragment = new ProfileFragment(); // Khởi tạo fragment
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+                    // Thay thế fragment hiện tại bằng ProfileFragment
+                    transaction.replace(R.id.framelayout, profileFragment); // R.id.fragment_container là ID của layout chứa fragment trong activity của bạn
+                    transaction.addToBackStack(null); // Để có thể nhấn nút back để trở về
+                    transaction.commit();
                 }else Toast.makeText(ForgotPassActivity.this, "Error: "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

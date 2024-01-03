@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.ticket:
                     replaceFragment(new TicketFragment());
                     break;
+                case R.id.signup:
+                    replaceFragment(new SignUpFragment());
+                    break;
 
             }
             return true;
