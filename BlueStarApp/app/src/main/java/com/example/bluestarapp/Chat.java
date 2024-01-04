@@ -3,12 +3,14 @@ package com.example.bluestarapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class Chat extends AppCompatActivity {
     private ArrayAdapter<String> questionAdapter;
     private List<String> messages;
     private ArrayAdapter<String> messageAdapter;
+    ImageView imageViewReturn;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -33,6 +36,7 @@ public class Chat extends AppCompatActivity {
         questionListView = findViewById(R.id.questionListView);
         messageListView = findViewById(R.id.messageListView);
         editTextMessage = findViewById(R.id.editTextMessage);
+        imageViewReturn = findViewById(R.id.imageViewReturn);
 
         // Danh sách câu hỏi để hiển thị trên màn hình
         questions = new ArrayList<>();
@@ -83,6 +87,15 @@ public class Chat extends AppCompatActivity {
             }
             return false;
         });
+
+        imageViewReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myitent = new Intent(Chat.this, MainActivity.class);
+                startActivity(myitent);
+            }
+        });
+
     }
 
     private String getReplyForQuestion(String question) {

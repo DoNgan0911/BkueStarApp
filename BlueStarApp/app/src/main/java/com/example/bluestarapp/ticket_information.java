@@ -87,78 +87,153 @@ public class ticket_information extends AppCompatActivity {
             thanhtoan = findViewById(R.id.thanhtoan);
             // Get the Flight object from the intent
             thanhtoan.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Map<String, Object>  bookerMap = new HashMap<>();
-                    bookerMap.put("mail", AppUtil.edtTTLHEmail);
-                    bookerMap.put("name", AppUtil.edtTTLHName);
-                    bookerMap.put("phone", AppUtil.edtTTLHSdt);
-                    bookerMap.put("total_price", AppUtil.OriginalPrice);
-                    bookerMap.put("momo", "");
-                    FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                    FirebaseUser currentUser = mAuth.getCurrentUser();
-                    if (currentUser != null) {
-                        String userId = currentUser.getUid();
-                        db.collection("CUSTOMER")
-                                .whereEqualTo("account_id", userId)
-                                .get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                                // Lấy userId từ document của CUSTOMER
-                                                String customerId = document.getId();
-                                                bookerMap.put("c_id", customerId);
+                                             @Override
+                                             public void onClick(View view) {
+                                                 Map<String, Object> bookerMap = new HashMap<>();
+                                                 bookerMap.put("mail", AppUtil.edtTTLHEmail);
+                                                 bookerMap.put("name", AppUtil.edtTTLHName);
+                                                 bookerMap.put("phone", AppUtil.edtTTLHSdt);
+                                                 bookerMap.put("total_price", AppUtil.OriginalPrice);
+                                                 bookerMap.put("momo", "");
+                                                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                                                 FirebaseUser currentUser = mAuth.getCurrentUser();
+                                                 if (currentUser != null) {
+                                                     String userId = currentUser.getUid();
+                                                     db.collection("CUSTOMER")
+                                                             .whereEqualTo("account_id", userId)
+                                                             .get()
+                                                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                 @Override
+                                                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                     if (task.isSuccessful()) {
+                                                                         for (QueryDocumentSnapshot document : task.getResult()) {
+                                                                             // Lấy userId từ document của CUSTOMER
+                                                                             String customerId = document.getId();
+                                                                             bookerMap.put("c_id", customerId);
 
-                                            }
-                                        } else {
+                                                                         }
+                                                                     } else {
 //                                            Log.d(TAG, "Error getting documents: ", task.getException());
-                                        }
-                                    }
-                                });
-                    } else {
-                        // Người dùng chưa đăng nhập
-                        bookerMap.put("c_id", "");
+                                                                     }
+                                                                 }
+                                                             });
+                                                 } else {
+                                                     // Người dùng chưa đăng nhập
+                                                     bookerMap.put("c_id", "");
 
-                    }
+                                                 }
 
-                    CollectionReference ticketcollection = db.collection("BOOKER");
-                    ticketcollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                int documentCount = task.getResult().size();
-                                // Set the next available documentId
-                                String documentId = String.valueOf(documentCount + 1);
-                                ticketNumber = documentId;
-                                // Rest of your code with the dynamically set documentId
-                                db.collection("BOOKER")
-                                        .document(documentId)
-                                        .set(bookerMap)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
+                                                 CollectionReference ticketcollection = db.collection("BOOKER");
+                                                 ticketcollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                     @Override
+                                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                         if (task.isSuccessful()) {
+                                                             int documentCount = task.getResult().size();
+                                                             // Set the next available documentId
+                                                             String documentId = String.valueOf(documentCount + 1);
+                                                             AppUtil.idVe = documentId;
+                                                             // Rest of your code with the dynamically set documentId
+                                                             db.collection("BOOKER")
+                                                                     .document(documentId)
+                                                                     .set(bookerMap)
+                                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                         @Override
+                                                                         public void onSuccess(Void aVoid) {
 
-                                                mabooker = Integer.parseInt(documentId);
-                                                requestPayment(mabooker);
+                                                                             mabooker = Integer.parseInt(documentId);
+                                                                             requestPayment(mabooker);
 
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Log.e("SignUpActivity", "Error adding user data to CUSTOMER collection: " + e.getMessage());
-                                            }
-                                        });
-                            } else {
+                                                                             try {
+                                                                                 String stringSenderEmail = "phucnguyen6009dh@gmail.com";
+                                                                                 String stringReceiverEmail = AppUtil.edtTTLHEmail;
+                                                                                 String stringPasswordSenderEmail = "ivwnpiguadnfktpa";
 
-                            }
-                        }
-                    });
+                                                                                 String stringHost = "smtp.gmail.com";
 
-                }
-            }
+                                                                                 Properties properties = System.getProperties();
+
+                                                                                 properties.put("mail.smtp.host", stringHost);
+                                                                                 properties.put("mail.smtp.port", "465");
+                                                                                 properties.put("mail.smtp.ssl.enable", "true");
+                                                                                 properties.put("mail.smtp.auth", "true");
+
+                                                                                 javax.mail.Session session = Session.getInstance(properties, new Authenticator() {
+                                                                                     @Override
+                                                                                     protected PasswordAuthentication getPasswordAuthentication() {
+                                                                                         return new PasswordAuthentication(stringSenderEmail, stringPasswordSenderEmail);
+                                                                                     }
+                                                                                 });
+
+                                                                                 MimeMessage mimeMessage = new MimeMessage(session);
+                                                                                 mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(stringReceiverEmail));
+
+                                                                                 if (AppUtil.KhuHoi == 0) {
+                                                                                     mimeMessage.setSubject("Flight Ticket Information");
+                                                                                     mimeMessage.setText("Hello " + AppUtil.edtTTHKName + ",\n\n" +
+                                                                                             "Thank you for booking your flight with BlueStar Airlines. Below are the details of your flight:\n\n" +
+                                                                                             "ID Ticket: " + AppUtil.idVe + "\n" +
+                                                                                             "From: " + AppUtil.FromLocation + "\n" +
+                                                                                             "To: " + AppUtil.ToLocation + "\n" +
+                                                                                             "Departure Day: " + AppUtil.departureDay + "\n" +
+                                                                                             "Departure Time: " + AppUtil.departueTime + "\n" +
+                                                                                             "Arrival Time: " + AppUtil.arrivalTime + "\n" +
+                                                                                             "Seat(s): " + Arrays.toString(AppUtil.GheDaChon) + "\n" +
+                                                                                             "Ticket Type: " + AppUtil.ticketKind + "\n" +
+                                                                                             "We look forward to serving you on board.\n\n" +
+                                                                                             "Safe travels!");
+                                                                                 }
+                                                                                 else {
+                                                                                     mimeMessage.setSubject("Flight Ticket Information");
+                                                                                     mimeMessage.setText("Hello " + AppUtil.edtTTHKName + ",\n\n" +
+                                                                                             "Thank you for booking your flight with BlueStar Airlines. Below are the details of your flight:\n\n" +
+                                                                                             "ID Ticket: " + AppUtil.idVe + "\n" +
+                                                                                             "From: " + AppUtil.FromLocation + "\n" +
+                                                                                             "To: " + AppUtil.ToLocation + "\n" +
+                                                                                             "Departure Day: " + AppUtil.departureDay + "\n" +
+                                                                                             "Departure Time: " + AppUtil.departueTime + "\n" +
+                                                                                             "Return Day: " + AppUtil.backDay + "\n" +
+                                                                                             "Departure Time: " + AppUtil.departueTimeBack + "\n" +
+                                                                                             "Seat(s): " + Arrays.toString(AppUtil.GheDaChon) + "\n" +
+                                                                                             "Ticket Type: " + AppUtil.ticketKind + "\n" +
+                                                                                             "We look forward to serving you on board.\n\n" +
+                                                                                             "Safe travels!");
+                                                                                 }
+
+                                                                                 Thread thread = new Thread(new Runnable() {
+                                                                                     @Override
+                                                                                     public void run() {
+                                                                                         try {
+                                                                                             Transport.send(mimeMessage);
+                                                                                         } catch (MessagingException e) {
+
+                                                                                             e.printStackTrace();
+                                                                                         }
+                                                                                     }
+                                                                                 });
+                                                                                 thread.start();
+                                                                             } catch (AddressException e) {
+                                                                                 e.printStackTrace();
+                                                                             } catch (MessagingException e) {
+                                                                                 e.printStackTrace();
+                                                                             }
+
+
+                                                                         }
+                                                                     })
+                                                                     .addOnFailureListener(new OnFailureListener() {
+                                                                         @Override
+                                                                         public void onFailure(@NonNull Exception e) {
+                                                                             Log.e("SignUpActivity", "Error adding user data to CUSTOMER collection: " + e.getMessage());
+                                                                         }
+                                                                     });
+                                                         } else {
+
+                                                         }
+                                                     }
+                                                 });
+
+                                             }
+                                         }
             );
 
             for (int i = 0; i < AppUtil.SLVe; i++) {
@@ -190,7 +265,9 @@ public class ticket_information extends AppCompatActivity {
                 toLocation.setText(AppUtil.ToLocation);
                 fromLocation.setText(AppUtil.FromLocation);
                 nameofpassenger.setText(AppUtil.edtTTHKName[i]);
-                idticket.setText(ticketNumber);
+                idticket.setText(AppUtil.idVe);
+                Log.d("TicketNumber", "Value: " + AppUtil.idVe);
+
 
                 layoutMain.addView(childLayoutTTHK);
 
@@ -199,7 +276,7 @@ public class ticket_information extends AppCompatActivity {
 
             if (AppUtil.KhuHoi == 1) {
 
-                for (int i = AppUtil.SLVe; i < AppUtil.SLVe*2; i++) {
+                for (int i = AppUtil.SLVe; i < AppUtil.SLVe * 2; i++) {
                     // Tạo mới layoutTTHK
                     LinearLayout childLayoutTTHK = (LinearLayout) getLayoutInflater().inflate(R.layout.ticket_info_chieuve, null);
                     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -227,88 +304,14 @@ public class ticket_information extends AppCompatActivity {
                     toLocation.setText(AppUtil.FromLocation);
                     fromLocation.setText(AppUtil.ToLocation);
                     nameofpassenger.setText(AppUtil.edtTTHKName[i - AppUtil.SLVe]);
-                    idticket.setText(ticketNumber);
+                    idticket.setText(AppUtil.idVe);
 
                     layoutMain.addView(childLayoutTTHK);
                 }
             }
-
-            try {
-                String stringSenderEmail = "phucnguyen6009dh@gmail.com";
-                String stringReceiverEmail = AppUtil.edtTTLHEmail;
-                String stringPasswordSenderEmail = "ivwnpiguadnfktpa";
-
-                String stringHost = "smtp.gmail.com";
-
-                Properties properties = System.getProperties();
-
-                properties.put("mail.smtp.host", stringHost);
-                properties.put("mail.smtp.port", "465");
-                properties.put("mail.smtp.ssl.enable", "true");
-                properties.put("mail.smtp.auth", "true");
-
-                javax.mail.Session session = Session.getInstance(properties, new Authenticator() {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(stringSenderEmail, stringPasswordSenderEmail);
-                    }
-                });
-
-                MimeMessage mimeMessage = new MimeMessage(session);
-                mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(stringReceiverEmail));
-
-                if (AppUtil.KhuHoi == 0) {
-                    mimeMessage.setSubject("Flight Ticket Information");
-                    mimeMessage.setText("Hello " + AppUtil.edtTTHKName + ",\n\n" +
-                            "Thank you for booking your flight with BlueStar Airlines. Below are the details of your flight:\n\n" +
-                            "ID Ticket: " + ticketNumber.toString() + "\n" +
-                            "From: " + AppUtil.FromLocation + "\n" +
-                            "To: " + AppUtil.ToLocation + "\n" +
-                            "Departure Day: " + AppUtil.departureDay + "\n" +
-                            "Departure Time: " + AppUtil.departueTime + "\n" +
-                            "Arrival Time: " + AppUtil.arrivalTime + "\n" +
-                            "Seat(s): " + Arrays.toString(AppUtil.GheDaChon) + "\n" +
-                            "Ticket Type: " + AppUtil.ticketKind + "\n" +
-                            "We look forward to serving you on board.\n\n" +
-                            "Safe travels!");
-                }
-                else {
-                    mimeMessage.setSubject("Flight Ticket Information");
-                    mimeMessage.setText("Hello " + AppUtil.edtTTHKName + ",\n\n" +
-                            "Thank you for booking your flight with BlueStar Airlines. Below are the details of your flight:\n\n" +
-                            "ID Ticket: " + ticketNumber.toString() + "\n" +
-                            "From: " + AppUtil.FromLocation + "\n" +
-                            "To: " + AppUtil.ToLocation + "\n" +
-                            "Departure Day: " + AppUtil.departureDay + "\n" +
-                            "Departure Time: " + AppUtil.departueTime + "\n" +
-                            "Return Day: " + AppUtil.backDay + "\n" +
-                            "Departure Time: " + AppUtil.departueTimeBack + "\n" +
-                            "Seat(s): " + Arrays.toString(AppUtil.GheDaChon) + "\n" +
-                            "Ticket Type: " + AppUtil.ticketKind + "\n" +
-                            "We look forward to serving you on board.\n\n" +
-                            "Safe travels!");
-                }
-
-
-
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Transport.send(mimeMessage);
-                        } catch (MessagingException e) {
-
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                thread.start();
-            } catch (AddressException e) {
-                e.printStackTrace();
-            } catch (MessagingException e) {
-                e.printStackTrace();
-            }
         }
+
+
 
     private void requestPayment(int iddonhang) {
         AppMoMoLib.getInstance().setAction(AppMoMoLib.ACTION.PAYMENT);
@@ -401,12 +404,14 @@ public class ticket_information extends AppCompatActivity {
                             // TODO: send phoneNumber & token to your server side to process payment with MoMo server
                             // IF Momo topup success, continue to process your order
                         } else {
+
                             Intent i = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(i);
                             finish();
                             Log.d("thành công", "không thành cônggggggggggg1");
                         }
                     } else if (data.getIntExtra("status", -1) == 1) {
+
                         //TOKEN FAIL
                         String message = data.getStringExtra("message") != null ? data.getStringExtra("message") : "Thất bại";
                     Log.d("thành công", "không thành cônggggggggggg2");
@@ -415,6 +420,7 @@ public class ticket_information extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                     } else if (data.getIntExtra("status", -1) == 2) {
+
                         //TOKEN FAIL
                     Log.d("thành công", "không thành cônggggggggggg3");
 
@@ -422,6 +428,7 @@ public class ticket_information extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                     } else {
+                    sendPaymentFailureEmail();
                         //TOKEN FAIL
 //                    CHÈN MAIL THÔNG BÁO THẤT BẠI
 
@@ -689,5 +696,51 @@ public class ticket_information extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void sendPaymentFailureEmail() {
+        try {
+            String stringSenderEmail = "phucnguyen6009dh@gmail.com";
+            String stringReceiverEmail = AppUtil.edtTTLHEmail;
+            String stringPasswordSenderEmail = "ivwnpiguadnfktpa";
+
+            String stringHost = "smtp.gmail.com";
+
+            Properties properties = System.getProperties();
+
+            properties.put("mail.smtp.host", stringHost);
+            properties.put("mail.smtp.port", "465");
+            properties.put("mail.smtp.ssl.enable", "true");
+            properties.put("mail.smtp.auth", "true");
+
+            javax.mail.Session session = Session.getInstance(properties, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(stringSenderEmail, stringPasswordSenderEmail);
+                }
+            });
+
+            MimeMessage mimeMessage = new MimeMessage(session);
+            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(stringReceiverEmail));
+                mimeMessage.setSubject("Flight Ticket Information");
+                mimeMessage.setText("Xin chào " + AppUtil.edtTTHKName + ",\n\n" +
+                        "Bạn thanh toán vé chưa thành công. Vui lòng đặt lại vé");
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Transport.send(mimeMessage);
+                    } catch (MessagingException e) {
+
+                        e.printStackTrace();
+                    }
+                }
+            });
+            thread.start();
+        } catch (AddressException e) {
+            e.printStackTrace();
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 }

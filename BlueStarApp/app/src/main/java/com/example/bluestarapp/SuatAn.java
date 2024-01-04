@@ -114,6 +114,7 @@ public class SuatAn extends AppCompatActivity {
 
             fromLocation.setText(AppUtil.FromLocation);
             toLocation.setText(AppUtil.ToLocation);
+            hovaten.setText(AppUtil.edtTTHKName[i]);
 
 
             linearLayout_Parent_SuatAn.addView(childLayoutSuatAnChieuDi);
@@ -281,6 +282,7 @@ public class SuatAn extends AppCompatActivity {
 
                 fromLocation.setText(AppUtil.FromLocation);
                 toLocation.setText(AppUtil.ToLocation);
+                hovaten.setText(AppUtil.edtTTHKName[i]);
 
 
                 linearLayout_Parent_SuatAn.addView(childLayoutSuatAnChieuVe);

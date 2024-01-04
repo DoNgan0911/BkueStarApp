@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class MuaThemDichVu extends AppCompatActivity {
     ImageView imageViewHLKG;
-    ImageView imageViewCGN, imageViewSA;
+    ImageView imageViewCGN, imageViewSA, imageView2;
     ConstraintLayout layoutChieuVe;
     TextView textViewTongTien, fromLocation, fromLocationBack, toLocation, toLocationBack , textViewNgayDi, textViewThoiGianDi, textViewThoiGianDen, textViewNgayDiBack, textViewThoiGianDiBack, textViewThoiGianDenBack;
     TextView textViewLoaiVeChieudi, textViewLoaiVeChieudiBack;
@@ -40,6 +40,7 @@ public class MuaThemDichVu extends AppCompatActivity {
         layoutChieuVe = findViewById(R.id.layoutChieuVe);
         textViewLoaiVeChieudi = findViewById(R.id.textViewLoaiVeChieudi);
         btnNext = findViewById(R.id.btnNext);
+        imageView2 = findViewById(R.id.imageView2);
 
 
         if (AppUtil.KhuHoi == 0 ) {
@@ -113,6 +114,14 @@ public class MuaThemDichVu extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent myintent = new Intent(MuaThemDichVu.this, ticket_information.class);
+                startActivity(myintent);
+            }
+        });
+
+        imageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myintent = new Intent(MuaThemDichVu.this, ThongTinHanhKhach.class);
                 startActivity(myintent);
             }
         });

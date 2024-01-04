@@ -128,9 +128,6 @@ public class EditProfile extends AppCompatActivity {
                                 // You may also want to update other UI elements based on the retrieved data
                                 // For example, update the fullname and points if they are stored in the document
                                 String fullName = document.getString("fullname");
-                                Integer points = document.getLong("point").intValue();
-                                String pointsString = String.valueOf(points);
-
 
                                 name.setText(fullName);
                             }

@@ -56,6 +56,26 @@ public class LichSuMuaVe extends AppCompatActivity {
 
             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+            db.collection("BOOKER")
+                    .whereEqualTo("mail", AppUtil.edtSignInEmail)
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            // Danh sách vé đã mua
+
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // Xử lý khi có lỗi xảy ra trong quá trình truy vấn dữ liệu từ Firestore
+                        }
+                    });
+
+
+
             db.collection("TICKET")
                     .whereEqualTo("mail", AppUtil.edtSignInEmail)
                     .get()

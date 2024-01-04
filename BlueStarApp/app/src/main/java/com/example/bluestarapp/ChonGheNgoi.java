@@ -48,6 +48,7 @@ public class ChonGheNgoi extends AppCompatActivity {
         toLocation.setText(AppUtil.ToLocation);
         fromLocationBack.setText(AppUtil.ToLocation);
         toLocationBack.setText(AppUtil.FromLocation);
+        hovaten.setText(AppUtil.edtTTLHName);
         
 
         button = findViewById(R.id.button);

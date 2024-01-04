@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -94,33 +95,70 @@ public class TicketFragment extends Fragment {
 
             FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-            db.collection("TICKET")
+            db.collection("BOOKER")
                     .whereEqualTo("mail", AppUtil.edtSignInEmail)
                     .get()
                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                             // Danh sách vé đã mua
-                            ArrayList<String> danhSachVe = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                String documentId = document.getId();
+                                try {
+                                    // Chuyển đổi searchTicketId sang số nguyên
+                                    int ticketId = Integer.parseInt(documentId);
 
-                            // Duyệt qua các tài liệu (documents) trong kết quả truy vấn
-                            for (DocumentSnapshot ticketDocument : queryDocumentSnapshots.getDocuments()) {
-                                // Đọc thông tin từ mỗi vé và thêm vào danh sách
-                                String documentId = ticketDocument.getId();
-                                String noiDi = ticketDocument.getString("fromLocation");
-                                String noiDen = ticketDocument.getString("toLocation");
-                                String thoiGian = ticketDocument.getString("departureDay");
+                                    db.collection("TICKET")
+                                            .whereEqualTo("b_id", String.valueOf(ticketId))
+                                            .get()
+                                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                    ArrayList<String> danhSachVe = new ArrayList<>();
+                                                    for (DocumentSnapshot ticketDocument : queryDocumentSnapshots.getDocuments()) {
+                                                        long flyId = 0; // Khởi tạo giá trị mặc định
+                                                        String flyIdString = ticketDocument.getString("fly_id");
+                                                        if (flyIdString != null) {
+                                                            flyId = Long.parseLong(flyIdString);
+                                                        }
+                                                        if (flyIdString != null) {
+                                                            db.collection("FLIGHT")
+                                                                    .document(flyIdString)
+                                                                    .get()
+                                                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                                        @Override
+                                                                        public void onSuccess(DocumentSnapshot flightDocumentSnapshot) {
+                                                                            String fromLocation = flightDocumentSnapshot.getString("fromLocation");
+                                                                            String toLocation = flightDocumentSnapshot.getString("toLocation");
+                                                                            String departureDay = flightDocumentSnapshot.getString("departureDay");
+                                                                            if (fromLocation != null && toLocation != null && departureDay != null) {
+                                                                                String documentId = ticketDocument.getId();
+                                                                                danhSachVe.add(documentId + " | " + fromLocation + " - " + toLocation + " | " + departureDay);
+                                                                                ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, danhSachVe);
+                                                                                listViewLichSuVe.setAdapter(adapter);
+                                                                                Log.d("TraCuuChuyenBay", "Danh sách vé: " + danhSachVe.toString());
+                                                                            }
+                                                                        }
+                                                                    })
+                                                                    .addOnFailureListener(new OnFailureListener() {
+                                                                        @Override
+                                                                        public void onFailure(@NonNull Exception e) {
 
-                                if (noiDi != null && noiDen != null && thoiGian != null) {
-                                    danhSachVe.add(documentId + " | " + noiDi + " - " + noiDen + " | " + thoiGian);
+                                                                        }
+                                                                    });
+                                                        }
+                                                    }
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                }
+                                            });
+                                } catch (NumberFormatException e) {
+                                    e.printStackTrace();
                                 }
                             }
-
-                            // Hiển thị danh sách vé trong ListView
-                            ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, danhSachVe);
-                            listViewLichSuVe.setAdapter(adapter);
-                            Log.d("TraCuuChuyenBay", "Danh sách vé: " + danhSachVe.toString());
-
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -129,6 +167,7 @@ public class TicketFragment extends Fragment {
                             // Xử lý khi có lỗi xảy ra trong quá trình truy vấn dữ liệu từ Firestore
                         }
                     });
+
         }
 
         imageView_search.setOnClickListener(new View.OnClickListener() {

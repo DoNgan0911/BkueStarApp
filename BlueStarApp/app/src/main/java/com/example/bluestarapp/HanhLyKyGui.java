@@ -308,6 +308,7 @@ public class HanhLyKyGui extends AppCompatActivity {
 
                 fromLocation.setText(AppUtil.ToLocation);
                 toLocation.setText(AppUtil.FromLocation);
+                hovaten.setText(AppUtil.edtTTHKName[i]);
 
 
                 linearLayout_Parent.addView(childLayoutHLKGChieuVe);
