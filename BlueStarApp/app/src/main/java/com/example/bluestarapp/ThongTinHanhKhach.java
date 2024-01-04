@@ -20,6 +20,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import org.checkerframework.checker.units.qual.C;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class ThongTinHanhKhach extends AppCompatActivity {
     EditText edtTTLHName, edtTTLHSdt, edtTTLHEmail, edtTTHKNgaySinh;
     TextView fromLocation, toLocation, fromLocationBack, toLocationBack, textViewTongTien,
@@ -142,8 +147,8 @@ public class ThongTinHanhKhach extends AppCompatActivity {
                     finish();
                 } else {
                     // Nếu có trường nào đó trống, hiển thị thông báo hoặc thực hiện hành động phù hợp
-                    // Ví dụ: Toast.makeText(ThongTinHanhKhach.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-                    Log.e("Debug", "Vui lòng nhập đầy đủ thông tin");
+                   Toast.makeText(ThongTinHanhKhach.this, "Vui lòng nhập đúng thông tin", Toast.LENGTH_SHORT).show();
+//                    Log.e("Debug", "Vui lòng nhập đầy đủ thông tin");
                 }
             }
         });
@@ -241,13 +246,13 @@ public class ThongTinHanhKhach extends AppCompatActivity {
                 EditText edtTTHKCCCD = childView.findViewById(R.id.edtTTHKCCCD);
 
                 // Kiểm tra null và trống trước khi sử dụng
-                if (edtTTHKName != null && radioGroup != null &&
-                        edtTTHKNgaySinh != null && edtTTHKCCCD != null &&
-                        !edtTTHKName.getText().toString().isEmpty() &&
-                        (radioButton1.isChecked() || radioButton2.isChecked()) &&
-                        !edtTTHKNgaySinh.getText().toString().isEmpty() &&
-                        !edtTTHKCCCD.getText().toString().isEmpty()) {
-                    continue;  // Nếu không có trường nào trống, tiếp tục vòng lặp
+                if (validateField(edtTTHKName) &&
+                        validateRadioGroup(radioGroup) &&
+                        validateField(edtTTHKNgaySinh) &&
+                        isValidDate(edtTTHKNgaySinh.getText().toString()) &&
+                        validateField(edtTTHKCCCD) &&
+                        isValidCCCD(edtTTHKCCCD.getText().toString())) {
+                    continue;
                 } else {
                     return false;  // Nếu có trường nào đó trống, trả về false
                 }
@@ -255,5 +260,42 @@ public class ThongTinHanhKhach extends AppCompatActivity {
         }
         return true;  // Nếu không có lỗi, trả về true
     }
+    private boolean validateField(EditText editText) {
+        return editText != null && !editText.getText().toString().isEmpty();
+    }
+
+    private boolean validateRadioGroup(RadioGroup radioGroup) {
+        return radioGroup != null && (radioGroup.getCheckedRadioButtonId() != -1);
+    }
+
+    private boolean isValidDate(String date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        sdf.setLenient(false); // This will make the date validation strict
+
+        try {
+            Date enteredDate = sdf.parse(date);
+
+            Date currentDate = new Date();
+
+
+            if (enteredDate != null && enteredDate.before(currentDate)) {
+
+                return true;
+            } else {
+
+                showToast("Vui lòng nhập ngày sinh hợp lệ");
+                return false;
+            }
+        } catch (ParseException e) {
+
+            showToast("Vui lòng nhập định dạng ngày sinh đúng (dd/MM/yyyy)");
+            return false;
+        }
+    }
+
+    private boolean isValidCCCD(String cccd) {
+        return cccd != null && cccd.length() == 12 && TextUtils.isDigitsOnly(cccd);
+    }
+
 
 }

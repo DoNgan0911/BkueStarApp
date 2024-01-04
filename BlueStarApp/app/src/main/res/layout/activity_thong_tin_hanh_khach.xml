@@ -31,7 +31,10 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="550dp">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toTopOf="@+id/layoutBottom"
+        app:layout_constraintTop_toTopOf="parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="550dp"
@@ -50,6 +53,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="8dp"
                     android:background="#8BC34A"
+                    android:textStyle="bold"
                     android:text="Chiều đi"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -135,7 +139,7 @@
                     android:id="@+id/textViewThoiGianDen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="36dp"
+                    android:layout_marginStart="48dp"
                     android:layout_marginTop="36dp"
                     android:text="TextView"
                     app:layout_constraintStart_toEndOf="@+id/textView26"
@@ -157,6 +161,7 @@
                     android:layout_marginTop="8dp"
                     android:background="#FF1048"
                     android:text="Chiều về"
+                    android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -233,7 +238,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="36dp"
-                    android:text="--"
+                    android:text="---"
                     app:layout_constraintStart_toEndOf="@+id/textViewThoiGianDiBack"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -241,7 +246,7 @@
                     android:id="@+id/textViewThoiGianDenBack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="36dp"
+                    android:layout_marginStart="52dp"
                     android:layout_marginTop="36dp"
                     android:text="TextView"
                     app:layout_constraintStart_toEndOf="@+id/textView14"
@@ -263,8 +268,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="226dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:paddingRight="10dp"
                 android:background="@drawable/border_thongtinhanhkhach">
 
                 <TextView
@@ -281,13 +285,17 @@
 
                 <EditText
                     android:id="@+id/edtTTLHName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="48dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="10dp"
                     android:ems="10"
                     android:hint="NGO TAT TO"
                     android:inputType="text"
+                    android:paddingRight="30dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/textView10"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -305,13 +313,15 @@
 
                 <EditText
                     android:id="@+id/edtTTLHSdt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="12dp"
                     android:ems="10"
                     android:hint="0987654321"
                     android:inputType="number"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/textView11"
                     app:layout_constraintTop_toBottomOf="@+id/edtTTLHName" />
 
@@ -320,7 +330,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="28dp"
+                    android:layout_marginTop="8dp"
                     android:gravity="center"
                     android:text="Email"
                     android:textSize="17dp"
@@ -329,13 +339,15 @@
 
                 <EditText
                     android:id="@+id/edtTTLHEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="76dp"
-                    android:layout_marginTop="28dp"
+                    android:layout_marginTop="16dp"
                     android:ems="10"
                     android:hint="ngotatto@gmail.com"
                     android:inputType="textEmailAddress"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/textView12"
                     app:layout_constraintTop_toBottomOf="@+id/edtTTLHSdt" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -354,9 +366,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:background="#FFFFFF"
-        android:paddingBottom="30dp"
+        android:paddingBottom="0dp"
         >
 
         <TextView
@@ -384,14 +398,15 @@
 
         <Button
             android:id="@+id/btnNext"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="42dp"
             android:text="Tiếp tục"
             android:backgroundTint="#333333"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="50dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

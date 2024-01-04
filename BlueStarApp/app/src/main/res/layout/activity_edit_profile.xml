@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@drawable/img_1"
     android:orientation="vertical"
     android:padding="16dp"
     android:gravity="center"
@@ -41,14 +41,7 @@
 
     <!-- Gmail -->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginLeft="40dp"
-        android:layout_marginBottom="4dp"
-        android:text="Họ và tên"
-        android:textSize="16sp" />
+
 
     <EditText
         android:layout_width="300dp"
@@ -56,14 +49,7 @@
         android:id="@+id/nameEditText"
         android:inputType="text"
         android:layout_marginBottom="16dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginLeft="40dp"
-        android:layout_marginBottom="4dp"
-        android:text="Số CCCD"
-        android:textSize="16sp" />
+
 
     <EditText
         android:layout_width="300dp"
@@ -75,11 +61,11 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:backgroundTint="@color/blue"
-        android:gravity="center"
-        android:text="Lưu" />
+        android:layout_gravity="center"
+        android:layout_marginRight="10dp"
+        android:backgroundTint="#333333"
+        android:text="Cập nhật" />
 
 </LinearLayout>

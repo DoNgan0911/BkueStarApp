@@ -228,11 +228,10 @@ public class ProfileFragment extends Fragment {
                             for (DocumentSnapshot document : task.getResult().getDocuments()) {
                                 // Retrieve the CCCD from the document
                                 String cccd = document.getString("num_id");
-                                String fullName = document.getString("fullname");
+                                String fullName = document.getString("full_name");
                                 Integer points = document.getLong("point").intValue();
                                 String pointsString = String.valueOf(points);
-                                Log.d("ten",fullName);
-                                Log.d("diem",pointsString);
+
                                 telEditText.setText(cccd);
                                 fullname.setText(fullName);
                                 pointEditText.setText(pointsString);

@@ -143,81 +143,6 @@ public class ticket_information extends AppCompatActivity {
                                                                              mabooker = Integer.parseInt(documentId);
                                                                              requestPayment(mabooker);
 
-                                                                             try {
-                                                                                 String stringSenderEmail = "phucnguyen6009dh@gmail.com";
-                                                                                 String stringReceiverEmail = AppUtil.edtTTLHEmail;
-                                                                                 String stringPasswordSenderEmail = "ivwnpiguadnfktpa";
-
-                                                                                 String stringHost = "smtp.gmail.com";
-
-                                                                                 Properties properties = System.getProperties();
-
-                                                                                 properties.put("mail.smtp.host", stringHost);
-                                                                                 properties.put("mail.smtp.port", "465");
-                                                                                 properties.put("mail.smtp.ssl.enable", "true");
-                                                                                 properties.put("mail.smtp.auth", "true");
-
-                                                                                 javax.mail.Session session = Session.getInstance(properties, new Authenticator() {
-                                                                                     @Override
-                                                                                     protected PasswordAuthentication getPasswordAuthentication() {
-                                                                                         return new PasswordAuthentication(stringSenderEmail, stringPasswordSenderEmail);
-                                                                                     }
-                                                                                 });
-
-                                                                                 MimeMessage mimeMessage = new MimeMessage(session);
-                                                                                 mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(stringReceiverEmail));
-
-                                                                                 if (AppUtil.KhuHoi == 0) {
-                                                                                     mimeMessage.setSubject("Flight Ticket Information");
-                                                                                     mimeMessage.setText("Hello " + AppUtil.edtTTHKName + ",\n\n" +
-                                                                                             "Thank you for booking your flight with BlueStar Airlines. Below are the details of your flight:\n\n" +
-                                                                                             "ID Ticket: " + AppUtil.idVe + "\n" +
-                                                                                             "From: " + AppUtil.FromLocation + "\n" +
-                                                                                             "To: " + AppUtil.ToLocation + "\n" +
-                                                                                             "Departure Day: " + AppUtil.departureDay + "\n" +
-                                                                                             "Departure Time: " + AppUtil.departueTime + "\n" +
-                                                                                             "Arrival Time: " + AppUtil.arrivalTime + "\n" +
-                                                                                             "Seat(s): " + Arrays.toString(AppUtil.GheDaChon) + "\n" +
-                                                                                             "Ticket Type: " + AppUtil.ticketKind + "\n" +
-                                                                                             "We look forward to serving you on board.\n\n" +
-                                                                                             "Safe travels!");
-                                                                                 }
-                                                                                 else {
-                                                                                     mimeMessage.setSubject("Flight Ticket Information");
-                                                                                     mimeMessage.setText("Hello " + AppUtil.edtTTHKName + ",\n\n" +
-                                                                                             "Thank you for booking your flight with BlueStar Airlines. Below are the details of your flight:\n\n" +
-                                                                                             "ID Ticket: " + AppUtil.idVe + "\n" +
-                                                                                             "From: " + AppUtil.FromLocation + "\n" +
-                                                                                             "To: " + AppUtil.ToLocation + "\n" +
-                                                                                             "Departure Day: " + AppUtil.departureDay + "\n" +
-                                                                                             "Departure Time: " + AppUtil.departueTime + "\n" +
-                                                                                             "Return Day: " + AppUtil.backDay + "\n" +
-                                                                                             "Departure Time: " + AppUtil.departueTimeBack + "\n" +
-                                                                                             "Seat(s): " + Arrays.toString(AppUtil.GheDaChon) + "\n" +
-                                                                                             "Ticket Type: " + AppUtil.ticketKind + "\n" +
-                                                                                             "We look forward to serving you on board.\n\n" +
-                                                                                             "Safe travels!");
-                                                                                 }
-
-                                                                                 Thread thread = new Thread(new Runnable() {
-                                                                                     @Override
-                                                                                     public void run() {
-                                                                                         try {
-                                                                                             Transport.send(mimeMessage);
-                                                                                         } catch (MessagingException e) {
-
-                                                                                             e.printStackTrace();
-                                                                                         }
-                                                                                     }
-                                                                                 });
-                                                                                 thread.start();
-                                                                             } catch (AddressException e) {
-                                                                                 e.printStackTrace();
-                                                                             } catch (MessagingException e) {
-                                                                                 e.printStackTrace();
-                                                                             }
-
-
                                                                          }
                                                                      })
                                                                      .addOnFailureListener(new OnFailureListener() {
@@ -378,6 +303,7 @@ public class ticket_information extends AppCompatActivity {
                                                         addTicketsKH(documentCount, String.valueOf(mabooker));
                                                     }
                                                 }
+                                                sendmail();
                                             }
                                         });
                                         Log.d("UpdateToken", "Token updated successfully!");
@@ -635,7 +561,6 @@ public class ticket_information extends AppCompatActivity {
                     }
                 });
 
-
         flightsCollection
                 .whereEqualTo("fromLocation", AppUtil.ToLocation)
                 .whereEqualTo("toLocation", AppUtil.FromLocation)
@@ -725,6 +650,81 @@ public class ticket_information extends AppCompatActivity {
                 mimeMessage.setSubject("Flight Ticket Information");
                 mimeMessage.setText("Xin chào " + AppUtil.edtTTHKName + ",\n\n" +
                         "Bạn thanh toán vé chưa thành công. Vui lòng đặt lại vé");
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Transport.send(mimeMessage);
+                    } catch (MessagingException e) {
+
+                        e.printStackTrace();
+                    }
+                }
+            });
+            thread.start();
+        } catch (AddressException e) {
+            e.printStackTrace();
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+    private void sendmail(){
+        try {
+            String stringSenderEmail = "phucnguyen6009dh@gmail.com";
+            String stringReceiverEmail = AppUtil.edtTTLHEmail;
+            String stringPasswordSenderEmail = "ivwnpiguadnfktpa";
+
+            String stringHost = "smtp.gmail.com";
+
+            Properties properties = System.getProperties();
+
+            properties.put("mail.smtp.host", stringHost);
+            properties.put("mail.smtp.port", "465");
+            properties.put("mail.smtp.ssl.enable", "true");
+            properties.put("mail.smtp.auth", "true");
+
+            javax.mail.Session session = Session.getInstance(properties, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(stringSenderEmail, stringPasswordSenderEmail);
+                }
+            });
+
+            MimeMessage mimeMessage = new MimeMessage(session);
+            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(stringReceiverEmail));
+
+            if (AppUtil.KhuHoi == 0) {
+                mimeMessage.setSubject("Flight Ticket Information");
+                mimeMessage.setText("Hello " + AppUtil.edtTTHKName + ",\n\n" +
+                        "Thank you for booking your flight with BlueStar Airlines. Below are the details of your flight:\n\n" +
+                        "ID Ticket: " + AppUtil.idVe + "\n" +
+                        "From: " + AppUtil.FromLocation + "\n" +
+                        "To: " + AppUtil.ToLocation + "\n" +
+                        "Departure Day: " + AppUtil.departureDay + "\n" +
+                        "Departure Time: " + AppUtil.departueTime + "\n" +
+                        "Arrival Time: " + AppUtil.arrivalTime + "\n" +
+                        "Seat(s): " + Arrays.toString(AppUtil.GheDaChon) + "\n" +
+                        "Ticket Type: " + AppUtil.ticketKind + "\n" +
+                        "We look forward to serving you on board.\n\n" +
+                        "Safe travels!");
+            }
+            else {
+                mimeMessage.setSubject("Flight Ticket Information");
+                mimeMessage.setText("Hello " + AppUtil.edtTTHKName + ",\n\n" +
+                        "Thank you for booking your flight with BlueStar Airlines. Below are the details of your flight:\n\n" +
+                        "ID Ticket: " + AppUtil.idVe + "\n" +
+                        "From: " + AppUtil.FromLocation + "\n" +
+                        "To: " + AppUtil.ToLocation + "\n" +
+                        "Departure Day: " + AppUtil.departureDay + "\n" +
+                        "Departure Time: " + AppUtil.departueTime + "\n" +
+                        "Return Day: " + AppUtil.backDay + "\n" +
+                        "Departure Time: " + AppUtil.departueTimeBack + "\n" +
+                        "Seat(s): " + Arrays.toString(AppUtil.GheDaChon) + "\n" +
+                        "Ticket Type: " + AppUtil.ticketKind + "\n" +
+                        "We look forward to serving you on board.\n\n" +
+                        "Safe travels!");
+            }
+
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {

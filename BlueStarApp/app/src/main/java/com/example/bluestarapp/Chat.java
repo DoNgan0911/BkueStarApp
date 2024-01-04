@@ -40,8 +40,8 @@ public class Chat extends AppCompatActivity {
 
         // Danh sách câu hỏi để hiển thị trên màn hình
         questions = new ArrayList<>();
-        questions.add("Quyền lợi khi trở thành khách hàng của BlueStar");
-        questions.add("Chính sách hoàn trả vé của BlueStar");
+        questions.add("Quyền lợi khi trở thành khách hàng của BlueStar?");
+        questions.add("Chính sách hoàn trả vé của BlueStar?");
         questions.add("Chương trình khuyến mãi thường diễn ra vào thời gian nào?");
 
         questionAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, questions);
@@ -101,12 +101,12 @@ public class Chat extends AppCompatActivity {
     private String getReplyForQuestion(String question) {
         // Xử lý câu hỏi và trả lời tương ứng
         switch (question) {
-            case "Quyền lợi khi trở thành khách hàng của BlueStar":
+            case "Quyền lợi khi trở thành khách hàng của BlueStar?":
                 return "Chuyến bay an toàn, được tích điểm.";
-            case "Chính sách hoàn trả vé của BlueStar":
-                return "Ko hoàn trả";
+            case "Chính sách hoàn trả vé của BlueStar?":
+                return "Chúng tôi không hoàn trả trong trường hợp hủy vé";
             case "Chương trình khuyến mãi thường diễn ra vào thời gian nào?":
-                return "Không biết.";
+                return "Bạn hãy đợi nhé";
             default:
                 return "Với câu hỏi này, vui lòng liên hệ hotline của BlueStar để được tư vấn cụ thể hơn. Xin cảm ơn quý khách!";
         }

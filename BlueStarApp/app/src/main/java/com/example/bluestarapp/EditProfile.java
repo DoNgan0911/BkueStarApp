@@ -41,6 +41,8 @@ public class EditProfile extends AppCompatActivity {
         cccd = findViewById(R.id.cccdEditText);
         button = findViewById(R.id.button);
 
+
+
         retrieveCCCDFromFirestore(AppUtil.edtSignInEmail);
 
 
@@ -59,7 +61,6 @@ public class EditProfile extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             String userId = user.getUid();
-            Log.d("EditProfile", "User ID: " + userId);  // Log the userId
             String newName = name.getText().toString();
             String newCCCD = cccd.getText().toString();
 
@@ -78,7 +79,7 @@ public class EditProfile extends AppCompatActivity {
 
                                     // Update the "fullname" field
                                     db.collection("CUSTOMER").document(documentId)
-                                            .update("fullname", newName , "num_id", newCCCD)
+                                            .update("full_name", newName , "num_id", newCCCD)
 
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override

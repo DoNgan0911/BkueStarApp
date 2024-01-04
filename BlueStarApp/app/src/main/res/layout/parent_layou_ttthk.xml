@@ -1,68 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
     android:layout_height="300dp"
     android:background="@drawable/border_thongtinhanhkhach"
     android:orientation="vertical"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    >
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
 
+    <TextView
+        android:id="@+id/textViewTTHK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:text="Thông tin hành khách thứ 1"
+        android:textSize="17sp"
+        android:textStyle="italic" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
 
         <TextView
-            android:id="@+id/textViewTTHK"
+            android:id="@+id/textView21"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Giới tính"
+            android:textSize="17sp"
+
+            />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="68dp"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="Thông tin hành khách thứ 1"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView21"
+            <RadioButton
+                android:id="@+id/radioButtonNam"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="Giới tính"
-                android:textSize="17dp" />
-
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/radioButtonNam"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="Nam" />
-
-            </RadioGroup>
+                android:checked="true"
+                android:text="Nam" />
 
             <RadioButton
                 android:id="@+id/radioButtonNu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nữ" />
-        </LinearLayout>
+        </RadioGroup>
 
     </LinearLayout>
 
@@ -70,78 +65,81 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
+        android:layout_marginTop="16dp">
+
         <TextView
             android:id="@+id/textView25"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Họ và tên"
             android:gravity="center"
-            android:textSize="17dp"/>
+            android:text="Họ và tên"
+            android:textSize="17sp"/>
 
         <EditText
             android:id="@+id/edtTTHKName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="2"
+            android:layout_marginLeft="20dp"
             android:ems="10"
             android:inputType="text"
-            android:hint="VD: NGO TAT TO" />
+            android:hint="NGO TAT TO" />
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layoutTTHK"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
 
         <TextView
             android:id="@+id/textView28"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Ngày sinh"
             android:gravity="center"
-            android:textSize="17dp"/>
+            android:text="Ngày sinh"
+            android:textSize="17sp"/>
 
         <EditText
             android:id="@+id/edtTTHKNgaySinh"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:ems="10"
-            android:inputType="date"
-            android:hint="VD: 01/01/2003" />
+            android:inputType="text"
+            android:layout_marginLeft="20dp"
+
+            android:hint="01/01/2003" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center"
             android:text="Số CCCD"
-            android:textSize="17dp" />
+            android:textSize="17sp" />
 
         <EditText
             android:id="@+id/edtTTHKCCCD"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:ems="10"
             android:hint="064303002139"
+            android:layout_marginLeft="20dp"
             android:inputType="number" />
-
-
     </LinearLayout>
-
 
 </LinearLayout>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MuaThemDichVu"
-    android:background="@color/grey">
+    android:background="@drawable/img_1">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -59,6 +59,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="8dp"
                     android:background="#8BC34A"
+                    android:textStyle="bold"
                     android:text="Chiều đi"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -166,6 +167,7 @@
                     android:layout_marginTop="8dp"
                     android:background="#FF1048"
                     android:text="Chiều về"
+                    android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -259,35 +261,35 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_margin="20dp"
-                android:background="@drawable/border_thongtinhanhkhach"
-                android:orientation="horizontal">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_margin="20dp"-->
+<!--                android:background="@drawable/border_thongtinhanhkhach"-->
+<!--                android:orientation="horizontal">-->
 
 
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
-                    android:text="Chính sách vé"
-                    android:textSize="17dp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/textView6"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="Chính sách vé"-->
+<!--                    android:textSize="17dp" />-->
 
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="170dp"
-                    android:layout_weight="1"
-                    android:text="Xem"
-                    android:textColor="@color/blue"
-                    android:textSize="17dp" />
-            </LinearLayout>
+<!--                <TextView-->
+<!--                    android:id="@+id/textView8"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:layout_marginLeft="170dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="Xem"-->
+<!--                    android:textColor="@color/blue"-->
+<!--                    android:textSize="17dp" />-->
+<!--            </LinearLayout>-->
 
             <TextView
                 android:id="@+id/textView5"
@@ -444,7 +446,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:paddingBottom="50dp"
         android:background="#FFFFFF">
 
@@ -473,15 +475,15 @@
 
         <Button
             android:id="@+id/btnNext"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="152dp"
-            android:layout_marginTop="48dp"
-            android:backgroundTint="@color/blue"
+            android:layout_marginTop="42dp"
             android:text="Tiếp tục"
-            android:textColor="#000000"
+            android:backgroundTint="#333333"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="50dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
