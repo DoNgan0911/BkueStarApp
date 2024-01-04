@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/gradient"
+    android:background="@drawable/img_1"
     >
 
     <TextView
@@ -88,8 +88,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:text="Sign In"
-        android:textSize="23sp"
-        android:backgroundTint="@color/blue"
+        android:backgroundTint="#333333"
+        android:gravity="center"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"

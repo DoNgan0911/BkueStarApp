@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/img_1"
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,17 +31,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Nơi đến"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
                     android:gravity="left" />
                 <TextView
                     android:id="@+id/fromLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Nơi đến CSDL"
+
                     android:gravity="left" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Giờ đi"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
                     android:layout_marginTop="20dp"
                     android:gravity="left"/>
                 <TextView
@@ -53,6 +60,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Tên hành khách"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
                     android:layout_marginTop="20dp"
                     android:gravity="left"/>
                 <TextView
@@ -67,6 +76,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:gravity="left"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
                     android:text="ID vé" />
 
                 <TextView
@@ -90,6 +101,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Nơi đi"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
                     android:gravity="right"/>
                 <TextView
                     android:id="@+id/toLocation"
@@ -102,6 +115,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Ngày đi"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
                     android:layout_marginTop="20dp"
                     android:gravity="right"/>
                 <TextView
@@ -115,6 +130,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Ghế"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
                     android:layout_marginTop="20dp"
                     android:gravity="right"/>
                 <TextView
@@ -129,6 +146,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Hạng vé"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
                     android:layout_marginTop="20dp"
                     android:gravity="right"/>
                 <TextView

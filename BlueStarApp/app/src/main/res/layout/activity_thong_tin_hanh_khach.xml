@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ThongTinHanhKhach"
-    android:background="@color/grey">
+    android:background="@drawable/img_1"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,16 +18,17 @@
             android:id="@+id/textView16"
             android:layout_width="250dp"
             android:layout_height="40dp"
-            android:layout_marginStart="96dp"
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="Thông tin hành khách"
             android:textColor="@color/white"
             android:textSize="25dp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="550dp">
@@ -123,9 +125,9 @@
                     android:id="@+id/textView26"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="36dp"
-                    android:text="--"
+                    android:text="---"
                     app:layout_constraintStart_toEndOf="@+id/textViewThoiGianDi"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -133,7 +135,7 @@
                     android:id="@+id/textViewThoiGianDen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="36dp"
                     android:layout_marginTop="36dp"
                     android:text="TextView"
                     app:layout_constraintStart_toEndOf="@+id/textView26"
@@ -229,7 +231,7 @@
                     android:id="@+id/textView14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="36dp"
                     android:text="--"
                     app:layout_constraintStart_toEndOf="@+id/textViewThoiGianDiBack"
@@ -239,7 +241,7 @@
                     android:id="@+id/textViewThoiGianDenBack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="36dp"
                     android:layout_marginTop="36dp"
                     android:text="TextView"
                     app:layout_constraintStart_toEndOf="@+id/textView14"
@@ -284,7 +286,7 @@
                     android:layout_marginStart="48dp"
                     android:layout_marginTop="16dp"
                     android:ems="10"
-                    android:hint="VD: NGO TAT TO"
+                    android:hint="NGO TAT TO"
                     android:inputType="text"
                     app:layout_constraintStart_toEndOf="@+id/textView10"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -308,7 +310,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="24dp"
                     android:ems="10"
-                    android:hint="VD:0987654321"
+                    android:hint="0987654321"
                     android:inputType="number"
                     app:layout_constraintStart_toEndOf="@+id/textView11"
                     app:layout_constraintTop_toBottomOf="@+id/edtTTLHName" />
@@ -332,7 +334,7 @@
                     android:layout_marginStart="76dp"
                     android:layout_marginTop="28dp"
                     android:ems="10"
-                    android:hint="VD:ngotatto@gmail.com"
+                    android:hint="ngotatto@gmail.com"
                     android:inputType="textEmailAddress"
                     app:layout_constraintStart_toEndOf="@+id/textView12"
                     app:layout_constraintTop_toBottomOf="@+id/edtTTLHSdt" />
@@ -352,9 +354,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="110dp"
         android:background="#FFFFFF"
-        android:paddingBottom="50dp">
+        android:paddingBottom="30dp"
+        >
 
         <TextView
             android:id="@+id/textView7"
@@ -363,7 +366,7 @@
             android:layout_marginStart="28dp"
             android:layout_marginTop="16dp"
             android:text="Tổng tiền"
-            android:textSize="20dp"
+            android:textSize="19dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -381,14 +384,14 @@
 
         <Button
             android:id="@+id/btnNext"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
-            android:backgroundTint="@color/blue"
+            android:layout_marginTop="32dp"
             android:text="Tiếp tục"
-            android:textColor="#000000"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="0dp" />
+            android:backgroundTint="#333333"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

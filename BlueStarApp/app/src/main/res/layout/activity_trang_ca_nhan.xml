@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@drawable/img_1"
     android:orientation="vertical"
     android:padding="16dp"
     android:gravity="center"
@@ -35,7 +35,7 @@
         android:gravity="center"
         android:text="Ngô Tất Tố"
         android:textColor="@color/black"
-        android:textSize="20dp" />
+        android:textSize="22dp" />
 
     <!-- Tên đăng nhập -->
     <LinearLayout
@@ -100,28 +100,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="end">
+        android:gravity="center">
 
         <Button
-            android:id="@+id/buttonHistory"
+            android:id="@+id/buttonHtistory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="95dp"
             android:backgroundTint="@color/blue"
             android:gravity="center"
+            android:layout_marginRight="20dp"
             android:text="Đăng xuất" />
 
         <Button
             android:id="@+id/button_capnhap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:backgroundTint="@color/blue"
             android:gravity="center"
-            android:text="Cập nhật"
-            android:layout_marginRight="15dp"/>
-
+            android:text="Cập nhật" />
 
 
     </LinearLayout>

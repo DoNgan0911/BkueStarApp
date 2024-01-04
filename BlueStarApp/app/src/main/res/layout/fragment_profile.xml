@@ -3,33 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@drawable/img_1"
     android:orientation="vertical"
     android:padding="16dp"
     android:gravity="center"
     tools:context=".TrangCaNhan" >
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="212dp"
-        android:layout_height="86dp"
-        android:src="@drawable/plane"
-        />
+
+    <!-- Hình ảnh cá nhân -->
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Thông Tin Cá Nhân"
-        android:textSize="20sp"
-        android:textStyle="bold"
         android:layout_gravity="center"
-        android:layout_marginBottom="16dp" />
+        android:text="Thông Tin Cá Nhân"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
-    <!-- Hình ảnh cá nhân -->
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:src="@drawable/avt"
+        android:layout_marginTop="20sp"
         android:layout_gravity="center"
         android:layout_marginBottom="16dp"
         android:contentDescription="Hình ảnh cá nhân" />
@@ -77,8 +72,9 @@
         android:layout_gravity="left"
         android:layout_marginLeft="40dp"
         android:layout_marginBottom="4dp"
-        android:text="Email"
-        android:textSize="16sp" />
+        android:text="Email: "
+        android:textStyle="bold"
+        android:textSize="23sp" />
 
     <EditText
         android:layout_width="300dp"
@@ -93,8 +89,9 @@
         android:layout_gravity="left"
         android:layout_marginLeft="40dp"
         android:layout_marginBottom="4dp"
-        android:text="Số CCCD"
-        android:textSize="16sp" />
+        android:text="Number id:"
+        android:textStyle="bold"
+        android:textSize="23sp" />
 
     <EditText
         android:layout_width="300dp"
@@ -109,27 +106,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="end">
+        android:gravity="center"
+        >
 
         <Button
             android:id="@+id/button_logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="95dp"
-            android:backgroundTint="@color/blue"
+            android:backgroundTint="#333333"
             android:gravity="center"
-            android:text="Đăng xuất" />
+            android:text="Đăng xuất"
+            android:layout_marginRight="10dp"
+            />
 
         <Button
             android:id="@+id/button_capnhap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/blue"
+            android:backgroundTint="#333333"
             android:gravity="center"
             android:text="Cập nhật"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginLeft="10dp"
+            />
 
 
 
