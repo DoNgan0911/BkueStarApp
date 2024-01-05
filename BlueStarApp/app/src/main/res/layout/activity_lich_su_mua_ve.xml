@@ -51,14 +51,7 @@
             app:srcCompat="@drawable/baseline_screen_search_desktop_24" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="25dp"
-        android:padding="15dp"
-        android:gravity="center"
-        android:text="Lịch sử mua vé" />
+
 
     <ListView
         android:id="@+id/listViewLichSuVe"

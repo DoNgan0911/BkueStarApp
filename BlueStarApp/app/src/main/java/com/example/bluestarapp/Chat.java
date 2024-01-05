@@ -108,7 +108,7 @@ public class Chat extends AppCompatActivity {
             case "Chương trình khuyến mãi thường diễn ra vào thời gian nào?":
                 return "Bạn hãy đợi nhé";
             default:
-                return "Với câu hỏi này, vui lòng liên hệ hotline của BlueStar để được tư vấn cụ thể hơn. Xin cảm ơn quý khách!";
+                return "Với câu hỏi này, vui lòng liên hệ hotline của BlueStar(19008767) để được tư vấn cụ thể hơn. Xin cảm ơn quý khách!";
         }
     }
 }

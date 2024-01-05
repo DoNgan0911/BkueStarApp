@@ -124,7 +124,7 @@ public class SignUpFragment extends Fragment {
                     Toast.makeText(getActivity(), "Enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (TextUtils.isEmpty(number_id)) {
+                if (TextUtils.isEmpty(number_id) || number_id.length() != 12 ) {
                     Toast.makeText(getActivity(), "Enter number_id", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -155,8 +155,9 @@ public class SignUpFragment extends Fragment {
                                                             String userNumberId = number_id;
                                                             Map<String, Object> userMap = new HashMap<>();
                                                             userMap.put("account_id", uid);
-                                                            userMap.put("fullname", userFullname);
+                                                            userMap.put("full_name", userFullname);
                                                             userMap.put("num_id", userNumberId);
+                                                            userMap.put("email", email);
                                                             userMap.put("point", 0);
 
                                                             CollectionReference customerCollection = db.collection("CUSTOMER");

@@ -115,7 +115,7 @@ public class ChiTietVe extends AppCompatActivity {
         imageViewBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ChiTietVe.this, LichSuMuaVe.class);
+                Intent intent = new Intent(ChiTietVe.this, MainActivity.class);
                 startActivity(intent);
             }
         });

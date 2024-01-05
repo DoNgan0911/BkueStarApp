@@ -45,7 +45,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="500dp">
+    android:layout_height="600dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="500dp"
@@ -54,12 +54,13 @@
 
     </LinearLayout>
 </ScrollView>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        android:layout_marginTop="10dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#FFFFFF">
 
         <TextView
             android:id="@+id/textView7"
@@ -89,7 +90,7 @@
             android:id="@+id/btnNext"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="76dp"
+            android:layout_marginTop="42dp"
             android:backgroundTint="#333333"
             android:gravity="center"
             android:text="Xác nhận"

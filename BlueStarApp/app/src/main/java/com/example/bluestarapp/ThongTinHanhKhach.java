@@ -9,6 +9,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -34,6 +35,7 @@ public class ThongTinHanhKhach extends AppCompatActivity {
     ConstraintLayout layoutChieuVe;
     Button btnNext;
     LinearLayout layout_Parent_TTHK ;
+    ImageView imageViewBack;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -56,6 +58,7 @@ public class ThongTinHanhKhach extends AppCompatActivity {
         textViewLoaiVeChieudi = findViewById(R.id.textViewLoaiVeChieudi);
         textViewTTHK = findViewById(R.id.textViewTTHK);
         layout_Parent_TTHK = findViewById(R.id.layout_Parent_TTHK);
+        imageViewBack = findViewById(R.id.imageViewBack);
 
 
 
@@ -115,6 +118,13 @@ public class ThongTinHanhKhach extends AppCompatActivity {
             layout_Parent_TTHK.addView(childLayoutTTHK);
 
         }
+        imageViewBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myitent = new Intent(ThongTinHanhKhach.this, MainActivity.class);
+                startActivity(myitent);
+            }
+        });
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override

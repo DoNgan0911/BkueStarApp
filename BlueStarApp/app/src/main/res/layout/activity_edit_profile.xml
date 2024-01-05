@@ -41,7 +41,14 @@
 
     <!-- Gmail -->
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="4dp"
+        android:text="Họ và tên"
+        android:textSize="16sp" />
 
     <EditText
         android:layout_width="300dp"
@@ -50,6 +57,14 @@
         android:inputType="text"
         android:layout_marginBottom="16dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="40dp"
+        android:layout_marginBottom="4dp"
+        android:text="Số CCCD"
+        android:textSize="16sp" />
 
     <EditText
         android:layout_width="300dp"
@@ -67,5 +82,14 @@
         android:layout_marginRight="10dp"
         android:backgroundTint="#333333"
         android:text="Cập nhật" />
+
+    <Button
+        android:id="@+id/buttonReturn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="#333333"
+        android:layout_marginRight="10dp"
+        android:text="Trở về" />
 
 </LinearLayout>

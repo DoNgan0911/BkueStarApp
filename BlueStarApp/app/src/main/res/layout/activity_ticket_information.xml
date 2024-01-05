@@ -29,9 +29,9 @@
 
     <Button
         android:id="@+id/thanhtoan"
-        android:layout_width="wrap_content"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:backgroundTint="#333333"
         android:gravity="center"
         android:layout_gravity="center_horizontal"

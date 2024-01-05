@@ -49,7 +49,7 @@ public class ChonGheNgoi extends AppCompatActivity {
         fromLocationBack.setText(AppUtil.ToLocation);
         toLocationBack.setText(AppUtil.FromLocation);
         hovaten.setText(AppUtil.edtTTLHName);
-        
+
 
         button = findViewById(R.id.button);
         imageViewBack = findViewById(R.id.imageViewBack);
@@ -199,7 +199,7 @@ public class ChonGheNgoi extends AppCompatActivity {
             }
         }
 
-        if ("Thương gia".equals(AppUtil.ticketKind)) {
+        if (AppUtil.ticketKind.equals("Thương gia")) {
             for (int i = 1; i <= 3; i++) {
                 ImageView imageView = findViewById(getResources().getIdentifier("imageViewA" + i, "id", getPackageName()));
                 int finalI = i;
@@ -332,6 +332,20 @@ public class ChonGheNgoi extends AppCompatActivity {
                     }
                 });
             }
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent myintent = new Intent(ChonGheNgoi.this, MuaThemDichVu.class);
+                    startActivity(myintent);
+                }
+            });
+            imageViewBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent myintent = new Intent(ChonGheNgoi.this, MuaThemDichVu.class);
+                    startActivity(myintent);
+                }
+            });
         } else {
 
             for (int i = 4; i <= 20; i++) {

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".MainActivity"
-    android:background="@drawable/img_1">
+    android:background="@drawable/gradient">
 
     <!-- TextView để hiển thị tiêu đề "Chatbox" -->
 
@@ -30,7 +30,7 @@
             android:id="@+id/textViewTitle"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="Chatbox"
+            android:text="CHATBOX"
             android:textSize="24sp"
             android:paddingLeft="70dp"
             android:textStyle="bold"
@@ -67,5 +67,7 @@
         android:hint="Nhập tin nhắn..."
         android:imeOptions="actionSend"
         android:inputType="text"
+        android:textStyle="bold"
+        android:textSize="20sp"
         android:layout_marginTop="8dp"/>
 </LinearLayout>

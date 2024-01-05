@@ -487,7 +487,7 @@ public class ticket_information extends AppCompatActivity {
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Toast.makeText(ticket_information.this, "User data added to TICKET collection.", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(ticket_information.this, "Đặt vé thành công. Kiểm tra email của bạn!", Toast.LENGTH_SHORT).show();
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {

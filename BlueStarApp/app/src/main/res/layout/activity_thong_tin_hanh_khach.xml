@@ -13,6 +13,15 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@color/blue">
+        <ImageView
+            android:id="@+id/imageViewBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/baseline_arrow_back_ios_new_24" />
 
         <TextView
             android:id="@+id/textView16"
